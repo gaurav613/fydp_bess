@@ -1,0 +1,77 @@
+{% extends 'base.html'%}
+
+{% block title %}
+    Home
+{% endblock %}
+
+<!-- CONTENT HERE -->
+{% block content %}
+
+<div class="container">
+    <p>Welcome to Batteryistic, with Battery Energy Storage Systems, you can start saving and thriving</p>
+</div>
+<form action="/renderSavings/" method="post" class="container">
+    <button name="renderSavings" type="submit" class="btn btn-outline btn-success">Start Saving</button>
+</form>
+
+<div class="container">
+    <div>
+        <img src="" alt="">
+        <p>Long-term Saving</p>
+    </div>
+    <div>
+        <img src="" alt="">
+        <p>Mitigate Blackouts</p>
+    </div>
+    <div>
+        <img src="" alt="">
+        <p>CO2 Footprint Reduction</p>
+    </div>
+    <div>
+        <img src="" alt="">
+        <p>Integrate with Solar</p>
+    </div>
+</div>
+
+{% if savings%}
+<div class="container">
+    <table class="table table-hover table-light table-striped table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Month/Year</th>
+                <th scope="col">Current Bill</th>
+                <th scope="col">Estimated Price</th>
+                <th scope="col">Savings</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in savings %}
+            <tr>
+                <td>{{item.Month}}-{{item.Year}}</td>
+                <td>${{item.CurrentBill}}</td>
+                <td>${{item.EstimatedPrice}}</td>
+                <td>${{item.Savings}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<!-- DO NOTHING -->
+{% endif %}
+
+<!-- END OF CONTENT -->
+
+<style>
+    .bg-lighter {
+        background-color: #CBCBCB;
+    }
+
+    .container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+{% endblock%}
