@@ -1,0 +1,69 @@
+{% extends 'base.html'%}
+
+{% block title%}
+    Home
+{% endblock%}
+
+{% block content %}
+<!-- CONTENT HERE -->
+<div class="container">
+    <p>Welcome to Batteryistic, with Battery Energy Storage Systems, you can start saving and thriving</p>
+</div>
+<div class="container">
+    <button class="btn btn-outline btn-success">Start Saving</button>
+</div>
+
+<div class="container">
+    <div>
+        <img src="" alt="">
+        <p>Long-term Saving</p>
+    </div>
+    <div>
+        <img src="" alt="">
+        <p>Mitigate Blackouts</p>
+    </div>
+    <div>
+        <img src="" alt="">
+        <p>CO2 Footprint Reduction</p>
+    </div>
+    <div>
+        <img src="" alt="">
+        <p>Integrate with Solar</p>
+    </div>
+</div>
+
+<div class="container">
+    <table class="table table-hover table-light table-striped table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Month/Year</th>
+                <th scope="col">Current Bill</th>
+                <th scope="col">Estimated Price</th>
+                <th scope="col">Savings</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{item.MonthYear}}</td>
+                <td>${{item.CurrentBill}}</td>
+                <td>${{item.EstimatedPrice}}</td>
+                <td>${{item.Savings}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<style>
+    .bg-lighter {
+        background-color: #CBCBCB;
+    }
+
+    .container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+{% endblock%}
