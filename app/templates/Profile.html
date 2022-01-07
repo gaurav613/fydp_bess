@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+<!-- CONTENT HERE -->
+{% block content %}
+
+{% if username %}
+<p>Profile page for {{username}}.</p>
+{% else %}
+<p>Welcome to the Profile page.</p>
+{% endif %}
+
+<!-- END OF CONTENT -->
+
+<style>
+    .bg-lighter {
+        background-color: #CBCBCB;
+    }
+
+    .container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+{% endblock %}
+

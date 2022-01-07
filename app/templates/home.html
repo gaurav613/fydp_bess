@@ -1,17 +1,18 @@
 {% extends 'base.html'%}
 
-{% block title%}
+{% block title %}
     Home
-{% endblock%}
+{% endblock %}
 
-{% block content %}
 <!-- CONTENT HERE -->
+{% block content %}
+
 <div class="container">
     <p>Welcome to Batteryistic, with Battery Energy Storage Systems, you can start saving and thriving</p>
 </div>
-<div class="container">
-    <button class="btn btn-outline btn-success">Start Saving</button>
-</div>
+<form action="/renderSavings/" method="post" class="container">
+    <button name="renderSavings" type="submit" class="btn btn-outline btn-success">Start Saving</button>
+</form>
 
 <div class="container">
     <div>
@@ -32,6 +33,7 @@
     </div>
 </div>
 
+{% if savings%}
 <div class="container">
     <table class="table table-hover table-light table-striped table-bordered">
         <thead>
@@ -43,9 +45,9 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in items %}
+            {% for item in savings %}
             <tr>
-                <td>{{item.MonthYear}}</td>
+                <td>{{item.Month}}-{{item.Year}}</td>
                 <td>${{item.CurrentBill}}</td>
                 <td>${{item.EstimatedPrice}}</td>
                 <td>${{item.Savings}}</td>
@@ -54,6 +56,12 @@
         </tbody>
     </table>
 </div>
+{% else %}
+<!-- DO NOTHING -->
+{% endif %}
+
+<!-- END OF CONTENT -->
+
 <style>
     .bg-lighter {
         background-color: #CBCBCB;
