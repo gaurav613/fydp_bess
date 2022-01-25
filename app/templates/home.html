@@ -1,36 +1,64 @@
 {% extends 'base.html'%}
 
 {% block title %}
-    Home
+Home
 {% endblock %}
 
 <!-- CONTENT HERE -->
 {% block content %}
+<div class="site-header">
+    <img class="img-m" src="{{url_for('static', filename='home-cover.png')}}">
+
+    <div class="site-custom-curve">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path
+                d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+                class="shape-fill"></path>
+        </svg>
+    </div>
+</div>
 
 <div class="container">
-    <p>Welcome to Batteryistic, with Battery Energy Storage Systems, you can start saving and thriving</p>
+    <p>Welcome to BESST, with Battery Energy Storage Systems, you can start saving and thriving.</p>
 </div>
 <form action="/renderSavings/" method="post" class="container">
-    <button name="renderSavings" type="submit" class="btn btn-outline btn-success">Start Saving</button>
+    <div class="frame">
+        <button class="btn" name="renderSavings" type="submit">Begin</button>
+    </div>
 </form>
 
+
 <div class="container">
-    <div>
-        <img src="" alt="">
-        <p>Long-term Saving</p>
+    <div class="card shadow"
+        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;">
+        <img class="card-img-top" src="{{url_for('static', filename='home-card-save.png')}}"
+            style="width: 50px; height: 50px; margin-top: 10px;">
+        <div class="card-body">
+            <p class="card-text" style="text-align: center;">Long-term Savings</p>
+            <p class="card-text" style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
     </div>
-    <div>
-        <img src="" alt="">
-        <p>Mitigate Blackouts</p>
+
+    <div class="card shadow"
+        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;">
+        <img class="card-img-top" src="{{url_for('static', filename='home-card-env.png')}}"
+            style="width: 50px; height: 50px; margin-top: 10px;">
+        <div class="card-body">
+            <p class="card-text" style="text-align: center;">C02 Footprint Reduction</p>
+            <p class="card-text" style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
     </div>
-    <div>
-        <img src="" alt="">
-        <p>CO2 Footprint Reduction</p>
+
+    <div class="card shadow"
+        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;">
+        <img class="card-img-top" src="{{url_for('static', filename='home-card-outs.png')}}"
+            style="width: 50px; height: 50px; margin-top: 10px;">
+        <div class="card-body">
+            <p class="card-text" style="text-align: center;">Mitigate Blackouts</p>
+            <p class="card-text" style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
     </div>
-    <div>
-        <img src="" alt="">
-        <p>Integrate with Solar</p>
-    </div>
+
 </div>
 
 {% if savings%}
@@ -72,6 +100,115 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 1;
+    }
+
+    .site-header {
+        z-index: -1;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .img-m {
+        position: relative;
+        margin-top: -150px;
+        width: 100%;
+    }
+
+    .site-custom-curve {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        transform: rotate(180deg);
+        opacity: 0.8;
+        margin-top: 58px;
+
+    }
+
+    .img-begin-btn {
+        overflow: hidden;
+    }
+
+    .site-custom-curve svg {
+        position: relative;
+        display: block;
+        width: calc(162% + 1.3px);
+        height: 550px;
+    }
+
+    .site-custom-curve .shape-fill {
+        fill: #2A5469;
+    }
+
+    .frame {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        height: 80px;
+        width: 350px;
+        position: relative;
+        box-shadow:
+            -7px -7px 20px 0px #fff9,
+            -4px -4px 5px 0px #fff9,
+            7px 7px 20px 0px #0002,
+            4px 4px 5px 0px #0001,
+            inset 0px 0px 0px 0px #fff9,
+            inset 0px 0px 0px 0px #0001,
+            inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001;
+        transition: box-shadow 0.6s cubic-bezier(.79, .21, .06, .81);
+        border-radius: 10px;
+    }
+
+    .btn {
+        height: 50px;
+        width: 200px;
+        border-radius: 3px;
+        background: #0058d398;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-tap-highlight-color: transparent;
+        box-shadow:
+            -7px -7px 20px 0px #fff9,
+            -4px -4px 5px 0px #fff9,
+            7px 7px 20px 0px #0002,
+            4px 4px 5px 0px #0001;
+        transition: box-shadow 0.6s cubic-bezier(.79, .21, .06, .81);
+        font-size: 26px;
+        text-decoration: none;
+    }
+
+    .shadow {
+        box-shadow:
+            -7px -7px 20px 0px #fff9,
+            -4px -4px 5px 0px #fff9,
+            7px 7px 20px 0px #0002,
+            4px 4px 5px 0px #0001;
+    }
+
+    .btn:hover {
+        background: radial-gradient(circle, #0ff 0%, #e0e5ec 60%);
+        color: rgba(102, 102, 102, .5);
+        animation: colorchange 3s linear infinite;
+    }
+
+    .btn:active {
+        box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .5),
+            -4px -4px 6px 0 rgba(116, 125, 136, .2),
+            inset -4px -4px 6px 0 rgba(255, 255, 255, .5),
+            inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
+    }
+
+    @keyframes colorchange {
+        to {
+            filter: hue-rotate(360deg);
+        }
     }
 </style>
 {% endblock%}
