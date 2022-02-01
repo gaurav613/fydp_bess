@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+<body class="text-center">
+<div class="container">
+    <form method="post" class="form-register">
+        <h1>Create your Account</h1>
+        {{ register_form.username.label() }}
+        {{ register_form.username(class="form-control", placeholder="Enter a username") }}
+        <br>
+        {{ register_form.email_address.label() }}
+        {{ register_form.email_address(class="form-control", placeholder="Enter your Email here") }}
+        <br>
+        {{ register_form.password1.label() }}
+        {{ register_form.password1(class="form-control", placeholder="Enter a Password") }}
+        <br>
+        {{ register_form.password2.label() }}
+        {{ register_form.password2(class="form-control", placeholder="Confirm Password") }}
+        <br>
+        {{ register_form.submit(class="btn btn-lg btn-block btn-primary") }}
+    </form>
+</div>
+</body>
+
+<style>
+    body {
+        background-color: #ffffff;
+    }
+    
+    .bg-lighter {
+        background-color: #CBCBCB;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* height: 900px; */
+    }
+
+    .form-register{
+        /* display: flex; */
+        /* flex-direction: column; */
+    }
+</style>
+{% endblock%}

@@ -2,3 +2,5 @@ Flask==2.0.2
 flask_sqlalchemy==2.5.1
 gunicorn 
 psycopg2
+Flask-WTF==1.0.0
+wtforms==2.0.1
