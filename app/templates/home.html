@@ -21,12 +21,11 @@ Home
 <div class="container">
     <p>Welcome to BESST, with Battery Energy Storage Systems, you can start saving and thriving.</p>
 </div>
-<form action="/renderSavings/" method="post" class="container">
+<form action="/renderInputs" method="post" class="container">
     <div class="frame">
-        <button class="btn" name="renderSavings" type="submit">Begin</button>
+        <button class="btn" name="renderInputs" type="submit">Begin</button>
     </div>
 </form>
-
 
 <div class="container">
     <div class="card shadow"
@@ -60,7 +59,7 @@ Home
     </div>
 
 </div>
-
+<!-- 
 {% if savings%}
 <div class="container">
     <table class="table table-hover table-light table-striped table-bordered">
@@ -85,12 +84,136 @@ Home
     </table>
 </div>
 {% else %}
-<!-- DO NOTHING -->
+DO NOTHING -->
+<!-- {% endif %} -->
+
+{% if general_questions %}
+<div class="container-inputs">
+    <form action="/renderResults/" method="post"></form>
+    <div class="inputForm-control">
+        <fieldset>
+            <legend>Your Electricity Bill Details</legend>
+        <div class="input-questions">
+            <label for="question1" id="label-question1">{{general_questions[0]}}</label>
+            <select id="Bill-Type" name="Bill-Type" onChange="update()" >
+                <option value="" disabled selected>Select your bill type</option>
+                <option value="Time-Of-Use">Time-Of-Use</option>
+                <option value="Tiered">Tiered</option>
+            </select>
+
+            <div id='Tiered-inputs'></div>
+            <div id='TimeOfUse-inputs'></div>
+
+
+            <script>
+                function update() {
+                    var select = document.getElementById('Bill-Type');
+                    var option = select.options[select.selectedIndex];
+                    if (option.value == 'Time-Of-Use') {
+                        if (document.contains(document.getElementById("Tiered-value"))) {
+                            node = document.getElementById("Tiered-inputs")
+                            node.innerHTML = "";
+                        }
+                        $('#TimeOfUse-inputs').html(`
+                        <div id="Time-Of-Use-value" class="bill-inputs">
+                            <label for="off_peak_price" id="off_peak_price">{{timeofuse_questions[2]}}</label>
+                            <input type="text" id="off_peak_price"></input>
+                            <label for="KWH1" id="KWH1">{{timeofuse_questions[0]}}</label>
+                            <input type="text" id="KWH1"></input>
+                            <label for="Total_Off_peak" id="Total_Off_peak">{{timeofuse_questions[1]}}</label>
+                            <input type="text" id="Total_Off_peak"></input>
+                        </div>
+                        <div id="Time-Of-Use-value" class="bill-inputs">
+                            <label for="mid_peak_price" id="mid_peak_price">{{timeofuse_questions[3]}}</label>
+                            <input type="text" id="mid_peak_price"></input>
+                            <label for="KWH2" id="KWH2">{{timeofuse_questions[0]}}</label>
+                            <input type="text" id="KWH2"></input>
+                            <label for="Total_mid_peak" id="Total_mid_peak">{{timeofuse_questions[1]}}</label>
+                            <input type="text" id="Total_mid_peak"></input>
+                        </div>
+                        <div id="Time-Of-Use-value" class="bill-inputs">
+                            <label for="high_peak_price" id="high_peak_price">{{timeofuse_questions[4]}}</label>
+                            <input type="text" id="high_peak_price"></input>
+                            <label for="KWH3" id="KWH3">{{timeofuse_questions[0]}}</label>
+                            <input type="text" id="KWH3"></input>
+                            <label for="Total_high_peak" id="Total_high_peak">{{timeofuse_questions[1]}}</label>
+                            <input type="text" id="Total_high_peak"></input>
+                        </div>
+                        `);
+                    }
+                    if (option.value == 'Tiered') {
+                        if (document.contains(document.getElementById("Time-Of-Use-value"))) {
+                            node = document.getElementById("TimeOfUse-inputs")
+                            node.innerHTML = "";
+                        }
+                        $('#Tiered-inputs').html(`
+                        <div id="Tiered-value" class="bill-inputs">
+                            <label for="price" id="price">{{tiered_questions[0]}}</label>
+                            <input type="text" id="price"></input>
+                            <label for="KWH" id="KWH">{{tiered_questions[1]}}</label>
+                            <input type="text" id="KWH"></input>
+                            <label for="Total" id="Total">{{tiered_questions[2]}}</label>
+                            <input type="text" id="Total"></input>
+                        </div>
+                        `);  
+                    }
+                }
+                update();
+            </script>
+
+        </div>
+        
+        <div class="input-questions">
+            <label for="question1" id="label-question1">{{general_questions[1]}}</label>
+            <input type="text" id="question1"></input>
+        </div>
+        <div class="input-questions">
+            <label for="question1" id="label-question1">{{general_questions[2]}}</label>
+            <input type="text" id="question1"></input>
+        </div>
+        <div class="input-questions">
+            <label for="question1" id="label-question1">{{general_questions[3]}}</label>
+            <input type="text" id="question1"></input>
+        </div>
+        <div class="input-questions">
+            <label for="question1" id="label-question1">{{general_questions[4]}}</label>
+            <input type="text" id="question1"></input>
+        </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Other Details</legend>
+        </fieldset> 
+        <button class="btn" type="submit" value="submit">Submit</button>
+    </div>
+    </form>
+</div>
 {% endif %}
 
 <!-- END OF CONTENT -->
 
 <style>
+
+    .bill-inputs{
+        display: flex;
+    }
+
+    .input-questions {
+        
+    }
+    .input-questions input{
+        float: right;
+        clear: both;  
+        background: #E6E5E5;
+        border-radius: 18.2767px;  
+    }
+    .inputForm-control {
+        text-align: left;
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+
     .bg-lighter {
         background-color: #CBCBCB;
     }
@@ -101,6 +224,17 @@ Home
         justify-content: center;
         align-items: center;
         z-index: 1;
+    }
+
+    .container-inputs {
+        height: 500px;
+        margin-left: 10%;
+        margin-right: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        background-color: gray;
     }
 
     .site-header {
