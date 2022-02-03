@@ -59,6 +59,82 @@ Home
     </div>
 
 </div>
+
+{% if electricity_form %}
+<div class="container-inputs">
+    <form action="/renderResults/" method="post"></form>
+    <div class="inputForm-control">
+        <fieldset>
+            <legend>Your Electricity Bill Details</legend>
+            <div class="input-questions">
+                
+                <!-- Bill Type Input -->
+                {{ electricity_form.Bill_Type.label() }}
+                <select name="Bill_Type" id="Bill_Type">
+                    {% for option in electricity_form.Bill_Type %}
+                        {% if loop.first %}
+                            <option value="" disabled selected>select something</option>
+                        {% endif %}
+                        {{ option }}
+                    {% endfor %}
+                </select>
+
+                <div id='tiered_inputs'></div>
+                <div id='timeOfuse_inputs'></div>
+
+                <!-- render bill inputs depending on Bill type -->
+                <script>
+                    let Bill_Type_select = document.getElementById('Bill_Type');
+                    Bill_Type_select.onchange = function() {
+                        Bill_Type = Bill_Type_select.value
+                        if (Bill_Type == "timeofuse"){
+
+                            if (document.contains(document.getElementById("Tiered_Value"))) {
+                                node = document.getElementById("tiered_inputs")
+                                node.innerHTML = "";
+                            }
+                            $('#timeOfuse_inputs').html(`
+                                {{electricity_form.TimeofUse_Off_Peak_Value.label()}}
+                                {{electricity_form.TimeofUse_Off_Peak_Value(class="form-control", placeholder="Enter a value")}}
+                                
+                                {{electricity_form.TimeofUse_Off_Peak_KWH.label()}}
+                                {{electricity_form.TimeofUse_Off_Peak_KWH(class="form-control", placeholder="Enter a value")}}
+                                
+                                {{electricity_form.TimeofUse_Off_Peak_Total.label()}}
+                                {{electricity_form.TimeofUse_Off_Peak_Total(class="form-control", placeholder="Enter a value")}}
+                            `);
+                        }
+                        if (Bill_Type == "tiered"){
+                            if (document.contains(document.getElementById("TimeofUse_Off_Peak_Value"))) {
+                                node = document.getElementById("timeOfuse_inputs")
+                                node.innerHTML = "";
+                            }
+                            $('#tiered_inputs').html(`
+                                {{electricity_form.Tiered_Value.label()}}
+                                {{electricity_form.Tiered_Value(class="form-control", placeholder="Enter a value")}}
+                                
+                                {{electricity_form.Tiered_KWH.label()}}
+                                {{electricity_form.Tiered_KWH(class="form-control", placeholder="Enter a value")}}
+                                
+                                {{electricity_form.Tiered_Total.label()}}
+                                {{electricity_form.Tiered_Total(class="form-control", placeholder="Enter a value")}}
+                            `);
+                        }
+                    }
+                </script>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Other Details</legend>
+        </fieldset> 
+
+        {{ electricity_form.submit(class="btn") }}
+        </div>
+    </form>
+</div>
+{% endif %}
+
 <!-- 
 {% if savings%}
 <div class="container">
@@ -86,109 +162,6 @@ Home
 {% else %}
 DO NOTHING -->
 <!-- {% endif %} -->
-
-{% if general_questions %}
-<div class="container-inputs">
-    <form action="/renderResults/" method="post"></form>
-    <div class="inputForm-control">
-        <fieldset>
-            <legend>Your Electricity Bill Details</legend>
-        <div class="input-questions">
-            <label for="question1" id="label-question1">{{general_questions[0]}}</label>
-            <select id="Bill-Type" name="Bill-Type" onChange="update()" >
-                <option value="" disabled selected>Select your bill type</option>
-                <option value="Time-Of-Use">Time-Of-Use</option>
-                <option value="Tiered">Tiered</option>
-            </select>
-
-            <div id='Tiered-inputs'></div>
-            <div id='TimeOfUse-inputs'></div>
-
-
-            <script>
-                function update() {
-                    var select = document.getElementById('Bill-Type');
-                    var option = select.options[select.selectedIndex];
-                    if (option.value == 'Time-Of-Use') {
-                        if (document.contains(document.getElementById("Tiered-value"))) {
-                            node = document.getElementById("Tiered-inputs")
-                            node.innerHTML = "";
-                        }
-                        $('#TimeOfUse-inputs').html(`
-                        <div id="Time-Of-Use-value" class="bill-inputs">
-                            <label for="off_peak_price" id="off_peak_price">{{timeofuse_questions[2]}}</label>
-                            <input type="text" id="off_peak_price"></input>
-                            <label for="KWH1" id="KWH1">{{timeofuse_questions[0]}}</label>
-                            <input type="text" id="KWH1"></input>
-                            <label for="Total_Off_peak" id="Total_Off_peak">{{timeofuse_questions[1]}}</label>
-                            <input type="text" id="Total_Off_peak"></input>
-                        </div>
-                        <div id="Time-Of-Use-value" class="bill-inputs">
-                            <label for="mid_peak_price" id="mid_peak_price">{{timeofuse_questions[3]}}</label>
-                            <input type="text" id="mid_peak_price"></input>
-                            <label for="KWH2" id="KWH2">{{timeofuse_questions[0]}}</label>
-                            <input type="text" id="KWH2"></input>
-                            <label for="Total_mid_peak" id="Total_mid_peak">{{timeofuse_questions[1]}}</label>
-                            <input type="text" id="Total_mid_peak"></input>
-                        </div>
-                        <div id="Time-Of-Use-value" class="bill-inputs">
-                            <label for="high_peak_price" id="high_peak_price">{{timeofuse_questions[4]}}</label>
-                            <input type="text" id="high_peak_price"></input>
-                            <label for="KWH3" id="KWH3">{{timeofuse_questions[0]}}</label>
-                            <input type="text" id="KWH3"></input>
-                            <label for="Total_high_peak" id="Total_high_peak">{{timeofuse_questions[1]}}</label>
-                            <input type="text" id="Total_high_peak"></input>
-                        </div>
-                        `);
-                    }
-                    if (option.value == 'Tiered') {
-                        if (document.contains(document.getElementById("Time-Of-Use-value"))) {
-                            node = document.getElementById("TimeOfUse-inputs")
-                            node.innerHTML = "";
-                        }
-                        $('#Tiered-inputs').html(`
-                        <div id="Tiered-value" class="bill-inputs">
-                            <label for="price" id="price">{{tiered_questions[0]}}</label>
-                            <input type="text" id="price"></input>
-                            <label for="KWH" id="KWH">{{tiered_questions[1]}}</label>
-                            <input type="text" id="KWH"></input>
-                            <label for="Total" id="Total">{{tiered_questions[2]}}</label>
-                            <input type="text" id="Total"></input>
-                        </div>
-                        `);  
-                    }
-                }
-                update();
-            </script>
-
-        </div>
-        
-        <div class="input-questions">
-            <label for="question1" id="label-question1">{{general_questions[1]}}</label>
-            <input type="text" id="question1"></input>
-        </div>
-        <div class="input-questions">
-            <label for="question1" id="label-question1">{{general_questions[2]}}</label>
-            <input type="text" id="question1"></input>
-        </div>
-        <div class="input-questions">
-            <label for="question1" id="label-question1">{{general_questions[3]}}</label>
-            <input type="text" id="question1"></input>
-        </div>
-        <div class="input-questions">
-            <label for="question1" id="label-question1">{{general_questions[4]}}</label>
-            <input type="text" id="question1"></input>
-        </div>
-        </fieldset>
-
-        <fieldset>
-            <legend>Other Details</legend>
-        </fieldset> 
-        <button class="btn" type="submit" value="submit">Submit</button>
-    </div>
-    </form>
-</div>
-{% endif %}
 
 <!-- END OF CONTENT -->
 
