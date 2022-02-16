@@ -3,8 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///monthlysavings.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1) 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///monthlysavings.db'
+app.config['SECRET_KEY'] = '802c37e37f3953b31f03d5f3'
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1) 
 
 db = SQLAlchemy(app)
 

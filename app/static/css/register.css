@@ -1,0 +1,18 @@
+body {
+    background-color: #ffffff;
+}
+
+.bg-lighter {
+    background-color: #CBCBCB;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 900px; */
+}
+
+.form-register{
+    /* display: flex; */
+    /* flex-direction: column; */
+}

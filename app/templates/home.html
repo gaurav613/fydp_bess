@@ -4,6 +4,10 @@
 Home
 {% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home.css')}}">
+{% endblock %}
+
 <!-- CONTENT HERE -->
 {% block content %}
 <div class="site-header">
@@ -62,74 +66,97 @@ Home
 
 {% if electricity_form %}
 <div class="container-inputs">
-    <form action="/renderResults/" method="post"></form>
-    <div class="inputForm-control">
-        <fieldset>
-            <legend>Your Electricity Bill Details</legend>
-            <div class="input-questions">
-                
-                <!-- Bill Type Input -->
-                {{ electricity_form.Bill_Type.label() }}
-                <select name="Bill_Type" id="Bill_Type">
-                    {% for option in electricity_form.Bill_Type %}
-                        {% if loop.first %}
-                            <option value="" disabled selected>select something</option>
-                        {% endif %}
-                        {{ option }}
-                    {% endfor %}
-                </select>
+    <form method="post" class="form-electricity">
+        {{ electricity_form.hidden_tag() }}
+        {{ electricity_form.csrf_token }}
+        <div class="inputForm-control">
+            <fieldset>
+                <legend>Your Electricity Bill Details</legend>
+                <div class="input-questions">
+                    
+                    <!-- Bill Type Input -->
+                    {{ electricity_form.Bill_Type.label() }}
+                    <select name="Bill_Type" id="Bill_Type">
+                        {% for option in electricity_form.Bill_Type %}
+                            {% if loop.first %}
+                                <option value="" disabled selected>select something</option>
+                            {% endif %}
+                            {{ option }}
+                        {% endfor %}
+                    </select>
 
-                <div id='tiered_inputs'></div>
-                <div id='timeOfuse_inputs'></div>
+                    <div>
+                        <span>{{ electricity_form.Month_Of_bill.label() }}</span>
+                        <span>{{electricity_form.Month_Of_bill(class="form-control")}}</span>
+                    </div>
 
-                <!-- render bill inputs depending on Bill type -->
-                <script>
-                    let Bill_Type_select = document.getElementById('Bill_Type');
-                    Bill_Type_select.onchange = function() {
-                        Bill_Type = Bill_Type_select.value
-                        if (Bill_Type == "timeofuse"){
+                    <div id='tiered_inputs'></div>
+                    <div id='timeOfuse_inputs'></div>
 
-                            if (document.contains(document.getElementById("Tiered_Value"))) {
-                                node = document.getElementById("tiered_inputs")
-                                node.innerHTML = "";
+                    <!-- render bill inputs depending on Bill type -->
+                    <script>
+                        let Bill_Type_select = document.getElementById('Bill_Type');
+                        Bill_Type_select.onchange = function() {
+                            Bill_Type = Bill_Type_select.value
+                            if (Bill_Type == "timeofuse"){
+
+                                if (document.contains(document.getElementById("Tiered_Value"))) {
+                                    node = document.getElementById("tiered_inputs")
+                                    node.innerHTML = "";
+                                }
+                                $('#timeOfuse_inputs').html(`
+                                <div class="timeOfuse_inputs-row">
+                                    <span>{{electricity_form.TimeofUse_Off_Peak_Value.label()}}</span>
+                                    <span>{{electricity_form.TimeofUse_Off_Peak_Value(placeholder="Enter a value")}}</span>
+                                    <span>{{electricity_form.TimeofUse_Off_Peak_KWH.label()}}</span>
+                                    <span>{{electricity_form.TimeofUse_Off_Peak_KWH(placeholder="Enter a value")}}</span>
+                                    <span>{{electricity_form.TimeofUse_Off_Peak_Total.label()}}</span>
+                                    <span>{{electricity_form.TimeofUse_Off_Peak_Total(placeholder="Enter a value")}}</span>
+                                </div>
+                                <div class="timeOfuse_inputs-row">
+                                    <span>{{electricity_form.TimeofUse_Mid_Peak_Value.label()}}</span>
+                                    <span>{{electricity_form.TimeofUse_Mid_Peak_Value(placeholder="Enter a value")}}</span>
+                                    <span>{{electricity_form.TimeofUse_Mid_Peak_KWH.label()}}</span>
+                                    <span>{{electricity_form.TimeofUse_Mid_Peak_KWH(placeholder="Enter a value")}}</span>
+                                    <span>{{electricity_form.TimeofUse_Mid_Peak_Total.label()}}</span>
+                                    <span>{{electricity_form.TimeofUse_Mid_Peak_Total(placeholder="Enter a value")}}</span>
+                                </div>
+                                <div class="timeOfuse_inputs-row">
+                                    <span>{{electricity_form.TimeofUse_On_Peak_Value.label()}}</span>
+                                    <span>{{electricity_form.TimeofUse_On_Peak_Value(placeholder="Enter a value")}}</span>
+                                    <span>{{electricity_form.TimeofUse_On_Peak_KWH.label()}}</span>
+                                    <span>{{electricity_form.TimeofUse_On_Peak_KWH(placeholder="Enter a value")}}</span>
+                                    <span>{{electricity_form.TimeofUse_On_Peak_Total.label()}}</span>
+                                    <span>{{electricity_form.TimeofUse_On_Peak_Total(placeholder="Enter a value")}}</span>
+                                </div>
+                                `);
                             }
-                            $('#timeOfuse_inputs').html(`
-                                {{electricity_form.TimeofUse_Off_Peak_Value.label()}}
-                                {{electricity_form.TimeofUse_Off_Peak_Value(class="form-control", placeholder="Enter a value")}}
-                                
-                                {{electricity_form.TimeofUse_Off_Peak_KWH.label()}}
-                                {{electricity_form.TimeofUse_Off_Peak_KWH(class="form-control", placeholder="Enter a value")}}
-                                
-                                {{electricity_form.TimeofUse_Off_Peak_Total.label()}}
-                                {{electricity_form.TimeofUse_Off_Peak_Total(class="form-control", placeholder="Enter a value")}}
-                            `);
-                        }
-                        if (Bill_Type == "tiered"){
-                            if (document.contains(document.getElementById("TimeofUse_Off_Peak_Value"))) {
-                                node = document.getElementById("timeOfuse_inputs")
-                                node.innerHTML = "";
+                            if (Bill_Type == "tiered"){
+                                if (document.contains(document.getElementById("TimeofUse_Off_Peak_Value"))) {
+                                    node = document.getElementById("timeOfuse_inputs")
+                                    node.innerHTML = "";
+                                }
+                                $('#tiered_inputs').html(`
+                                    {{electricity_form.Tiered_Value.label()}}
+                                    {{electricity_form.Tiered_Value(class="form-control", placeholder="Enter a value")}}
+                                    
+                                    {{electricity_form.Tiered_KWH.label()}}
+                                    {{electricity_form.Tiered_KWH(class="form-control", placeholder="Enter a value")}}
+                                    
+                                    {{electricity_form.Tiered_Total.label()}}
+                                    {{electricity_form.Tiered_Total(class="form-control", placeholder="Enter a value")}}
+                                `);
                             }
-                            $('#tiered_inputs').html(`
-                                {{electricity_form.Tiered_Value.label()}}
-                                {{electricity_form.Tiered_Value(class="form-control", placeholder="Enter a value")}}
-                                
-                                {{electricity_form.Tiered_KWH.label()}}
-                                {{electricity_form.Tiered_KWH(class="form-control", placeholder="Enter a value")}}
-                                
-                                {{electricity_form.Tiered_Total.label()}}
-                                {{electricity_form.Tiered_Total(class="form-control", placeholder="Enter a value")}}
-                            `);
                         }
-                    }
-                </script>
-            </div>
-        </fieldset>
+                    </script>
+                </div>
+            </fieldset>
 
-        <fieldset>
-            <legend>Other Details</legend>
-        </fieldset> 
+            <fieldset>
+                <legend>Other Details</legend>
+            </fieldset> 
 
-        {{ electricity_form.submit(class="btn") }}
+            {{ electricity_form.submit(class="btn") }}
         </div>
     </form>
 </div>
@@ -164,158 +191,4 @@ DO NOTHING -->
 <!-- {% endif %} -->
 
 <!-- END OF CONTENT -->
-
-<style>
-
-    .bill-inputs{
-        display: flex;
-    }
-
-    .input-questions {
-        
-    }
-    .input-questions input{
-        float: right;
-        clear: both;  
-        background: #E6E5E5;
-        border-radius: 18.2767px;  
-    }
-    .inputForm-control {
-        text-align: left;
-        margin-bottom: 25px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .bg-lighter {
-        background-color: #CBCBCB;
-    }
-
-    .container {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1;
-    }
-
-    .container-inputs {
-        height: 500px;
-        margin-left: 10%;
-        margin-right: 10%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1;
-        background-color: gray;
-    }
-
-    .site-header {
-        z-index: -1;
-        overflow: hidden;
-        width: 100%;
-    }
-
-    .img-m {
-        position: relative;
-        margin-top: -150px;
-        width: 100%;
-    }
-
-    .site-custom-curve {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-        line-height: 0;
-        transform: rotate(180deg);
-        opacity: 0.8;
-        margin-top: 58px;
-
-    }
-
-    .img-begin-btn {
-        overflow: hidden;
-    }
-
-    .site-custom-curve svg {
-        position: relative;
-        display: block;
-        width: calc(162% + 1.3px);
-        height: 550px;
-    }
-
-    .site-custom-curve .shape-fill {
-        fill: #2A5469;
-    }
-
-    .frame {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        height: 80px;
-        width: 350px;
-        position: relative;
-        box-shadow:
-            -7px -7px 20px 0px #fff9,
-            -4px -4px 5px 0px #fff9,
-            7px 7px 20px 0px #0002,
-            4px 4px 5px 0px #0001,
-            inset 0px 0px 0px 0px #fff9,
-            inset 0px 0px 0px 0px #0001,
-            inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001;
-        transition: box-shadow 0.6s cubic-bezier(.79, .21, .06, .81);
-        border-radius: 10px;
-    }
-
-    .btn {
-        height: 50px;
-        width: 200px;
-        border-radius: 3px;
-        background: #0058d398;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        -webkit-tap-highlight-color: transparent;
-        box-shadow:
-            -7px -7px 20px 0px #fff9,
-            -4px -4px 5px 0px #fff9,
-            7px 7px 20px 0px #0002,
-            4px 4px 5px 0px #0001;
-        transition: box-shadow 0.6s cubic-bezier(.79, .21, .06, .81);
-        font-size: 26px;
-        text-decoration: none;
-    }
-
-    .shadow {
-        box-shadow:
-            -7px -7px 20px 0px #fff9,
-            -4px -4px 5px 0px #fff9,
-            7px 7px 20px 0px #0002,
-            4px 4px 5px 0px #0001;
-    }
-
-    .btn:hover {
-        background: radial-gradient(circle, #0ff 0%, #e0e5ec 60%);
-        color: rgba(102, 102, 102, .5);
-        animation: colorchange 3s linear infinite;
-    }
-
-    .btn:active {
-        box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .5),
-            -4px -4px 6px 0 rgba(116, 125, 136, .2),
-            inset -4px -4px 6px 0 rgba(255, 255, 255, .5),
-            inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
-    }
-
-    @keyframes colorchange {
-        to {
-            filter: hue-rotate(360deg);
-        }
-    }
-</style>
 {% endblock%}

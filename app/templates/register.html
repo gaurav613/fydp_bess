@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 {% block title %}Registration{% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/register.css')}}">
+{% endblock %}
+
 {% block content %}
 <body class="text-center">
 <div class="container">
     <form method="post" class="form-register">
+        {{ register_form.hidden_tag() }}
+        {{ register_form.csrf_token }}
+
         <h1>Create your Account</h1>
         {{ register_form.username.label() }}
         {{ register_form.username(class="form-control", placeholder="Enter a username") }}
@@ -23,24 +30,5 @@
 </div>
 </body>
 
-<style>
-    body {
-        background-color: #ffffff;
-    }
-    
-    .bg-lighter {
-        background-color: #CBCBCB;
-    }
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        /* height: 900px; */
-    }
-
-    .form-register{
-        /* display: flex; */
-        /* flex-direction: column; */
-    }
-</style>
+<!-- END OF CONTENT -->
 {% endblock%}

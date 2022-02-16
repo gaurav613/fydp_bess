@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -13,11 +12,11 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous">
     </script>
-   <!-- responsive meta tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>
         {% block title %}{% endblock %}
     </title>
+    {% block styles %}{% endblock %}
 </head>
 
 <body>
@@ -44,11 +43,33 @@
                     <a class="nav-link text-dark" href="{{ url_for('Profile_page') }}">Profile</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-dark" href="{{ url_for('login_page') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-dark" href="{{ url_for('register_page') }}">Register</a>
                 </li>
             </ul>
         </div>
     </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class=flashes>
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    <button type="button"class="btn close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{message}}
+                </div>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
     <!-- Future Content here -->
     {% block content %}
     {% endblock%}
@@ -60,13 +81,13 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
 </body>
+
 <style>
     body {
         height: 100%;
         background-color: #ffffff;
         color: black;
         overflow-x: hidden;
-        /* overflow-y: hidden; */
     }
 
     .justifyright-nav {
