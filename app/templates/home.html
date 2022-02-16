@@ -87,11 +87,11 @@ Home
 
                     <div>
                         <span>{{ electricity_form.Month_Of_bill.label() }}</span>
-                        <span>{{electricity_form.Month_Of_bill(class="form-control")}}</span>
+                        <span>{{electricity_form.Month_Of_bill()}}</span>
                     </div>
 
-                    <div id='tiered_inputs'></div>
-                    <div id='timeOfuse_inputs'></div>
+                    <table><div id='tiered_inputs'></div></table>
+                    <table><div id='timeOfuse_inputs'></div></table>
 
                     <!-- render bill inputs depending on Bill type -->
                     <script>

@@ -14,14 +14,13 @@
         margin: 10,10,10,10;
     }
 
-    .input-questions input{
-        float: right;
-        clear: both;  
-        background: #E6E5E5;
-        border-radius: 18.2767px;  
+    .input-questions{
+        align-items: center;
     }
+
     .inputForm-control {
         text-align: left;
+        align-items: center;
         margin-bottom: 25px;
         display: flex;
         flex-direction: column;
