@@ -16,7 +16,13 @@
     <title>
         {% block title %}{% endblock %}
     </title>
-    {% block styles %}{% endblock %}
+
+    {% block styles %}
+   
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/base.css')}}">
+
+    {% endblock %}
+
 </head>
 
 <body>
@@ -93,6 +99,10 @@
     .justifyright-nav {
         display: flex;
         justify-content: flex-end;
+    }
+    .navbar-nav a:hover{
+     background-color:lightgray;
+     border: 1px solid;
     }
 </style>
 

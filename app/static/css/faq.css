@@ -1,7 +1,98 @@
+
 body {
     background-color: #ffffff;
+    color:black;
 }
 
 .bg-lighter {
     background-color: #CBCBCB;
 }
+
+h1{
+    font-size: 35px;
+    color: black;
+    text-align: center;
+}
+
+h4{
+    font-size: 20px;
+    color: black;
+    text-align: center;
+}
+
+.accordionMenu{
+    width: 500px;
+    margin: 0 auto;
+}
+.accordionMenu input[type=checkbox]{
+    display: none;
+}
+.accordionMenu label{
+    background: #2c97de;
+    font-size: 18px;
+    color: #fff;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    height: 50px;
+    line-height: 47px;
+    padding: 0 25px 0 10px;
+    border-bottom: 1px solid #e6e6e6;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition:all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.accordionMenu label::after{
+    display: block;
+    content: "";
+   border-style: solid;
+    border-width: 5px 0 5px 10px;
+    border-color: transparent transparent transparent #ffffff;
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: 10px;
+    top: 20px;
+    z-index: 10;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition:all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.accordionMenu .content{
+    max-height: 0;
+    height: 0;
+    overflow: hidden;
+   -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
+.accordionMenu .content .inner{
+    font-size: 1.2rem;
+    color: #2c97de;
+    line-height: 1.5;
+    background: white;
+    padding: 20px 10px;
+}
+
+.accordionMenu input[type=checkbox]:checked + label:after{
+    -moz-transform: rotate(90deg);
+     -ms-transform: rotate(90deg);
+     -o-transform: rotate(90deg);
+     -webkit-transform: rotate(90deg);
+     transform: rotate(90deg);
+ }
+  
+ .accordionMenu input[type=checkbox]:checked + label + .content{
+     max-height: 2000px;
+     height: auto;
+ }
+ .accordionMenu label:hover{
+     background-color:cyan;
+     border: 1px solid;
+ }
