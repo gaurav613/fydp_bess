@@ -1,0 +1,33 @@
+.scrollto_electricity_form{
+
+}
+
+.container-inputs {
+    margin-top: 20%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    background-color: #e3e3e3;
+    border-radius: 10px;
+}
+
+.electricity-input-form{
+    width: 100%;
+    height: 100%;
+    margin: 20px 5% 20px 5%;
+}
+
+.inputForm-control {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-questions{
+    /* align-items: center; */
+    /* display: block; */
+}
