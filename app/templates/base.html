@@ -14,6 +14,16 @@
         {% block title %}
         {% endblock %}
     </title>
+<<<<<<< HEAD
+=======
+
+    {% block styles %}
+   
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/base.css')}}">
+
+    {% endblock %}
+
+>>>>>>> 0a92cfd (added stuff to FAQ page and hover effects to nav bar)
 </head>
 
 <body>
@@ -55,6 +65,10 @@
         height: 100%;
         background-color: #ffffff;
         color: black;
+    }
+    .navbar-nav a:hover{
+     background-color:lightgray;
+     border: 1px solid;
     }
 </style>
 
