@@ -1,16 +1,17 @@
 {% extends 'base.html'%}
 
 {% block title %}
-    Profile
+    Login
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/profile.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/login.css')}}">
 {% endblock %}
 
 <!-- CONTENT HERE -->
 {% block content %}
 
+<!-- Display flash content -->
 <!-- {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for msg in messages %}
@@ -19,12 +20,12 @@
     {% endif %}
 {% endwith %} -->
 
-{% if username %}
-<p>Profile page for {{username}}.</p>
-{% else %}
-<p>Welcome to the Profile page.</p>
-{% endif %}
+<form action="/login" method="post">
+    <p>Username</p>
+    <p><input type="text" name="username"></p>
+    <input type="submit" value="submit"></input>
+</form>
+
 
 <!-- END OF CONTENT -->
 {% endblock %}
-
