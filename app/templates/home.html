@@ -12,7 +12,6 @@ Home
 {% block content %}
 <div class="site-header">
     <img class="img-m" src="{{url_for('static', filename='home-cover.png')}}">
-
     <div class="site-custom-curve">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path
@@ -23,8 +22,13 @@ Home
 </div>
 
 <div class="container">
-    <p>Welcome to BESST, with Battery Energy Storage Systems, you can start saving and thriving.</p>
+    <p1>Welcome to BESST</p1>
 </div>
+
+<div class = "container">
+    <p2> Explore your potential battery energy savings </p2>
+</div>
+
 <form action="/renderInputs" method="post" class="container">
     <div class="frame">
         <button class="btn" name="renderInputs" type="submit">Begin</button>
@@ -32,7 +36,7 @@ Home
 </form>
 
 <div class="container">
-    <div class="card shadow"
+    <div class="card shadow1"
         style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;">
         <img class="card-img-top" src="{{url_for('static', filename='home-card-save.png')}}"
             style="width: 50px; height: 50px; margin-top: 10px;">
@@ -42,7 +46,7 @@ Home
         </div>
     </div>
 
-    <div class="card shadow"
+    <div class="card shadow2"
         style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;">
         <img class="card-img-top" src="{{url_for('static', filename='home-card-env.png')}}"
             style="width: 50px; height: 50px; margin-top: 10px;">
@@ -52,7 +56,7 @@ Home
         </div>
     </div>
 
-    <div class="card shadow"
+    <div class="card shadow3"
         style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;">
         <img class="card-img-top" src="{{url_for('static', filename='home-card-outs.png')}}"
             style="width: 50px; height: 50px; margin-top: 10px;">

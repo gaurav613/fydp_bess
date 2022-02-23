@@ -49,6 +49,24 @@
         background-color: gray;
     }
 
+    .container p1{
+        position: relative;
+        top: -450px;
+        font-size: 72px;
+        font-family: Atkinson Hyperlegible;
+        color:black;
+        font-weight: bold;
+    }
+
+    .container p2{
+        position: relative;
+        top: -450px;
+        font-size: 38px;
+        font-family: Atkinson Hyperlegible;
+        color:black;
+    }
+
+
     .site-header {
         z-index: -1;
         overflow: hidden;
@@ -98,6 +116,7 @@
         height: 80px;
         width: 350px;
         position: relative;
+        top:-140px;
         box-shadow:
             -7px -7px 20px 0px #fff9,
             -4px -4px 5px 0px #fff9,
@@ -131,12 +150,26 @@
         text-decoration: none;
     }
 
-    .shadow {
+    .shadow1,.shadow2,.shadow3 {
         box-shadow:
             -7px -7px 20px 0px #fff9,
             -4px -4px 5px 0px #fff9,
             7px 7px 20px 0px #0002,
             4px 4px 5px 0px #0001;
+        position: relative;
+        top:-140px;
+    }
+
+    .shadow1:hover{
+        border-color:rgb(11, 233, 233);
+    }
+
+    .shadow2:hover{
+        border-color:rgb(29, 241, 29);
+    }
+
+    .shadow3:hover{
+        border-color:rgb(248, 37, 37);
     }
 
     .btn:hover {
