@@ -50,20 +50,18 @@
     }
 
     .container p1{
-        position: relative;
+        position:relative;
         top: -450px;
         font-size: 72px;
-        font-family: Atkinson Hyperlegible;
-        color:black;
+        color:white;
         font-weight: bold;
     }
 
     .container p2{
         position: relative;
-        top: -450px;
-        font-size: 38px;
-        font-family: Atkinson Hyperlegible;
-        color:black;
+        top: -470px;
+        font-size: 32px;
+        color:white;
     }
 
 
@@ -75,8 +73,6 @@
     }
 
     .img-m {
-        position: relative;
-        margin-top: -150px;
         width: 100%;
     }
 
@@ -88,7 +84,7 @@
         overflow: hidden;
         line-height: 0;
         transform: rotate(180deg);
-        opacity: 0.8;
+        opacity: 0.35;
         margin-top: 58px;
 
     }

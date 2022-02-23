@@ -77,8 +77,11 @@
     {% endwith %}
 
     <!-- Future Content here -->
+   <!-- Footer here -->
+   
     {% block content %}
     {% endblock%}
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -88,12 +91,16 @@
         crossorigin="anonymous"></script>
 </body>
 
+
 <style>
     body {
         height: 100%;
         background-color: #ffffff;
         color: black;
         overflow-x: hidden;
+        display:flex;
+        flex-direction: column;
+        min-height: 100%;
     }
 
     .justifyright-nav {
