@@ -4,7 +4,7 @@ import secrets
 is_prod = os.environ.get('IS_HEROKU', None)
 
 class Config:
-    SECRET_KEY = secrets.token_urlsafe(16)
+    SECRET_KEY = os.getenv(secrets.token_urlsafe(16), "this-is-the-default-key")
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
 
@@ -15,9 +15,5 @@ class ProdConfig(Config):
         TESTING = False
         SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1)
     else:
-        print("not_PROD") 
+        print("not_PROD")
 
-class DevConfig(Config):
-    FLASK_ENV = 'development'
-    DEBUG = True
-    TESTING = True
