@@ -10,6 +10,7 @@ class Config:
 
 class ProdConfig(Config):
     if is_prod:
+        SECRET_KEY = os.environ.get("SECRET_KEY")
         FLASK_ENV = 'production'
         DEBUG = False
         TESTING = False
