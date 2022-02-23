@@ -99,7 +99,9 @@
                             {{electricity_form.Month_Of_bill(class="is-invalid")}}
                             <div class="invalid-feedback">
                                 {% for error in electricity_form.Month_Of_bill.errors %}
+                                {% if error != "This field is required." %}
                                 <span>{{error}}</span>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -118,7 +120,9 @@
                             {{electricity_form.DeliveryCharges(class="is-invalid")}}
                             <div class="invalid-feedback">
                                 {% for error in electricity_form.DeliveryCharges.errors %}
+                                {% if error != "This field is required." %}
                                 <span>{{error}}</span>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -134,7 +138,9 @@
                             {{electricity_form.RegulatoryCharges(class="is-invalid")}}
                             <div class="invalid-feedback">
                                 {% for error in electricity_form.RegulatoryCharges.errors %}
+                                {% if error != "This field is required." %}
                                 <span>{{error}}</span>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -150,7 +156,9 @@
                             {{electricity_form.TotalElectricityCost(class="is-invalid")}}
                             <div class="invalid-feedback">
                                 {% for error in electricity_form.TotalElectricityCost.errors %}
+                                {% if error != "This field is required." %}
                                 <span>{{error}}</span>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
