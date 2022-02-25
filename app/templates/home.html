@@ -1,12 +1,15 @@
 {% extends 'base.html'%}
 
-{% block title %}
-Home
-{% endblock %}
+{% block title %} Home {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home-inputs.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home-results.css')}}">
 {% endblock %}
+
+
+
 
 <!-- CONTENT HERE -->
 {% block content %}
@@ -29,9 +32,10 @@ Home
     <p2> Explore your potential battery energy savings </p2>
 </div>
 
-<form action="/renderInputs" method="post" class="container">
+
+<form action="{{url_for('renderInputs', scroll='scrollto_electricity_form')}}" method="post" class="container">
     <div class="frame">
-        <button class="btn" name="renderInputs" type="submit">Begin</button>
+        <button id="begin-proc-btn" class="btn btn-primary mb-2" name="renderInputs" type="submit">Begin</button>
     </div>
 </form>
 
@@ -65,134 +69,259 @@ Home
             <p class="card-text" style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
         </div>
     </div>
-
 </div>
 
-{% if electricity_form %}
-<div class="container-inputs">
-    <form method="post" class="form-electricity">
-        {{ electricity_form.hidden_tag() }}
-        {{ electricity_form.csrf_token }}
-        <div class="inputForm-control">
-            <fieldset>
-                <legend>Your Electricity Bill Details</legend>
+
+
+
+<!-- INPUTS HERE -->
+<div id="scrollto_electricity_form">
+    <div class="container-inputs">
+        {% if electricity_form %}
+        <form class="electricity-input-form" method="post">
+            {{ electricity_form.hidden_tag() }}
+
+            <div class="inputForm-control">
                 <div class="input-questions">
-                    
-                    <!-- Bill Type Input -->
-                    {{ electricity_form.Bill_Type.label() }}
-                    <select name="Bill_Type" id="Bill_Type">
-                        {% for option in electricity_form.Bill_Type %}
+
+                    <div class="form-row input-group mb-1">
+                        <span class="col-6">{{electricity_form.Bill_Type.label()}}</span>
+                        <select name="Bill_Type" id="Bill_Type" class="custom-select">
+                            {% for option in electricity_form.Bill_Type %}
                             {% if loop.first %}
-                                <option value="" disabled selected>select something</option>
+                            <option value="" disabled selected>Select a bill type</option>
                             {% endif %}
                             {{ option }}
-                        {% endfor %}
-                    </select>
-
-                    <div>
-                        <span>{{ electricity_form.Month_Of_bill.label() }}</span>
-                        <span>{{electricity_form.Month_Of_bill()}}</span>
+                            {% endfor %}
+                        </select>
                     </div>
 
-                    <table><div id='tiered_inputs'></div></table>
-                    <table><div id='timeOfuse_inputs'></div></table>
+                    <div class="form-row">
+                        <span class="col-6">{{electricity_form.Month_Of_bill.label()}}</span>
+                        {% if electricity_form.Month_Of_bill.errors %}
+                        <div>
+                            {{electricity_form.Month_Of_bill(class="is-invalid")}}
+                            <div class="invalid-feedback">
+                                {% for error in electricity_form.Month_Of_bill.errors %}
+                                {% if error != "This field is required." %}
+                                <span>{{error}}</span>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% else %}
+                        <span>{{electricity_form.Month_Of_bill()}}</span>
+                        {% endif %}
+                    </div>
+
+                    <div id='tiered_inputs'></div>
+                    <div id='timeOfuse_inputs'></div>
+
+                    <div class="form-row">
+                        <span class="col-6">{{electricity_form.DeliveryCharges.label()}}</span>
+                        {% if electricity_form.DeliveryCharges.errors %}
+                        <div>
+                            {{electricity_form.DeliveryCharges(class="is-invalid")}}
+                            <div class="invalid-feedback">
+                                {% for error in electricity_form.DeliveryCharges.errors %}
+                                {% if error != "This field is required." %}
+                                <span>{{error}}</span>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% else %}
+                        <span>{{electricity_form.DeliveryCharges()}}</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-row">
+                        <span class="col-6">{{electricity_form.RegulatoryCharges.label()}}</span>
+                        {% if electricity_form.RegulatoryCharges.errors %}
+                        <div>
+                            {{electricity_form.RegulatoryCharges(class="is-invalid")}}
+                            <div class="invalid-feedback">
+                                {% for error in electricity_form.RegulatoryCharges.errors %}
+                                {% if error != "This field is required." %}
+                                <span>{{error}}</span>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% else %}
+                        <span>{{electricity_form.RegulatoryCharges()}}</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-row">
+                        <span class="col-6">{{electricity_form.TotalElectricityCost.label()}}</span>
+                        {% if electricity_form.TotalElectricityCost.errors %}
+                        <div>
+                            {{electricity_form.TotalElectricityCost(class="is-invalid")}}
+                            <div class="invalid-feedback">
+                                {% for error in electricity_form.TotalElectricityCost.errors %}
+                                {% if error != "This field is required." %}
+                                <span>{{error}}</span>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% else %}
+                        <span>{{electricity_form.TotalElectricityCost()}}</span>
+                        {% endif %}
+                    </div>
 
                     <!-- render bill inputs depending on Bill type -->
                     <script>
                         let Bill_Type_select = document.getElementById('Bill_Type');
-                        Bill_Type_select.onchange = function() {
+                        Bill_Type_select.onchange = function () {
                             Bill_Type = Bill_Type_select.value
-                            if (Bill_Type == "timeofuse"){
-
+                            if (Bill_Type == "timeofuse") {
                                 if (document.contains(document.getElementById("Tiered_Value"))) {
                                     node = document.getElementById("tiered_inputs")
                                     node.innerHTML = "";
                                 }
                                 $('#timeOfuse_inputs').html(`
-                                <div class="timeOfuse_inputs-row">
-                                    <span>{{electricity_form.TimeofUse_Off_Peak_Value.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_Off_Peak_Value(placeholder="Enter a value")}}</span>
-                                    <span>{{electricity_form.TimeofUse_Off_Peak_KWH.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_Off_Peak_KWH(placeholder="Enter a value")}}</span>
-                                    <span>{{electricity_form.TimeofUse_Off_Peak_Total.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_Off_Peak_Total(placeholder="Enter a value")}}</span>
-                                </div>
-                                <div class="timeOfuse_inputs-row">
-                                    <span>{{electricity_form.TimeofUse_Mid_Peak_Value.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_Mid_Peak_Value(placeholder="Enter a value")}}</span>
-                                    <span>{{electricity_form.TimeofUse_Mid_Peak_KWH.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_Mid_Peak_KWH(placeholder="Enter a value")}}</span>
-                                    <span>{{electricity_form.TimeofUse_Mid_Peak_Total.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_Mid_Peak_Total(placeholder="Enter a value")}}</span>
-                                </div>
-                                <div class="timeOfuse_inputs-row">
-                                    <span>{{electricity_form.TimeofUse_On_Peak_Value.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_On_Peak_Value(placeholder="Enter a value")}}</span>
-                                    <span>{{electricity_form.TimeofUse_On_Peak_KWH.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_On_Peak_KWH(placeholder="Enter a value")}}</span>
-                                    <span>{{electricity_form.TimeofUse_On_Peak_Total.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_On_Peak_Total(placeholder="Enter a value")}}</span>
-                                </div>
-                                `);
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col-6">Usage</th>
+                                        <th scope="col-6">Price per KWH</th>
+                                        <th scope="col-6">Total Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{electricity_form.TimeofUse_Off_Peak_Value.label()}}
+                                        {{electricity_form.TimeofUse_Off_Peak_Value(placeholder="Enter a value")}}</td>
+                                        <td>{{electricity_form.TimeofUse_Off_Peak_KWH(placeholder="Enter a value")}}</td>
+                                        <td>{{electricity_form.TimeofUse_Off_Peak_Total(placeholder="Enter a value")}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{electricity_form.TimeofUse_Mid_Peak_Value.label()}}
+                                        {{electricity_form.TimeofUse_Mid_Peak_Value(placeholder="Enter a value")}}</td>
+                                        <td>{{electricity_form.TimeofUse_Mid_Peak_KWH(placeholder="Enter a value")}}</td>
+                                        <td>{{electricity_form.TimeofUse_Mid_Peak_Total(placeholder="Enter a value")}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{electricity_form.TimeofUse_On_Peak_Value.label()}}
+                                        {{electricity_form.TimeofUse_On_Peak_Value(placeholder="Enter a value")}}</td>
+                                        <td>{{electricity_form.TimeofUse_On_Peak_KWH(placeholder="Enter a value")}}</td>
+                                        <td>{{electricity_form.TimeofUse_On_Peak_Total(placeholder="Enter a value")}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            `);
                             }
-                            if (Bill_Type == "tiered"){
+                            if (Bill_Type == "tiered") {
                                 if (document.contains(document.getElementById("TimeofUse_Off_Peak_Value"))) {
                                     node = document.getElementById("timeOfuse_inputs")
                                     node.innerHTML = "";
                                 }
                                 $('#tiered_inputs').html(`
-                                    {{electricity_form.Tiered_Value.label()}}
-                                    {{electricity_form.Tiered_Value(class="form-control", placeholder="Enter a value")}}
-                                    
-                                    {{electricity_form.Tiered_KWH.label()}}
-                                    {{electricity_form.Tiered_KWH(class="form-control", placeholder="Enter a value")}}
-                                    
-                                    {{electricity_form.Tiered_Total.label()}}
-                                    {{electricity_form.Tiered_Total(class="form-control", placeholder="Enter a value")}}
-                                `);
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Usage</th>
+                                        <th scope="col">Price per KWH</th>
+                                        <th scope="col">Total Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{electricity_form.Tiered_Value(class="form-control", placeholder="Enter a value")}}</td>
+                                        <td>{{electricity_form.Tiered_KWH(class="form-control", placeholder="Enter a value")}}</td>
+                                        <td>{{electricity_form.Tiered_Total(class="form-control", placeholder="Enter a value")}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            `);
                             }
                         }
                     </script>
+
                 </div>
-            </fieldset>
 
-            <fieldset>
-                <legend>Other Details</legend>
-            </fieldset> 
+                <div class="form-row" style="margin: 20px 20px 20px 20px;">
+                    {{ electricity_form.submit(class="btn btn-primary mb-2") }}
+                </div>
 
-            {{ electricity_form.submit(class="btn") }}
-        </div>
-    </form>
+                {% if electricity_form.errors %}
+                <ul class="errors">
+                    {% for error in electricity_form.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+            </div>
+        </form>
+    </div>
+    {% endif %}
 </div>
+
+<!-- Scrolling the the inputs after clicking 'Begin' -->
+{% if scroll %}
+<script>
+    document.getElementById('{{ scroll }}').scrollIntoView();
+</script>
 {% endif %}
 
-<!-- 
-{% if savings%}
-<div class="container">
-    <table class="table table-hover table-light table-striped table-bordered">
-        <thead>
-            <tr>
-                <th scope="col">Month/Year</th>
-                <th scope="col">Current Bill</th>
-                <th scope="col">Estimated Price</th>
-                <th scope="col">Savings</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in savings %}
-            <tr>
-                <td>{{item.Month}}-{{item.Year}}</td>
-                <td>${{item.CurrentBill}}</td>
-                <td>${{item.EstimatedPrice}}</td>
-                <td>${{item.Savings}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+
+
+<!-- RESULTS HERE -->
+<div id="scrollto_results">
+    <div class="container-results">
+        <div class="results-format">
+            <div class="results-1">
+                {% if savings %}
+
+                <table class="table table-hover table-light table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Month/Year</th>
+                            <th scope="col">Current Bill</th>
+                            <th scope="col">Estimated Price</th>
+                            <th scope="col">Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in savings %}
+                        <tr>
+                            <td>{{item.Month}}-{{item.Year}}</td>
+                            <td>${{item.CurrentBill}}</td>
+                            <td>${{item.EstimatedPrice}}</td>
+                            <td>${{item.Savings}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% else %}
+                <!-- DO NOTHING -->
+
+                {% endif %}
+            </div>
+            <div class="results-2">
+                {% if complete_form %}
+                <p>{{complete_form}}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
-{% else %}
-DO NOTHING -->
-<!-- {% endif %} -->
+</div>
+
+<!-- Scrolling the the Results after submitting the inputs -->
+{% if scrollto_results %}
+<script>
+    document.getElementById('{{ scrollto_results }}').scrollIntoView();
+</script>
+{% endif %}
+
+
+
 
 <!-- END OF CONTENT -->
 {% endblock%}

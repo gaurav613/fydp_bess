@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField, FloatField, MonthField
-from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
+from wtforms.validators import Length, EqualTo, Email, DataRequired, InputRequired,ValidationError
 from app.models import User
 
 
@@ -22,24 +22,26 @@ class RegisterForm(FlaskForm):
     submit = SubmitField(label='Create Account')
 
 class ElectricityInputForm(FlaskForm):
-    Bill_Type = SelectField(u'Does your monthly bill use Time-of-Use(TOU) or Tiered?', choices=[('timeofuse', 'Time of Use'), ('tiered', 'Tiered')])
-    TimeofUse_Off_Peak_Value = FloatField(label='Off Peak', validators=[DataRequired()])
-    TimeofUse_Off_Peak_KWH = FloatField(label='KWH', validators=[DataRequired()])
-    TimeofUse_Off_Peak_Total = FloatField(label='Total', validators=[DataRequired()])
-    TimeofUse_Mid_Peak_Value = FloatField(label='Mid Peak', validators=[DataRequired()])
-    TimeofUse_Mid_Peak_KWH = FloatField(label='KWH', validators=[DataRequired()])
-    TimeofUse_Mid_Peak_Total = FloatField(label='Total', validators=[DataRequired()])
-    TimeofUse_On_Peak_Value = FloatField(label='On Peak', validators=[DataRequired()])
-    TimeofUse_On_Peak_KWH = FloatField(label='KWH', validators=[DataRequired()])
-    TimeofUse_On_Peak_Total = FloatField(label='Total', validators=[DataRequired()])
+    Bill_Type = SelectField(u'Type of electricity bill', choices=[('timeofuse', 'Time of Use'), ('tiered', 'Tiered')], validators=[DataRequired()])
+    TimeofUse_Off_Peak_Value = FloatField(label='Off Peak', validators=[])
+    TimeofUse_Off_Peak_KWH = FloatField(label='KWH', validators=[])
+    TimeofUse_Off_Peak_Total = FloatField(label='Total', validators=[])
+    TimeofUse_Mid_Peak_Value = FloatField(label='Mid Peak', validators=[])
+    TimeofUse_Mid_Peak_KWH = FloatField(label='KWH', validators=[])
+    TimeofUse_Mid_Peak_Total = FloatField(label='Total', validators=[])
+    TimeofUse_On_Peak_Value = FloatField(label='On Peak', validators=[])
+    TimeofUse_On_Peak_KWH = FloatField(label='KWH', validators=[])
+    TimeofUse_On_Peak_Total = FloatField(label='Total', validators=[])
 
-    Tiered_Value = StringField(label='Tiered Value',validators=[DataRequired()])
-    Tiered_KWH = StringField(label='Tiered KWH',validators=[DataRequired()])
-    Tiered_Total = FloatField(label='Tiered Total',validators=[DataRequired()])
+    Tiered_Value = StringField(label='Tiered Value', validators=[])
+    Tiered_KWH = StringField(label='Tiered KWH', validators=[])
+    Tiered_Total = FloatField(label='Tiered Total', validators=[])
 
-    Month_Of_bill = MonthField(u'Month of bill', validators=[DataRequired()])
-    DeliveryCharges =  FloatField(label='Delivery Charges', validators=[DataRequired()])
-    RegulatoryCharges = FloatField(label='Regulatory Charges', validators=[DataRequired()])
-    TotalElectricityCost = FloatField(label='Total Electricity Cost wo h.s.t', validators=[DataRequired()])
+    Month_Of_bill = MonthField(u'Month of bill', validators=[InputRequired()])
+    DeliveryCharges =  FloatField(label='Delivery Charges', validators=[InputRequired()])
+    RegulatoryCharges = FloatField(label='Regulatory Charges', validators=[InputRequired()])
+    TotalElectricityCost = FloatField(label='Total Electricity Cost wo h.s.t', validators=[InputRequired()])
 
     submit = SubmitField(label='Next')
+
+    

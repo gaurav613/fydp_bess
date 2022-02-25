@@ -1,0 +1,29 @@
+#scrollto_results {
+  width: 100%;
+  /* align-items: center; */
+}
+
+.container-results {
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.results-format {
+  /* align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column; */
+}
+
+.results-1 {
+  margin: 20px 20px 20px 20px;
+}
+
+.results-2 {
+  margin: 20px 20px 20px 20px;
+}
