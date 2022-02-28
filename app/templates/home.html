@@ -14,7 +14,6 @@
 {% block content %}
 <div class="site-header">
     <img class="img-m" src="{{url_for('static', filename='home-cover.png')}}">
-
     <div class="site-custom-curve">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path
@@ -25,7 +24,11 @@
 </div>
 
 <div class="container">
-    <p>Welcome to BESST, with Battery Energy Storage Systems, you can start saving and thriving.</p>
+    <p1>Welcome to BESST</p1>
+</div>
+
+<div class = "container">
+    <p2> Explore your potential battery energy savings </p2>
 </div>
 
 <form action="{{url_for('renderInputs1', scroll='scrollto_electricity_form-billtype')}}" method="post"
@@ -36,33 +39,33 @@
 </form>
 
 <div class="container">
-    <div class="card shadow"
-        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;">
+    <div class="card shadow1"
+        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;top:-100px;">
         <img class="card-img-top" src="{{url_for('static', filename='home-card-save.png')}}"
             style="width: 50px; height: 50px; margin-top: 10px;">
         <div class="card-body">
             <p class="card-text" style="text-align: center;">Long-term Savings</p>
-            <p class="card-text" style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p class="card-text" style="text-align: center;">Look into the full visibility of long-term cost saving and the payback period for your powerwall system.</p>
         </div>
     </div>
 
-    <div class="card shadow"
-        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;">
+    <div class="card shadow2"
+        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;top:-100px;">
         <img class="card-img-top" src="{{url_for('static', filename='home-card-env.png')}}"
             style="width: 50px; height: 50px; margin-top: 10px;">
         <div class="card-body">
             <p class="card-text" style="text-align: center;">C02 Footprint Reduction</p>
-            <p class="card-text" style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p class="card-text" style="text-align: center;">See how owning Battery Energy Storage Systems impact your household carbond footprint overtime. </p>
         </div>
     </div>
 
-    <div class="card shadow"
-        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;">
+    <div class="card shadow3"
+        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;top:-100px;">
         <img class="card-img-top" src="{{url_for('static', filename='home-card-outs.png')}}"
             style="width: 50px; height: 50px; margin-top: 10px;">
         <div class="card-body">
             <p class="card-text" style="text-align: center;">Mitigate Blackouts</p>
-            <p class="card-text" style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p class="card-text" style="text-align: center;">Prevent powerages to your home with a Battery Energy Storage System.</p>
         </div>
     </div>
 </div>
