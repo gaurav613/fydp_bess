@@ -12,15 +12,15 @@
     <script src="{{url_for('static', filename='scripts/jquery-3.6.0.min.js')}}"></script>
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/base.css')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+
     <title>
         {% block title %}{% endblock %}
     </title>
 
     {% block scripts %}{% endblock %}
-  
+
     {% block styles %}{% endblock %}
-  
+
 </head>
 
 <body>
@@ -82,7 +82,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-  
+
 </body>
 
 
@@ -90,10 +90,18 @@
     .navbar-nav a:hover {
         background-color: lightgray;
         border: 1px solid;
-      
-    .navbar-nav a:hover{
-     background-color:lightgray;
-     border: 1px solid;
+    }
+
+    body {
+        height: 100%;
+        background-color: #ffffff;
+        color: black;
+        overflow-x: hidden;
+    }
+
+    .justifyright-nav {
+        display: flex;
+        justify-content: flex-end;
     }
 
 </style>
