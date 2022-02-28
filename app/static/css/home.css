@@ -15,17 +15,6 @@
         z-index: 1;
     }
 
-    .container-inputs {
-        height: 500px;
-        margin-left: 10%;
-        margin-right: 10%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1;
-        background-color: gray;
-    }
-
     .container p1{
         position:relative;
         top: -450px;
