@@ -27,7 +27,7 @@
     <p1>Welcome to BESST</p1>
 </div>
 
-<div class = "container">
+<div class="container">
     <p2> Explore your potential battery energy savings </p2>
 </div>
 
@@ -45,7 +45,8 @@
             style="width: 50px; height: 50px; margin-top: 10px;">
         <div class="card-body">
             <p class="card-text" style="text-align: center;">Long-term Savings</p>
-            <p class="card-text" style="text-align: center;">Look into the full visibility of long-term cost saving and the payback period for your powerwall system.</p>
+            <p class="card-text" style="text-align: center;">Look into the full visibility of long-term cost saving and
+                the payback period for your powerwall system.</p>
         </div>
     </div>
 
@@ -55,7 +56,8 @@
             style="width: 50px; height: 50px; margin-top: 10px;">
         <div class="card-body">
             <p class="card-text" style="text-align: center;">C02 Footprint Reduction</p>
-            <p class="card-text" style="text-align: center;">See how owning Battery Energy Storage Systems impact your household carbond footprint overtime. </p>
+            <p class="card-text" style="text-align: center;">See how owning Battery Energy Storage Systems impact your
+                household carbond footprint overtime. </p>
         </div>
     </div>
 
@@ -65,7 +67,8 @@
             style="width: 50px; height: 50px; margin-top: 10px;">
         <div class="card-body">
             <p class="card-text" style="text-align: center;">Mitigate Blackouts</p>
-            <p class="card-text" style="text-align: center;">Prevent powerages to your home with a Battery Energy Storage System.</p>
+            <p class="card-text" style="text-align: center;">Prevent powerages to your home with a Battery Energy
+                Storage System.</p>
         </div>
     </div>
 </div>
@@ -75,11 +78,11 @@
 
 <!-- INPUTS HERE -->
 
-{% if scroll %}
 <div id="scrollto_electricity_form-billtype">
     <div class="container-inputs-billtype">
         <div class="inputForm-control-billtype">
             <form method="POST" action="/renderInputs1" class="electricity-input-form-billtype" id="electricity_form">
+                <h5>Choose your bill type</h5>
                 <div class="input-questions-billtype">
                     <input id="mySubmit1" type="submit" value="Time of Use" name="timeofuse"
                         style="height:40px; width:150px"></input>
@@ -87,12 +90,10 @@
                 <div class="input-questions-billtype">
                     <input id="mySubmit2" type="submit" value="Tiered" name="tiered"
                         style="height:40px; width:150px"></input>
-                </div>
             </form>
         </div>
     </div>
 </div>
-{% endif %}
 
 <div id="scrollto_electricity_form-inputs">
     <div class="container-inputs">
@@ -244,11 +245,12 @@
 
 <!-- RESULTS HERE -->
 <div id="scrollto_results">
+
+    {% if savings %}
     <div class="container-results">
         <div class="results-format">
             <div class="results-1">
-                {% if savings %}
-
+                
                 <table class="table table-hover table-light table-striped table-bordered">
                     <thead>
                         <tr>
@@ -277,30 +279,32 @@
             </div>
             <div class="results-2">
                 {% if complete_form %}
-                <p>{{complete_form}}</p>
+                <div class="container-results">
+                    <div class="results-format">
+                        <div class="results-1">
 
+                            <p>{{complete_form}}</p>
+                            <form action="{{url_for('home_page')}}" method="POST" class="container">
+                                <div class="frame">
+                                    <button id="return_home-btn" class="btn btn-primary mb-2" name="return_home"
+                                        type="submit">Reset</button>
+                                </div>
+                            </form>
 
-                <form action="{{url_for('home_page')}}" method="POST" class="container">
-                    <div class="frame">
-                        <button id="return_home-btn" class="btn btn-primary mb-2" name="return_home"
-                            type="submit">Reset</button>
+                            {% endif %}
+                        </div>
                     </div>
-                </form>
-
-                {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-</div>
-</div>
 
-<!-- Scrolling the the Results after submitting the inputs -->
-{% if scrollto_results %}
-<script>
-    document.getElementById('{{ scrollto_results }}').scrollIntoView();
-</script>
-{% endif %}
+        <!-- Scrolling the the Results after submitting the inputs -->
+        {% if scrollto_results %}
+        <script>
+            document.getElementById('{{ scrollto_results }}').scrollIntoView();
+        </script>
+        {% endif %}
 
 
-<!-- END OF CONTENT -->
-{% endblock%}
+        <!-- END OF CONTENT -->
+        {% endblock%}
