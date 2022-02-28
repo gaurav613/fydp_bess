@@ -1,8 +1,19 @@
+
+body {
+    background-color: #ffffff;
+    color:black;
+}
+
+.bg-lighter {
+    background-color: #CBCBCB;
+}
+
 h1{
     font-size: 35px;
     color: black;
     text-align: center;
 }
+
 
 h4{
     font-size: 20px;
@@ -86,3 +97,4 @@ h4{
      background-color:cyan;
      border: 1px solid;
  }
+
