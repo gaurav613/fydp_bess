@@ -101,7 +101,6 @@ def renderInputs1():
 @app.route('/renderInputs2', methods=['GET', 'POST'])
 def renderInputs2():
     scroll = request.args.get("scroll")
-    # scroll = "scrollto_electricity_form"
     billtype = request.args.get("billtype")
     form = None
     if billtype == "timeofuse":
@@ -141,23 +140,17 @@ def renderInputs2():
             flash(f"Running model now for tiered!", "info")
             return redirect(url_for("render_Results", Complete_form=formDetails, scroll="scrollto_results"))
 
+    if form.errors != {}:  # If any errors occure in the form, print them
+        for err_msg in form.errors.values():
+            flash(f'Error in inputs: {err_msg}', category='danger')
+
     return render_template('home.html', newelectricity_form=form, scroll=scroll, billtype=billtype)
-
-
-@app.route('/get_table', methods=["GET", "POST"])
-def get_table():
-    if request.method == "POST":
-        row1 = request.json['row1']
-        row2 = request.json['row2']
-        table_data = [row1, row2]
-        return jsonify(table_data)
-
 
 @app.route('/renderResults', methods=['GET', 'POST'])
 def render_Results():
     complete_form = request.args['Complete_form']
     scrollto_results = request.args['scroll']
-    dataframe = Item.query.all()
+    dataframe = None
 
     # DO THE MIP MODEL PROCESS HERE AND PASS IN THE RESULTS AS A PARAM
     return render_template('home.html', savings=dataframe, complete_form=complete_form, scrollto_results=scrollto_results)
