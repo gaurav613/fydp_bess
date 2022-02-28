@@ -1,7 +1,7 @@
 from app import app
-from flask import redirect, render_template, request, url_for, session, flash
+from flask import jsonify, redirect, render_template, request, url_for, session, flash
 from app.models import Item, User
-from app.forms import RegisterForm, ElectricityInputForm
+from app.forms import RegisterForm, Tiered_Form, Timeofuse_Form
 from datetime import timedelta
 from app import db
 
@@ -60,7 +60,7 @@ def Profile_page():
 
 
 @app.route("/", methods=['GET', 'POST'])
-@app.route("/home",)
+@app.route("/home",methods=['GET', 'POST'])
 def home_page():
     return render_template('home.html')
 
@@ -70,16 +70,45 @@ def FAQ_page():
     return render_template('FAQ.html')
 
 
-@app.route('/renderInputs', methods=['GET', 'POST'])
-def renderInputs():
-    scroll = "scrollto_electricity_form"
-    form = ElectricityInputForm(request.form)
+@app.route('/renderInputs1', methods=['GET', 'POST'])
+def renderInputs1():
+    scroll = request.args.get("scroll")
 
-    # If the user submits the completed form -> move to Results
-    if form.validate_on_submit():
-        formDetails = {}
-        formDetails["BillType"] = form.Bill_Type.data
-        if formDetails["BillType"] == "timeofuse":
+    if request.method == 'POST':
+        if request.form.get('timeofuse') == 'Time of Use':
+        
+            print("timeofuse form reached")
+            return redirect(url_for("renderInputs2", scroll="scrollto_electricity_form-inputs", billtype="timeofuse"))
+
+        elif request.form.get('tiered') == 'Tiered':
+
+            print("tiered form reached")
+            return redirect(url_for("renderInputs2", scroll="scrollto_electricity_form-inputs", billtype="tiered"))
+        else:
+            pass
+
+    elif request.method == 'GET':
+        return render_template('home.html')
+
+    # if form.errors != {}:  # If any errors occure in the form, print them
+    #     for err_msg in form.errors.values():
+    #         flash(f'Error in inputs: {err_msg}', category='danger')
+
+    # render the home.html page
+    return render_template('home.html', scroll=scroll)
+
+
+@app.route('/renderInputs2', methods=['GET', 'POST'])
+def renderInputs2():
+    scroll = request.args.get("scroll")
+    billtype = request.args.get("billtype")
+    form = None
+    if billtype == "timeofuse":
+        form = Timeofuse_Form()
+        print("============INITIALIZED TIMEOFUSE FORM============")
+        if form.validate_on_submit():
+            formDetails = {}
+            formDetails["BillType"] = "timeofuse"
             formDetails['Off_Peak_Value'] = form.TimeofUse_Off_Peak_Value.data
             formDetails['Off_Peak_KWH'] = form.TimeofUse_Off_Peak_KWH.data
             formDetails['Off_Peak_Total'] = form.TimeofUse_Off_Peak_Total.data
@@ -89,32 +118,39 @@ def renderInputs():
             formDetails['On_Peak_Value'] = form.TimeofUse_On_Peak_Value.data
             formDetails['On_Peak_KWH'] = form.TimeofUse_On_Peak_KWH.data
             formDetails['On_Peak_Total'] = form.TimeofUse_On_Peak_Total.data
-        else:
+            formDetails['Month_of_bill'] = form.Month_Of_bill.data
+            formDetails['DeliveryCharges'] = form.DeliveryCharges.data
+            formDetails['RegulatoryCharges'] = form.RegulatoryCharges.data
+            formDetails['TotalElectricityCost'] = form.TotalElectricityCost.data
+            flash(f"Running model now for timeofuse", "info")
+            return redirect(url_for("render_Results", Complete_form=formDetails, scroll="scrollto_results"))
+    if billtype == "tiered":
+        form = Tiered_Form()
+        print("============INITIALIZED TIERED FORM============")
+        if form.validate_on_submit():
+            formDetails = {}
+            formDetails["BillType"] = "tiered"
             formDetails['Tiered_Value'] = form.Tiered_Value.data
             formDetails['Tiered_KWH'] = form.Tiered_KWH.data
             formDetails['Tiered_Total'] = form.Tiered_Total.data
-
-        formDetails['Month_Of_bill'] = form.Month_Of_bill.data
-        formDetails['DeliveryCharges'] = form.DeliveryCharges.data
-        formDetails['RegulatoryCharges'] = form.RegulatoryCharges.data
-        formDetails['TotalElectricityCost'] = form.TotalElectricityCost.data
-
-        flash(f"Running the model now!", "info")
-        return redirect(url_for("render_Results", Complete_form=formDetails, scroll="scrollto_results"))
+            formDetails['Month_of_bill'] = form.Month_Of_bill.data
+            formDetails['DeliveryCharges'] = form.DeliveryCharges.data
+            formDetails['RegulatoryCharges'] = form.RegulatoryCharges.data
+            formDetails['TotalElectricityCost'] = form.TotalElectricityCost.data
+            flash(f"Running model now for tiered!", "info")
+            return redirect(url_for("render_Results", Complete_form=formDetails, scroll="scrollto_results"))
 
     if form.errors != {}:  # If any errors occure in the form, print them
         for err_msg in form.errors.values():
             flash(f'Error in inputs: {err_msg}', category='danger')
 
-    # Go to the inputs section
-    return render_template('home.html',  electricity_form=form, scroll=scroll)
-
+    return render_template('home.html', newelectricity_form=form, scroll=scroll, billtype=billtype)
 
 @app.route('/renderResults', methods=['GET', 'POST'])
 def render_Results():
     complete_form = request.args['Complete_form']
-    scrollto_results = "scrollto_results"
-    dataframe = Item.query.all()
+    scrollto_results = request.args['scroll']
+    dataframe = None
 
     # DO THE MIP MODEL PROCESS HERE AND PASS IN THE RESULTS AS A PARAM
     return render_template('home.html', savings=dataframe, complete_form=complete_form, scrollto_results=scrollto_results)
