@@ -100,6 +100,7 @@
                 {% if billtype=="timeofuse" %}
                 {% if newelectricity_form %}
                 <form method="POST" class="electricity-input-form" id="electricity_form">
+                    {{newelectricity_form.hidden_tag()}}
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.Month_Of_bill.label(class="input-lable-format")}}</span>
@@ -173,6 +174,7 @@
                 <!-- TIERED FORM -->
                 {% elif billtype=="tiered"%}
                 <form method="POST" class="electricity-input-form" id="electricity_form">
+                    {{newelectricity_form.hidden_tag()}}
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.Month_Of_bill.label(class="input-lable-format")}}</span>
@@ -277,7 +279,8 @@
 
                 <form action="{{url_for('home_page')}}" method="POST" class="container">
                     <div class="frame">
-                        <button id="return_home-btn" class="btn btn-primary mb-2" name="return_home" type="submit">Reset</button>
+                        <button id="return_home-btn" class="btn btn-primary mb-2" name="return_home"
+                            type="submit">Reset</button>
                     </div>
                 </form>
 
