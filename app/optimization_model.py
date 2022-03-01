@@ -97,6 +97,7 @@ mid_hours = [11,12,13,14,15,16]
 # off peack hours
 off_hours = [0,1,2,3,4,5,6,19,20,21,22,23]
 
+## User inputs
 # CN = fixed on-peak electricity pricing [$/kWh]
 CN = 0.17
 # CM = fixed mid-peak electricity pricing [$/kWh]
@@ -109,6 +110,8 @@ UN_m = 500
 UM_m = 300
 # UmF = household usage during off-peak [kWh]
 UF_m = 380
+##
+
 #  = Depth of discharge factor [%] (Saved energy for backup)
 depth = 0.2
 # WC, WG= Weights applied to decision variables
