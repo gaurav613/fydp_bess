@@ -63,6 +63,10 @@ def home_page():
 def FAQ_page():
     return render_template('FAQ.html')
 
+@app.route("/output")
+def Output_page():
+    return render_template('output.html')
+
 @app.route('/renderInputs', methods=['GET', 'POST'])
 def renderInputs():
     form = ElectricityInputForm()
