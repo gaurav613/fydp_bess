@@ -24,6 +24,9 @@ h4{
 .accordionMenu{
     width: 650px;
     margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 .accordionMenu input[type=checkbox]{
     display: none;
