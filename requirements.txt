@@ -1,0 +1,7 @@
+Flask==2.0.2
+flask_sqlalchemy==2.5.1
+gunicorn 
+psycopg2
+Flask-WTF==1.0.0
+wtforms==3.0.1
+email-validator==1.1.3

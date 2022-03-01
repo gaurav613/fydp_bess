@@ -1,21 +1,72 @@
-{% extends 'base.html'%}
+{% extends 'base.html'%} {% block title%} FAQ {% endblock%} 
 
-{% block title%}
-FAQ
-{% endblock%}
 
-{% block content %}
+{% block styles %}
+   
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/faq.css')}}">
+
+{% endblock %}
+
 <!-- CONTENT HERE -->
+{% block content %}
 
-<p>FAQ Page</p>
+    <h1>Frequency Asked Questions(FAQ)</h1>
 
-<style>
-    body {
-        background-color: #ffffff;
-    }
+        <h4>Learn more about BESST, and Battery Energy <h4>
 
-    .bg-lighter {
-        background-color: #CBCBCB;
-    }
-</style>
+    <div class="accordionMenu">
+        <!-- 1st menu  -->
+        <input type="checkbox" name="trg1" id="acc1">
+        <label for="acc1">Quisquam Doloremeos</label>
+        <div class="content">
+            <div class="inner">
+                Iorem ipsum
+            </div>
+        </div>
+        <!-- 2nd menu -->
+        <input type="checkbox" name="trg1" id="acc2">
+        <label for="acc2">Fugiat esse oditanimi</label>
+        <div class="content">
+            <div class="inner">
+                Iorem ipsum
+            </div>
+        </div>
+        <!-- 3rd menu -->
+        <input type="checkbox" name="trg1" id="acc3">
+        <label for="acc3">Quibusdam adipisci</label>
+        <div class="content">
+            <div class="inner">
+                Iorem ipsum
+            </div>
+        </div>
+        <!-- 4th menu -->
+        <input type="checkbox" name="trg1" id="acc4">
+        <label for="acc4">Harum animi placeat</label>
+        <div class="content">
+            <div class="inner">
+                Iorem ipsum
+            </div>
+        </div>
+        <!-- 5th menu -->
+        <input type="checkbox" name="trg1" id="acc5">
+        <label for="acc5">Obcaecati Quibusdam</label>
+        <div class="content">
+            <div class="inner">
+                Iorem ipsum
+            </div>
+        </div>
+        <!-- 6th menu -->
+        <input type="checkbox" name="trg1" id="acc6">
+        <label for="acc6">Modi excepturi</label>
+        <div class="content">
+            <div class="inner">
+                Iorem ipsum
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 {% endblock%}
