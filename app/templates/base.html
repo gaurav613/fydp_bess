@@ -43,7 +43,7 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="{{ url_for('FAQ_page') }}">FAQ</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link text-dark" href="{{ url_for('Profile_page') }}">Profile</a>
                 </li>
                 <li class="nav-item">
@@ -54,7 +54,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="{{ url_for('register_page') }}">Register</a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </nav>
@@ -75,7 +75,9 @@
     {% endwith %} -->
 
     <!-- Future Content here -->
-    {% block content %} {% endblock %}
+    <div class="polka pattern">
+        {% block content %} {% endblock %}
+    </div>
 
     <script type=text/javascript src="{{url_for('static', filename='scripts/jquery-3.6.0.min.js') }}"></script>
 
