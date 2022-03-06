@@ -4,7 +4,7 @@
 #scrollto_electricity_form-inputs {
 }
 
-.container-inputs-billtype {  
+.container-inputs-billtype {
   margin-left: 25%;
   margin-right: 25%;
   margin-bottom: 10px;
@@ -102,4 +102,30 @@ select {
 
 .table td {
   text-align: center;
+}
+
+.inputs-question-mark-btn {
+  background-color: #e3e3e3;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.inputs-question-mark {
+  width: 20px;
+}
+
+.w-100 {
+  padding: 0px 30px 100px 30px;
+}
+.carousel-control-next {
+  width: 5%;
+}
+.carousel-control-prev {
+  width: 5%;
+}
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  border-radius: 10%;
 }
