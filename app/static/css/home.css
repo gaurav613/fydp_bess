@@ -1,3 +1,46 @@
+    #title{
+        position:absolute;
+        top: 50%;
+        right: 50%;
+        text-align: center;
+        transform: translate(50%, 20%);
+        animation: fill 2.5s ease forwards 1.5s;
+    }
+
+    /* nth-child letter of 2 is first letter of BESST title */
+    #title path:nth-child(2){
+        stroke-dasharray: 494px;
+        stroke-dashoffset: 494px;
+        animation: line-anim 2s ease forwards;
+    }
+    #title path:nth-child(3){
+        stroke-dasharray: 494px;
+        stroke-dashoffset: 494px;
+        animation: line-anim 2s ease forwards 0.3s;
+    }
+    #title path:nth-child(4){
+        stroke-dasharray: 500px;
+        stroke-dashoffset: 500px;
+        animation: line-anim 2s ease forwards 0.6s;
+    }
+    #title path:nth-child(5){
+        stroke-dasharray: 611px;
+        stroke-dashoffset: 611px;
+        animation: line-anim 2s ease forwards 0.9s;
+    }
+    #title path:nth-child(6){
+        stroke-dasharray: 490px;
+        stroke-dashoffset: 490px;
+        animation: line-anim 2s ease forwards 1.2s;
+    }
+
+    @keyframes line-anim{
+        to{
+            stroke-dashoffset:0;
+        }
+    }
+
+
    html body {
 	scroll-behavior: smooth;
     font-family: inherit;

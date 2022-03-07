@@ -13,7 +13,7 @@ body {
     background-color: #ffffff;
     color: black;
     overflow-x: hidden;
-    min-height: 150vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
