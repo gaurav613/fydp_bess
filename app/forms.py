@@ -1,3 +1,4 @@
+import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, FloatField, MonthField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, InputRequired, ValidationError, NumberRange
@@ -25,6 +26,13 @@ class RegisterForm(FlaskForm):
     submit = SubmitField(label='Create Account')
 
 class Tiered_Form(FlaskForm):
+
+    def validate_Month_Of_bill(self, Month_Of_bill):
+        if Month_Of_bill.data < datetime.date(2022,2,1):
+            raise ValidationError(
+                "Please use a more recent bill!"
+            )
+
     Month_Of_bill = MonthField(u'Month of bill', validators=[InputRequired()])
     Tiered_Value = FloatField(label='Tiered Value', validators=[InputRequired(), NumberRange(min=0,max=99999)])
     Tiered_KWH = FloatField(label='Tiered KWH', validators=[InputRequired(), NumberRange(min=0,max=99999)])

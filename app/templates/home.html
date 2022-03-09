@@ -116,9 +116,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- <img src="{{url_for('static', filename='bills/winter-tiered.jpg')}}"
-                    style="width:100%;height:100%;"></img> -->
-
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" style="background-color: black;" data-slide-to="0"
@@ -130,7 +127,8 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="d-block w-100" src="{{url_for('static', filename='bills/monthly-statement-tou.jpg')}}"
+                            <img class="d-block w-100"
+                                src="{{url_for('static', filename='bills/monthly-statement-tou.jpg')}}"
                                 style="width:100%;height:100%;" alt="First slide">
                             <div class="carousel-caption d-none d-md-block" style="color: black;">
                                 <h4>TIME OF USE</h4>
@@ -261,7 +259,19 @@
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.Month_Of_bill.label(class="input-lable-format")}}</span>
-                        <span>{{newelectricity_form.Month_Of_bill(class="form-control")}}</span>
+                        <span>{{newelectricity_form.Month_Of_bill(class="form-control")}}
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                            {% for category, message in messages %}
+                            {% if "Month_Of_bill" in message%}
+                            <div class="inputs-validations">
+                                {{ "Please use a more recent bill." }}
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </span>
                     </div>
 
                     <div class="table-responsive">
@@ -275,9 +285,45 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{newelectricity_form.Tiered_Value(class="form-control", placeholder="#")}}</td>
-                                    <td>{{newelectricity_form.Tiered_KWH(class="form-control", placeholder="$")}}</td>
-                                    <td>{{newelectricity_form.Tiered_Total(class="form-control", placeholder="$")}}</td>
+                                    <td>{{newelectricity_form.Tiered_Value(class="form-control", placeholder="#")}}
+                                        {% with messages = get_flashed_messages(with_categories=true) %}
+                                        {% if messages %}
+                                        {% for category, message in messages %}
+                                        {% if "Tiered_Value" in message%}
+                                        <div class="inputs-validations">
+                                            {{ "Must be a postive number." }}
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endif %}
+                                        {% endwith %}
+                                    </td>
+                                    <td>{{newelectricity_form.Tiered_KWH(class="form-control", placeholder="$")}}
+                                        {% with messages = get_flashed_messages(with_categories=true) %}
+                                        {% if messages %}
+                                        {% for category, message in messages %}
+                                        {% if "Tiered_KWH" in message%}
+                                        <div class="inputs-validations">
+                                            {{ "Must be a postive number." }}
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endif %}
+                                        {% endwith %}
+                                    </td>
+                                    <td>{{newelectricity_form.Tiered_Total(class="form-control", placeholder="$")}}
+                                        {% with messages = get_flashed_messages(with_categories=true) %}
+                                        {% if messages %}
+                                        {% for category, message in messages %}
+                                        {% if "Tiered_Total" in message%}
+                                        <div class="inputs-validations">
+                                            {{ "Must be a postive number." }}
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endif %}
+                                        {% endwith %}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -286,24 +332,71 @@
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.DeliveryCharges.label(class="input-lable-format")}}</span>
-                        <span>{{newelectricity_form.DeliveryCharges(class="form-control")}}</span>
+                        <span>{{newelectricity_form.DeliveryCharges(class="form-control")}}
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                            {% for category, message in messages %}
+                            {% if "DeliveryCharges" in message%}
+                            <div class="inputs-validations">
+                                {{ "Must be a postive number." }}
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </span>
                     </div>
 
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.RegulatoryCharges.label(class="input-lable-format")}}</span>
-                        <span>{{newelectricity_form.RegulatoryCharges(class="form-control")}}</span>
+                        <span>{{newelectricity_form.RegulatoryCharges(class="form-control")}}
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                            {% for category, message in messages %}
+                            {% if "RegulatoryCharges" in message%}
+                            <div class="inputs-validations">
+                                {{ "Must be a postive number." }}
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </span>
+
                     </div>
 
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.TotalElectricityCost.label(class="input-lable-format")}}</span>
-                        <span>{{newelectricity_form.TotalElectricityCost(class="form-control")}}</span>
+                        <span>{{newelectricity_form.TotalElectricityCost(class="form-control")}}
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                            {% for category, message in messages %}
+                            {% if "TotalElectricityCost" in message%}
+                            <div class="inputs-validations">
+                                {{ "Must be a postive number." }}
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </span>
                     </div>
 
                     <div class="form-row" style="margin: 20px 20px 20px 20px;justify-content: center;">
                         {{ newelectricity_form.submit(class="btn btn-primary mb-2") }}
                     </div>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <div class="alert alert-{{ messages.0.0 }}" role="alert">
+                        {% for category, message in messages %}
+                        {{ message }} </br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
 
                 </form>
                 {% endif %}

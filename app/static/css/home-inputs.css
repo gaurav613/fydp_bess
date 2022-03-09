@@ -129,3 +129,8 @@ select {
 .carousel-control-prev-icon {
   border-radius: 10%;
 }
+
+.inputs-validations {
+  color: red;
+  text-align: center;
+}

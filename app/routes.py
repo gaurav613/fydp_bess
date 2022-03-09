@@ -60,7 +60,7 @@ def Profile_page():
 
 
 @app.route("/", methods=['GET', 'POST'])
-@app.route("/home",methods=['GET', 'POST'])
+@app.route("/home", methods=['GET', 'POST'])
 def home_page():
     return render_template('home.html')
 
@@ -76,7 +76,7 @@ def renderInputs1():
 
     if request.method == 'POST':
         if request.form.get('timeofuse') == 'Time of Use':
-        
+
             print("timeofuse form reached")
             return redirect(url_for("renderInputs2", scroll="scrollto_electricity_form-inputs", billtype="timeofuse"))
 
@@ -89,10 +89,6 @@ def renderInputs1():
 
     elif request.method == 'GET':
         return render_template('home.html')
-
-    # if form.errors != {}:  # If any errors occure in the form, print them
-    #     for err_msg in form.errors.values():
-    #         flash(f'Error in inputs: {err_msg}', category='danger')
 
     # render the home.html page
     return render_template('home.html', scroll=scroll)
@@ -141,10 +137,11 @@ def renderInputs2():
             return redirect(url_for("render_Results", Complete_form=formDetails, scroll="scrollto_results"))
 
     if form.errors != {}:  # If any errors occure in the form, print them
-        for err_msg in form.errors.values():
-            flash(f'Error in inputs: {err_msg}', category='danger')
+        for key, value in form.errors.items():
+            flash(f'{key} -> {value}', category='danger')
 
     return render_template('home.html', newelectricity_form=form, scroll=scroll, billtype=billtype)
+
 
 @app.route('/renderResults', methods=['GET', 'POST'])
 def render_Results():
