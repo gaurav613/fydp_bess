@@ -79,7 +79,7 @@ def FAQ_page():
 # def Output_page():
 #     return render_template('output.html')
 @app.route('/output')
-def Output_page():
+def output_page():
     headers = ["Cost Graph", "GHG Graph"]
     descriptions = ["Plotting cost for each month", "Plotting GHG for each month"]
     df_cost = pd.read_csv("Data/costs.csv")
