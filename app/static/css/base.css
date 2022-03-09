@@ -1,0 +1,16 @@
+.navbar-nav a:hover {
+    background-color: lightgray;
+    border: 1px solid;
+}
+
+body {
+    height: 100%;
+    background-color: #ffffff;
+    color: black;
+    overflow-x: hidden;
+}
+
+.justifyright-nav {
+    display: flex;
+    justify-content: flex-end;
+}

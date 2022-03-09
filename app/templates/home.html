@@ -1,18 +1,19 @@
 {% extends 'base.html'%}
 
-{% block title %}
-Home
-{% endblock %}
+{% block title %} Home {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home-inputs.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home-results.css')}}">
 {% endblock %}
+
+{% block scripts %} {% endblock %}
 
 <!-- CONTENT HERE -->
 {% block content %}
 <div class="site-header">
     <img class="img-m" src="{{url_for('static', filename='home-cover.png')}}">
-
     <div class="site-custom-curve">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path
@@ -23,172 +24,287 @@ Home
 </div>
 
 <div class="container">
-    <p>Welcome to BESST, with Battery Energy Storage Systems, you can start saving and thriving.</p>
+    <p1>Welcome to BESST</p1>
 </div>
-<form action="/renderInputs" method="post" class="container">
+
+<div class="container">
+    <p2> Explore your potential battery energy savings </p2>
+</div>
+
+<form action="{{url_for('renderInputs1', scroll='scrollto_electricity_form-billtype')}}" method="post"
+    class="container">
     <div class="frame">
-        <button class="btn" name="renderInputs" type="submit">Begin</button>
+        <button id="begin-proc-btn" class="btn btn-primary mb-2" name="renderInputs" type="submit">Begin</button>
     </div>
 </form>
 
 <div class="container">
-    <div class="card shadow"
-        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;">
+    <div class="card shadow1"
+        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;top:-100px;">
         <img class="card-img-top" src="{{url_for('static', filename='home-card-save.png')}}"
             style="width: 50px; height: 50px; margin-top: 10px;">
         <div class="card-body">
             <p class="card-text" style="text-align: center;">Long-term Savings</p>
-            <p class="card-text" style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p class="card-text" style="text-align: center;">Look into the full visibility of long-term cost saving and
+                the payback period for your powerwall system.</p>
         </div>
     </div>
 
-    <div class="card shadow"
-        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;">
+    <div class="card shadow2"
+        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;top:-100px;">
         <img class="card-img-top" src="{{url_for('static', filename='home-card-env.png')}}"
             style="width: 50px; height: 50px; margin-top: 10px;">
         <div class="card-body">
             <p class="card-text" style="text-align: center;">C02 Footprint Reduction</p>
-            <p class="card-text" style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p class="card-text" style="text-align: center;">See how owning Battery Energy Storage Systems impact your
+                household carbond footprint overtime. </p>
         </div>
     </div>
 
-    <div class="card shadow"
-        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;">
+    <div class="card shadow3"
+        style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;top:-100px;">
         <img class="card-img-top" src="{{url_for('static', filename='home-card-outs.png')}}"
             style="width: 50px; height: 50px; margin-top: 10px;">
         <div class="card-body">
             <p class="card-text" style="text-align: center;">Mitigate Blackouts</p>
-            <p class="card-text" style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p class="card-text" style="text-align: center;">Prevent powerages to your home with a Battery Energy
+                Storage System.</p>
         </div>
     </div>
-
 </div>
 
-{% if electricity_form %}
-<div class="container-inputs">
-    <form method="post" class="form-electricity">
-        {{ electricity_form.hidden_tag() }}
-        {{ electricity_form.csrf_token }}
-        <div class="inputForm-control">
-            <fieldset>
-                <legend>Your Electricity Bill Details</legend>
-                <div class="input-questions">
-                    
-                    <!-- Bill Type Input -->
-                    {{ electricity_form.Bill_Type.label() }}
-                    <select name="Bill_Type" id="Bill_Type">
-                        {% for option in electricity_form.Bill_Type %}
-                            {% if loop.first %}
-                                <option value="" disabled selected>select something</option>
-                            {% endif %}
-                            {{ option }}
-                        {% endfor %}
-                    </select>
 
-                    <div>
-                        <span>{{ electricity_form.Month_Of_bill.label() }}</span>
-                        <span>{{electricity_form.Month_Of_bill()}}</span>
+
+
+<!-- INPUTS HERE -->
+
+<div id="scrollto_electricity_form-billtype">
+    <div class="container-inputs-billtype">
+        <div class="inputForm-control-billtype">
+            <form method="POST" action="/renderInputs1" class="electricity-input-form-billtype" id="electricity_form">
+                <h5>Choose your bill type</h5>
+                <div class="input-questions-billtype">
+                    <input id="mySubmit1" type="submit" value="Time of Use" name="timeofuse"
+                        style="height:40px; width:150px"></input>
+                </div>
+                <div class="input-questions-billtype">
+                    <input id="mySubmit2" type="submit" value="Tiered" name="tiered"
+                        style="height:40px; width:150px"></input>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="scrollto_electricity_form-inputs">
+    <div class="container-inputs">
+        <div class="inputForm-control">
+            <div class="input-questions">
+
+                <!-- TIMEOFUSE FORM -->
+                {% if billtype=="timeofuse" %}
+                {% if newelectricity_form %}
+                <form method="POST" class="electricity-input-form" id="electricity_form">
+                    {{newelectricity_form.hidden_tag()}}
+                    <div class="form-row">
+                        <span
+                            class="col-6">{{newelectricity_form.Month_Of_bill.label(class="input-lable-format")}}</span>
+                        <span>{{newelectricity_form.Month_Of_bill(class="form-control")}}</span>
                     </div>
 
-                    <table><div id='tiered_inputs'></div></table>
-                    <table><div id='timeOfuse_inputs'></div></table>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col-6">Usage</th>
+                                    <th scope="col-6">Price per KWH</th>
+                                    <th scope="col-6">Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="form-controlfix">{{newelectricity_form.TimeofUse_Off_Peak_Value.label()}}
+                                        {{newelectricity_form.TimeofUse_Off_Peak_Value(class="form-control",
+                                        placeholder="#")}}</td>
+                                    <td>{{newelectricity_form.TimeofUse_Off_Peak_KWH(class="form-control",
+                                        placeholder="$")}}</td>
+                                    <td>{{newelectricity_form.TimeofUse_Off_Peak_Total(class="form-control",
+                                        placeholder="$")}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="form-controlfix">{{newelectricity_form.TimeofUse_Mid_Peak_Value.label()}}
+                                        {{newelectricity_form.TimeofUse_Mid_Peak_Value(class="form-control",
+                                        placeholder="#")}}</td>
+                                    <td>{{newelectricity_form.TimeofUse_Mid_Peak_KWH(class="form-control",
+                                        placeholder="$")}}</td>
+                                    <td>{{newelectricity_form.TimeofUse_Mid_Peak_Total(class="form-control",
+                                        placeholder="$")}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="form-controlfix">{{newelectricity_form.TimeofUse_On_Peak_Value.label()}}
+                                        {{newelectricity_form.TimeofUse_On_Peak_Value(class="form-control",
+                                        placeholder="#")}}</td>
+                                    <td>{{newelectricity_form.TimeofUse_On_Peak_KWH(class="form-control",
+                                        placeholder="$")}}</td>
+                                    <td>{{newelectricity_form.TimeofUse_On_Peak_Total(class="form-control",
+                                        placeholder="$")}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-row">
+                        <span
+                            class="col-6">{{newelectricity_form.DeliveryCharges.label(class="input-lable-format")}}</span>
+                        <span>{{newelectricity_form.DeliveryCharges(class="form-control")}}</span>
+                    </div>
 
-                    <!-- render bill inputs depending on Bill type -->
-                    <script>
-                        let Bill_Type_select = document.getElementById('Bill_Type');
-                        Bill_Type_select.onchange = function() {
-                            Bill_Type = Bill_Type_select.value
-                            if (Bill_Type == "timeofuse"){
+                    <div class="form-row">
+                        <span
+                            class="col-6">{{newelectricity_form.RegulatoryCharges.label(class="input-lable-format")}}</span>
+                        <span>{{newelectricity_form.RegulatoryCharges(class="form-control")}}</span>
+                    </div>
 
-                                if (document.contains(document.getElementById("Tiered_Value"))) {
-                                    node = document.getElementById("tiered_inputs")
-                                    node.innerHTML = "";
-                                }
-                                $('#timeOfuse_inputs').html(`
-                                <div class="timeOfuse_inputs-row">
-                                    <span>{{electricity_form.TimeofUse_Off_Peak_Value.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_Off_Peak_Value(placeholder="Enter a value")}}</span>
-                                    <span>{{electricity_form.TimeofUse_Off_Peak_KWH.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_Off_Peak_KWH(placeholder="Enter a value")}}</span>
-                                    <span>{{electricity_form.TimeofUse_Off_Peak_Total.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_Off_Peak_Total(placeholder="Enter a value")}}</span>
-                                </div>
-                                <div class="timeOfuse_inputs-row">
-                                    <span>{{electricity_form.TimeofUse_Mid_Peak_Value.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_Mid_Peak_Value(placeholder="Enter a value")}}</span>
-                                    <span>{{electricity_form.TimeofUse_Mid_Peak_KWH.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_Mid_Peak_KWH(placeholder="Enter a value")}}</span>
-                                    <span>{{electricity_form.TimeofUse_Mid_Peak_Total.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_Mid_Peak_Total(placeholder="Enter a value")}}</span>
-                                </div>
-                                <div class="timeOfuse_inputs-row">
-                                    <span>{{electricity_form.TimeofUse_On_Peak_Value.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_On_Peak_Value(placeholder="Enter a value")}}</span>
-                                    <span>{{electricity_form.TimeofUse_On_Peak_KWH.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_On_Peak_KWH(placeholder="Enter a value")}}</span>
-                                    <span>{{electricity_form.TimeofUse_On_Peak_Total.label()}}</span>
-                                    <span>{{electricity_form.TimeofUse_On_Peak_Total(placeholder="Enter a value")}}</span>
-                                </div>
-                                `);
-                            }
-                            if (Bill_Type == "tiered"){
-                                if (document.contains(document.getElementById("TimeofUse_Off_Peak_Value"))) {
-                                    node = document.getElementById("timeOfuse_inputs")
-                                    node.innerHTML = "";
-                                }
-                                $('#tiered_inputs').html(`
-                                    {{electricity_form.Tiered_Value.label()}}
-                                    {{electricity_form.Tiered_Value(class="form-control", placeholder="Enter a value")}}
-                                    
-                                    {{electricity_form.Tiered_KWH.label()}}
-                                    {{electricity_form.Tiered_KWH(class="form-control", placeholder="Enter a value")}}
-                                    
-                                    {{electricity_form.Tiered_Total.label()}}
-                                    {{electricity_form.Tiered_Total(class="form-control", placeholder="Enter a value")}}
-                                `);
-                            }
-                        }
-                    </script>
-                </div>
-            </fieldset>
+                    <div class="form-row">
+                        <span
+                            class="col-6">{{newelectricity_form.TotalElectricityCost.label(class="input-lable-format")}}</span>
+                        <span>{{newelectricity_form.TotalElectricityCost(class="form-control")}}</span>
+                    </div>
 
-            <fieldset>
-                <legend>Other Details</legend>
-            </fieldset> 
+                    <div class="form-row" style="margin: 20px 20px 20px 20px;justify-content: center;">
+                        {{ newelectricity_form.submit(class="btn btn-primary mb-2") }}
+                    </div>
+                </form>
+                {% endif %}
 
-            {{ electricity_form.submit(class="btn") }}
+                <!-- TIERED FORM -->
+                {% elif billtype=="tiered"%}
+                <form method="POST" class="electricity-input-form" id="electricity_form">
+                    {{newelectricity_form.hidden_tag()}}
+                    <div class="form-row">
+                        <span
+                            class="col-6">{{newelectricity_form.Month_Of_bill.label(class="input-lable-format")}}</span>
+                        <span>{{newelectricity_form.Month_Of_bill(class="form-control")}}</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col-6">Usage</th>
+                                    <th scope="col-6">Price per KWH</th>
+                                    <th scope="col-6">Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{newelectricity_form.Tiered_Value(class="form-control", placeholder="#")}}</td>
+                                    <td>{{newelectricity_form.Tiered_KWH(class="form-control", placeholder="$")}}</td>
+                                    <td>{{newelectricity_form.Tiered_Total(class="form-control", placeholder="$")}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="form-row">
+                        <span
+                            class="col-6">{{newelectricity_form.DeliveryCharges.label(class="input-lable-format")}}</span>
+                        <span>{{newelectricity_form.DeliveryCharges(class="form-control")}}</span>
+                    </div>
+
+                    <div class="form-row">
+                        <span
+                            class="col-6">{{newelectricity_form.RegulatoryCharges.label(class="input-lable-format")}}</span>
+                        <span>{{newelectricity_form.RegulatoryCharges(class="form-control")}}</span>
+                    </div>
+
+                    <div class="form-row">
+                        <span
+                            class="col-6">{{newelectricity_form.TotalElectricityCost.label(class="input-lable-format")}}</span>
+                        <span>{{newelectricity_form.TotalElectricityCost(class="form-control")}}</span>
+                    </div>
+
+                    <div class="form-row" style="margin: 20px 20px 20px 20px;justify-content: center;">
+                        {{ newelectricity_form.submit(class="btn btn-primary mb-2") }}
+                    </div>
+
+                </form>
+                {% endif %}
+            </div>
         </div>
-    </form>
+    </div>
 </div>
+
+<!-- Scrolling to the selected div -->
+{% if scroll %}
+<script type="text/javascript">
+    document.location.hash = '#' + '{{ scroll }}';
+</script>
 {% endif %}
 
-<!-- 
-{% if savings%}
-<div class="container">
-    <table class="table table-hover table-light table-striped table-bordered">
-        <thead>
-            <tr>
-                <th scope="col">Month/Year</th>
-                <th scope="col">Current Bill</th>
-                <th scope="col">Estimated Price</th>
-                <th scope="col">Savings</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in savings %}
-            <tr>
-                <td>{{item.Month}}-{{item.Year}}</td>
-                <td>${{item.CurrentBill}}</td>
-                <td>${{item.EstimatedPrice}}</td>
-                <td>${{item.Savings}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% else %}
-DO NOTHING -->
-<!-- {% endif %} -->
 
-<!-- END OF CONTENT -->
-{% endblock%}
+
+
+<!-- RESULTS HERE -->
+<div id="scrollto_results">
+
+    {% if savings %}
+    <div class="container-results">
+        <div class="results-format">
+            <div class="results-1">
+                
+                <table class="table table-hover table-light table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Month/Year</th>
+                            <th scope="col">Current Bill</th>
+                            <th scope="col">Estimated Price</th>
+                            <th scope="col">Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in savings %}
+                        <tr>
+                            <td>{{item.Month}}-{{item.Year}}</td>
+                            <td>${{item.CurrentBill}}</td>
+                            <td>${{item.EstimatedPrice}}</td>
+                            <td>${{item.Savings}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% else %}
+                <!-- DO NOTHING -->
+
+                {% endif %}
+            </div>
+            <div class="results-2">
+                {% if complete_form %}
+                <div class="container-results">
+                    <div class="results-format">
+                        <div class="results-1">
+
+                            <p>{{complete_form}}</p>
+                            <form action="{{url_for('home_page')}}" method="POST" class="container">
+                                <div class="frame">
+                                    <button id="return_home-btn" class="btn btn-primary mb-2" name="return_home"
+                                        type="submit">Reset</button>
+                                </div>
+                            </form>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrolling the the Results after submitting the inputs -->
+        {% if scrollto_results %}
+        <script>
+            document.getElementById('{{ scrollto_results }}').scrollIntoView();
+        </script>
+        {% endif %}
+
+
+        <!-- END OF CONTENT -->
+        {% endblock%}

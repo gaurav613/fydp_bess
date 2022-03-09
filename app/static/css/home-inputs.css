@@ -1,0 +1,105 @@
+#scrollto_electricity_form-billtype {
+}
+
+#scrollto_electricity_form-inputs {
+}
+
+.container-inputs-billtype {  
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 10px;
+  height: 75px;
+  background-color: #e3e3e3;
+  border-radius: 10px;
+}
+
+.inputForm-control-billtype {
+  height: 100%;
+}
+
+.electricity-input-form-billtype {
+  height: 100%;
+  margin: 20px 5% 20px 5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-questions-billtype {
+  padding: 10px 10px 10px 10px;
+}
+
+.container-inputs {
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 5%;
+  background-color: #e3e3e3;
+  border-radius: 10px;
+}
+
+.inputForm-control {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+.input-questions {
+}
+
+.electricity-input-form {
+  margin: 20px 5% 20px 5%;
+}
+
+.form-row {
+  width: 100%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.form-controlfix {
+  display: inline-flex;
+}
+
+.form-inline-fix {
+  width: 50%;
+}
+
+.form-inline-fix input,
+select {
+  text-align: center;
+  font-weight: 400;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input-lable-format {
+  padding-top: 10px;
+}
+
+.form-control {
+  text-align: center;
+}
+
+.month-inputfix {
+  width: 100%;
+}
+
+.is-invalid {
+  width: 100%;
+}
+
+.table .thead-light th {
+  text-align: center;
+}
+
+.table td {
+  text-align: center;
+}
