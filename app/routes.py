@@ -146,11 +146,15 @@ def renderInputs2():
 
     return render_template('home.html', newelectricity_form=form, scroll=scroll, billtype=billtype)
 
+from .optimization_model import optimize
 @app.route('/renderResults', methods=['GET', 'POST'])
 def render_Results():
     complete_form = request.args['Complete_form']
     scrollto_results = request.args['scroll']
-    dataframe = None
+    result = optimize()
+    dataframe = result[1]
 
     # DO THE MIP MODEL PROCESS HERE AND PASS IN THE RESULTS AS A PARAM
-    return render_template('home.html', savings=dataframe, complete_form=complete_form, scrollto_results=scrollto_results)
+    return render_template('home.html', savings=[dataframe], complete_form=complete_form, scrollto_results=scrollto_results)
+
+

@@ -11,6 +11,7 @@ Original file is located at
 import random
 import gurobipy as grb
 import pandas as pd
+from sqlalchemy import column
 
 
 # Gurobi WLS license file
@@ -209,7 +210,8 @@ def optimize(CN = 0.17, CM = 0.113, CF = 0.082, UN_m = 500, UM_m = 300, UF_m = 3
   SoC_results = results_df[results_df.Var.str.match('SoC')]
   # SoC_results
 
-  cost_results = results_df[results_df.Var.str.match('cost')]
+  cost_results = results_df[results_df.Var.str.match('cost')].drop(columns=['Var','Hour'])
+  cost_results.columns = ['Cost','Month']
   ghg_results = results_df[results_df.Var.str.match('ghg')]
 
   Act_cost = UN_m*CN+UM_m*CM+UF_m*CF
@@ -217,7 +219,8 @@ def optimize(CN = 0.17, CM = 0.113, CF = 0.082, UN_m = 500, UM_m = 300, UF_m = 3
   return Act_cost, cost_results
 
 def main():
-      print(optimize(CN = 0.1))
+      results = optimize()
+      print(results[1])
 
 if __name__ == '__main__':
     main()
