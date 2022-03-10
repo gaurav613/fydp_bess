@@ -28,7 +28,7 @@ class RegisterForm(FlaskForm):
 class Tiered_Form(FlaskForm):
 
     def validate_Month_Of_bill(self, Month_Of_bill):
-        if Month_Of_bill.data < datetime.date(2022,2,1):
+        if Month_Of_bill.data < datetime.date(2015,4,1):
             raise ValidationError(
                 "Please use a more recent bill!"
             )
@@ -43,6 +43,13 @@ class Tiered_Form(FlaskForm):
     submit = SubmitField(label='Next', id="submit_electricity")
 
 class Timeofuse_Form(FlaskForm):
+
+    def validate_Month_Of_bill(self, Month_Of_bill):
+        if Month_Of_bill.data < datetime.date(2015,4,1):
+            raise ValidationError(
+                "Please use a more recent bill!"
+            )
+
     Month_Of_bill = MonthField(u'Month of bill', validators=[InputRequired()])
     TimeofUse_Off_Peak_Value = FloatField(label='Off Peak', validators=[InputRequired(), NumberRange(min=0,max=99999)])
     TimeofUse_Off_Peak_KWH = FloatField(label='KWH', validators=[InputRequired(), NumberRange(min=0,max=99999)])
