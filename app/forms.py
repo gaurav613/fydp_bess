@@ -1,9 +1,12 @@
 import datetime
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FloatField, MonthField
+from wtforms import StringField, PasswordField, SubmitField, FloatField, MonthField, SelectField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, InputRequired, ValidationError, NumberRange
 from app.models import User
 
+LOCATION_CHOICES = [('1', 'Barrie, Ontario'), ('2', 'Brantford, Ontario'), ('3', 'Grand Sudbury, Ontario'), ('4', 'Guelph, Ontario'), ('5', 'Hamilton, Ontario')
+    , ('6', 'Kingston, Ontario'), ('7', 'Kitchener, Ontario'), ('8', 'London, Ontario'), ('9', 'Ontario Non-CMA'), ('10', 'Oshawa, Ontario'), ('11', 'Ottawa-Gatineau, Ontario/Quebec')
+    , ('12', 'Peterborough, Ontario'), ('13', 'St. Catherines, Ontario'), ('14', 'Thunder Bay, Ontario'), ('15', 'Toronto, Ontario'), ('16', 'Windsor, Ontario')]
 
 class RegisterForm(FlaskForm):
     def validate_username(self, username_to_check):
@@ -33,10 +36,14 @@ class Tiered_Form(FlaskForm):
                 "Please use a more recent bill!"
             )
 
+    Location = SelectField(u'Nearest Location within Ontario', choices=LOCATION_CHOICES, validators=[InputRequired("Please choose your nearest location.")])
     Month_Of_bill = MonthField(u'Month of bill', validators=[InputRequired()])
-    Tiered_Value = FloatField(label='Tiered Value', validators=[InputRequired(), NumberRange(min=0,max=99999)])
-    Tiered_KWH = FloatField(label='Tiered KWH', validators=[InputRequired(), NumberRange(min=0,max=99999)])
-    Tiered_Total = FloatField(label='Tiered Total', validators=[InputRequired(), NumberRange(min=0,max=99999)])
+    Tiered_LowerValue = FloatField(label='Lower', validators=[InputRequired(), NumberRange(min=0,max=99999)])
+    Tiered_LowerKWH = FloatField(label='Tiered Lower KWH', validators=[InputRequired(), NumberRange(min=0,max=99999)])
+    Tiered_LowerTotal = FloatField(label='Tiered Lower Total', validators=[InputRequired(), NumberRange(min=0,max=99999)])
+    Tiered_UpperValue = FloatField(label='Upper', validators=[InputRequired(), NumberRange(min=0,max=99999)])
+    Tiered_UpperKWH = FloatField(label='Tiered Upper KWH', validators=[InputRequired(), NumberRange(min=0,max=99999)])
+    Tiered_UpperTotal = FloatField(label='Tiered Upper Total', validators=[InputRequired(), NumberRange(min=0,max=99999)])
     DeliveryCharges = FloatField(label='Delivery Charges', validators=[InputRequired(), NumberRange(min=0,max=999999)])
     RegulatoryCharges = FloatField(label='Regulatory Charges', validators=[InputRequired(), NumberRange(min=0,max=999999)])
     TotalElectricityCost = FloatField(label='Total Electricity Cost wo h.s.t', validators=[InputRequired(), NumberRange(min=0,max=9999999)])
@@ -50,6 +57,7 @@ class Timeofuse_Form(FlaskForm):
                 "Please use a more recent bill!"
             )
 
+    Location = SelectField(u'Nearest Location within Ontario', choices=LOCATION_CHOICES, validators=[InputRequired()])
     Month_Of_bill = MonthField(u'Month of bill', validators=[InputRequired()])
     TimeofUse_Off_Peak_Value = FloatField(label='Off Peak', validators=[InputRequired(), NumberRange(min=0,max=99999)])
     TimeofUse_Off_Peak_KWH = FloatField(label='KWH', validators=[InputRequired(), NumberRange(min=0,max=99999)])
