@@ -109,7 +109,6 @@
 
     }
 
-
     #title2{
         position:absolute;
         top: 25%;
@@ -141,6 +140,7 @@
         align-items: center;
         z-index: 1;
     }
+
 
     .site-header {
         z-index: -1;
@@ -189,6 +189,7 @@
         height: 80px;
         width: 350px;
         position: relative;
+        top:-125px;
         margin-top: 1%;
         box-shadow:
             -7px -7px 20px 0px #fff9,
