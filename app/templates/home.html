@@ -159,7 +159,7 @@
         <img class="card-img-top" src="{{url_for('static', filename='home-card-save.png')}}"
             style="width: 50px; height: 50px; margin-top: 10px;">
         <div class="card-body">
-            <p class="card-text" style="text-align: center;">Long-term Savings</p>
+            <p class="card-text" style="text-align: center; font-weight:600;font-size:18px;">Long-term Savings</p>
             <p class="card-text" style="text-align: center;">Look into the full visibility of long-term cost saving and
                 the payback period for your powerwall system.</p>
         </div>
@@ -170,9 +170,9 @@
         <img class="card-img-top" src="{{url_for('static', filename='home-card-env.png')}}"
             style="width: 50px; height: 50px; margin-top: 10px;">
         <div class="card-body">
-            <p class="card-text" style="text-align: center;">C02 Footprint Reduction</p>
-            <p class="card-text" style="text-align: center;">See how owning Battery Energy Storage Systems impact your
-                household carbond footprint overtime. </p>
+            <p class="card-text" style="text-align: center; font-weight:600; font-size:18px;">C02 Footprint Reduction</p>
+            <p class="card-text" style="text-align: center;">See how owning battery energy storage systems impact your
+                household carbon footprint overtime. </p>
         </div>
     </div>
 
@@ -181,9 +181,9 @@
         <img class="card-img-top" src="{{url_for('static', filename='home-card-outs.png')}}"
             style="width: 50px; height: 50px; margin-top: 10px;">
         <div class="card-body">
-            <p class="card-text" style="text-align: center;">Mitigate Blackouts</p>
-            <p class="card-text" style="text-align: center;">Prevent powerages to your home with a Battery Energy
-                Storage System.</p>
+            <p class="card-text" style="text-align: center; font-weight:600;font-size:18px;">Mitigate Blackouts</p>
+            <p class="card-text" style="text-align: center;">Prevent power outages to your home with a battery energy
+                storage system.</p>
         </div>
     </div>
 </div>
@@ -195,7 +195,7 @@
     <div class="container-inputs-billtype" style = "position:relative;margin-top: 12%;">
         <div class="inputForm-control-billtype">
             <form method="POST" action="/renderInputs1" class="electricity-input-form-billtype" id="electricity_form">
-                <h5>Choose your bill type</h5>
+                <h5 style="position:relative; left:-40px; top:4px;">Choose your bill type</h5>
                 <div class="input-questions-billtype">
                     <input id="mySubmit1" type="submit" value="Time of Use" name="timeofuse"
                         style="height:40px; width:150px"></input>
