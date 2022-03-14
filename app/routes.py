@@ -78,29 +78,43 @@ def FAQ_page():
 # @app.route("/output")
 # def Output_page():
 #     return render_template('output.html')
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 @app.route('/output')
 def output_page():
     headers = ["Cost Graph", "GHG Graph"]
     descriptions = ["Plotting cost for each month", "Plotting GHG for each month"]
-
+    fig = make_subplots(rows=2, cols=1)
     cost_rows = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     cost_cols = ['Month', 'Cost']
     cost_data = [[1, 114], [2, 119], [3, 122], [4, 102],[5, 135], [6, 114], [7, 190], [8, 122], [9, 102],[10, 180], [11, 127], [12, 194]]
     df_cost = pd.DataFrame(cost_data, index=cost_rows, columns=cost_cols)
+    fig.append_trace(go.Scatter(
+    x=df_cost['Month'],
+    y=df_cost['Cost'],
+    ), row=1, col=1)
+
+    
     # df_cost = pd.read_csv("Data/costs.csv")
     fig_cost = px.line(df_cost, x="Month", y="Cost")
 
     ghg_rows = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     ghg_cols = ['Month', 'GHG']
     ghg_data = [[1, 15.488837], [2, 11.384587], [3, 16.468095], [4, 10.421837],[5, 15.653123], [6, 16.664116], [7, 19.721501], [8, 17.261196], [9, 14.567711],[10, 19.848164], [11, 18.907828], [12, 15.179477]]
-    ghg_cost = pd.DataFrame(ghg_data, index=ghg_rows, columns=ghg_cols)
+    df_ghg = pd.DataFrame(ghg_data, index=ghg_rows, columns=ghg_cols)
     # df_ghg = pd.read_csv("Data/ghg.csv")
-    fig_ghg = px.line(df_ghg, x="Month", y="GHG")
+    # fig_ghg = px.line(ghg_cost, x="Month", y="GHG")
+    fig.append_trace(go.Scatter(
+    x=df_ghg['Month'],
+    y=df_ghg['GHG'],
+    ), row=2, col=1)
+
+    fig.update_layout(height=600, width=600, title_text="COST AND GHG GRAPHS")
     # fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
-    graphJSON_cost = json.dumps(fig_cost, cls=plotly.utils.PlotlyJSONEncoder)
-    graphJSON_ghg = json.dumps(fig_ghg, cls=plotly.utils.PlotlyJSONEncoder)
-    return render_template('visualization.html', graphJSON1=graphJSON_cost, graphJSON2= graphJSON_ghg, headers=headers,descriptions=descriptions)
+    graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    # graphJSON_ghg = json.dumps(fig_ghg, cls=plotly.utils.PlotlyJSONEncoder) , graphJSON2= graphJSON_ghg
+    return render_template('visualization.html', graphJSON1=graphJSON_cost, headers=headers,descriptions=descriptions)
 # @app.route('/renderInputs', methods=['GET', 'POST'])
 # def renderInputs():
 #     form = ElectricityInputForm()
