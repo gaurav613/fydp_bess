@@ -82,10 +82,19 @@ def FAQ_page():
 def output_page():
     headers = ["Cost Graph", "GHG Graph"]
     descriptions = ["Plotting cost for each month", "Plotting GHG for each month"]
-    df_cost = pd.read_csv("Data/costs.csv")
+
+    cost_rows = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    cost_cols = ['Month', 'Cost']
+    cost_data = [[1, 114], [2, 119], [3, 122], [4, 102],[5, 135], [6, 114], [7, 190], [8, 122], [9, 102],[10, 180], [11, 127], [12, 194]]
+    df_cost = pd.DataFrame(cost_data, index=cost_rows, columns=cost_cols)
+    # df_cost = pd.read_csv("Data/costs.csv")
     fig_cost = px.line(df_cost, x="Month", y="Cost")
 
-    df_ghg = pd.read_csv("Data/ghg.csv")
+    ghg_rows = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    ghg_cols = ['Month', 'GHG']
+    ghg_data = [[1, 15.488837], [2, 11.384587], [3, 16.468095], [4, 10.421837],[5, 15.653123], [6, 16.664116], [7, 19.721501], [8, 17.261196], [9, 14.567711],[10, 19.848164], [11, 18.907828], [12, 15.179477]]
+    ghg_cost = pd.DataFrame(ghg_data, index=ghg_rows, columns=ghg_cols)
+    # df_ghg = pd.read_csv("Data/ghg.csv")
     fig_ghg = px.line(df_ghg, x="Month", y="GHG")
     # fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
