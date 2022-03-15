@@ -1,3 +1,5 @@
+from numpy import empty
+from sqlalchemy import null
 from app import app
 from flask import jsonify, redirect, render_template, request, url_for, session, flash
 from app.models import Item, User
@@ -5,6 +7,7 @@ from app.forms import RegisterForm, Tiered_Form, Timeofuse_Form
 from datetime import date, timedelta
 from app import db
 import requests
+import pandas as pd
 from app.forms import LOCATION_CHOICES
 
 # s = requests.session()
@@ -156,29 +159,42 @@ def renderInputs2():
 @app.route('/get_autofill_input', methods=['GET', 'POST'])
 def get_autofill_input():
     dataGet = request.get_json(force=True)
-    d = dataGet['Date']
+    d = dataGet['Date'].replace("-", ",")
+    Historical_price = pd.read_csv(
+        "https://raw.githubusercontent.com/gaurav613/fydp_bess/main/Data/Historical_price-byMonth.csv")
+    row_ = Historical_price[Historical_price['Date'] == d]
     bill_type = dataGet['Bill_type']
 
     if bill_type == "timeofuse":
-        dataReply = {
-            'off': 10,
-            'mid': 20,
-            'on': 30
-        }
+        if row_.empty:
+            print("null found")
+            dataReply = {
+                'off': None,
+                'mid': None,
+                'on': None
+            }
+        else:
+            dataReply = {
+                'off': round(row_.iloc[0]['off_P']/100, 2),
+                'mid': round(row_.iloc[0]['mid_P']/100, 2),
+                'on': round(row_.iloc[0]['on_P']/100, 2)
+            }
     if bill_type == "tiered":
-        dataReply = {
-            'lower': 10,
-            'upper': 20,
-        }
+        if row_.empty:
+            print("null found")
+            dataReply = {
+                'off': None,
+                'mid': None,
+                'on': None
+            }
+        else:
+            print("row found")
+            dataReply = {
+                'lower': round(row_.iloc[0]['lower_P']/100, 2),
+                'upper': round(row_.iloc[0]['upper_P']/100, 2),
+            }
 
     return jsonify(dataReply)
-
-
-@app.route('/_add_numbers')
-def add_numbers():
-    a = request.args.get('a', 0, type=int)
-    b = request.args.get('b', 0, type=int)
-    return jsonify(result=a + b)
 
 
 @app.route('/renderResults', methods=['GET', 'POST'])

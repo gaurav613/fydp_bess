@@ -153,29 +153,6 @@
     </div>
 </form>
 
-<script>
-    $(function() {
-      $('a#calculate').bind('click', function() {
-        $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
-          a: $('input[name="a"]').val(),
-          b: $('input[name="b"]').val()
-        }, function(data) {
-          $("#result").text(data.result);
-        });
-        return false;
-      });
-    });
-  </script>
-
-  <h1>jQuery Example</h1>
-  <p><input type=text size=5 name=a> +
-     <input type=text size=5 name=b> =
-     <span id=result>?</span>
-  <p><a id=calculate>calculate server side</a>
-
-
-
-
 <div class="container">
     <div class="card shadow1"
         style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;position: relative;">
@@ -359,7 +336,7 @@
                     <script>
                         $(document).ready(function(){
                             $("input[name='Month_Of_bill'").on('change', function(e) {
-                                var YearMonth_of_bill = $(this).val()+"-01"
+                                var YearMonth_of_bill = "("+$(this).val()+"-1)"
                                 var xml = new XMLHttpRequest();
                                 xml.open("POST","{{ url_for('get_autofill_input') }}",true);
                                 xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -371,7 +348,7 @@
                                 };// end function
 
                                 dataSend = JSON.stringify({
-                                    'Date': Date(YearMonth_of_bill),
+                                    'Date': YearMonth_of_bill,
                                     'Bill_type':'timeofuse'
                                 });
                                 xml.send(dataSend)
@@ -644,7 +621,7 @@
                     <script>
                         $(document).ready(function(){
                             $("input[name='Month_Of_bill'").on('change', function(e) {
-                                var YearMonth_of_bill = $(this).val()+"-01"
+                                var YearMonth_of_bill = "("+$(this).val()+"-1)";
                                 var xml = new XMLHttpRequest();
                                 xml.open("POST","{{ url_for('get_autofill_input') }}",true);
                                 xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -655,7 +632,7 @@
                                 };// end function
 
                                 dataSend = JSON.stringify({
-                                    'Date': Date(YearMonth_of_bill),
+                                    'Date': YearMonth_of_bill,
                                     'Bill_type':'tiered'
                                 });
                                 xml.send(dataSend)
