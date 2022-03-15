@@ -84,19 +84,28 @@ import plotly.graph_objects as go
 def output_page():
     headers = ["Cost Graph", "GHG Graph"]
     descriptions = ["Plotting cost for each month", "Plotting GHG for each month"]
-    fig = make_subplots(rows=2, cols=1)
+    fig = make_subplots(rows=2, cols=2)
     cost_rows = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     cost_cols = ['Month', 'Cost']
     cost_data = [[1, 114], [2, 119], [3, 122], [4, 102],[5, 135], [6, 114], [7, 190], [8, 122], [9, 102],[10, 180], [11, 127], [12, 194]]
     df_cost = pd.DataFrame(cost_data, index=cost_rows, columns=cost_cols)
+    
     fig.append_trace(go.Scatter(
     x=df_cost['Month'],
     y=df_cost['Cost'],
-    ), row=1, col=1)
+    name="Cost"), row=1, col=1)
+    fig.update_yaxes(title_text="Cost Savings", row=1, col=1)
+    fig.update_xaxes(title_text="Month", row=1, col=1)
+
+    fig.append_trace(go.Bar(
+    x=df_cost['Month'],
+    y=df_cost['Cost'],
+    name="Cost"),  row=1, col=2)
+    fig.update_xaxes(title_text="Month", row=1, col=2)
 
     
     # df_cost = pd.read_csv("Data/costs.csv")
-    fig_cost = px.line(df_cost, x="Month", y="Cost")
+    # fig_cost = px.line(df_cost, x="Month", y="Cost")
 
     ghg_rows = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     ghg_cols = ['Month', 'GHG']
@@ -107,9 +116,17 @@ def output_page():
     fig.append_trace(go.Scatter(
     x=df_ghg['Month'],
     y=df_ghg['GHG'],
-    ), row=2, col=1)
+    name="GHG"), row=2, col=1)
+    fig.update_yaxes(title_text="GHG Reduction", row=2, col=1)
+    fig.update_xaxes(title_text="Month", row=2, col=1)
 
-    fig.update_layout(height=600, width=600, title_text="COST AND GHG GRAPHS")
+    fig.append_trace(go.Bar(
+    x=df_ghg['Month'],
+    y=df_ghg['GHG'],
+    name="GHG"), row=2, col=2)
+    fig.update_xaxes(title_text="Month", row=2, col=2)
+
+    fig.update_layout(height=1500, width=1500, title_text="COST AND GHG GRAPHS")
     # fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
     graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
