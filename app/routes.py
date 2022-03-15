@@ -3,6 +3,7 @@ from flask import jsonify, redirect, render_template, request, url_for, session,
 from app.models import Item, User
 from app.forms import RegisterForm, Tiered_Form, Timeofuse_Form
 from datetime import timedelta
+import datetime
 from app import db
 
 app.permanent_session_lifetime = timedelta(seconds=10)
@@ -118,7 +119,7 @@ def renderInputs2():
             formDetails['On_Peak_Value'] = form.TimeofUse_On_Peak_Value.data
             formDetails['On_Peak_KWH'] = form.TimeofUse_On_Peak_KWH.data
             formDetails['On_Peak_Total'] = form.TimeofUse_On_Peak_Total.data
-            formDetails['Month_of_bill'] = form.Month_Of_bill.data
+            formDetails['Month_of_bill'] = form.Month_Of_bill.data.strftime("%m/%d/%Y")
             formDetails['DeliveryCharges'] = form.DeliveryCharges.data
             formDetails['RegulatoryCharges'] = form.RegulatoryCharges.data
             formDetails['TotalElectricityCost'] = form.TotalElectricityCost.data
@@ -133,7 +134,7 @@ def renderInputs2():
             formDetails['Tiered_Value'] = form.Tiered_Value.data
             formDetails['Tiered_KWH'] = form.Tiered_KWH.data
             formDetails['Tiered_Total'] = form.Tiered_Total.data
-            formDetails['Month_of_bill'] = form.Month_Of_bill.data
+            formDetails['Month_of_bill'] = form.Month_Of_bill.data.strftime("%m/%d/%Y")
             formDetails['DeliveryCharges'] = form.DeliveryCharges.data
             formDetails['RegulatoryCharges'] = form.RegulatoryCharges.data
             formDetails['TotalElectricityCost'] = form.TotalElectricityCost.data
@@ -152,16 +153,10 @@ import json, ast
 def render_Results():
     complete_form = request.args['Complete_form']
     scrollto_results = request.args['scroll']
-    complete_form = complete_form.replace("'","\"").strip(" ")
-    print(complete_form)
-    
-    conv_form = json.loads(complete_form)
-    print(type(conv_form)) 
-
-    # print("After conversion: ", convertedDict)
-    # print(type(convertedDict))    
-    result = optimize(complete_form)
-    dataframe = result[1]
+    # complete_form = complete_form.replace("'","\"").strip(" ")
+    complete_form_dict = eval(complete_form) 
+    result = optimize(complete_form_dict)
+    # dataframe = result[1]
     dataframe = result
 
     # DO THE MIP MODEL PROCESS HERE AND PASS IN THE RESULTS AS A PARAM

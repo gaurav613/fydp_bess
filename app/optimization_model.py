@@ -47,8 +47,8 @@ def optimize(user_inputs):
         UF_m = user_inputs['Off_Peak_KWH']
 
         # Month of the user's provided eletricity bill
-        month_bill = user_inputs['Month_of_bill'].month
-
+        month_bill = int(user_inputs['Month_of_bill'][:2])
+        # print(month_bill)
         # Nearest geographic location of the household
         user_geo = 'Toronto'
 
