@@ -7,6 +7,7 @@ class Config:
     SECRET_KEY = os.getenv(secrets.token_urlsafe(16), "this-is-the-default-key")
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
+    SESSION_COOKIE_SECURE = False
 
 class ProdConfig(Config):
     if is_prod:
