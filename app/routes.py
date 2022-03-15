@@ -2,11 +2,13 @@ from app import app
 from flask import jsonify, redirect, render_template, request, url_for, session, flash
 from app.models import Item, User
 from app.forms import RegisterForm, Tiered_Form, Timeofuse_Form
-from datetime import timedelta
+from datetime import date, timedelta
 from app import db
+import requests
 from app.forms import LOCATION_CHOICES
 
-app.permanent_session_lifetime = timedelta(seconds=10)
+# s = requests.session()
+# app.permanent_session_lifetime = timedelta(seconds=10)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -101,12 +103,13 @@ def renderInputs2():
     billtype = request.args.get("billtype")
     form = None
     if billtype == "timeofuse":
-        form = Timeofuse_Form(Location='9')
+        form = Timeofuse_Form(Location='9', csrf_enabled=False)
         print("============INITIALIZED TIMEOFUSE FORM============")
         if form.validate_on_submit():
             formDetails = {}
             formDetails["BillType"] = "timeofuse"
-            formDetails['Location'] = dict(LOCATION_CHOICES).get(form.Location.data)
+            formDetails['Location'] = dict(
+                LOCATION_CHOICES).get(form.Location.data)
             formDetails['Off_Peak_Value'] = form.TimeofUse_Off_Peak_Value.data
             formDetails['Off_Peak_KWH'] = form.TimeofUse_Off_Peak_KWH.data
             formDetails['Off_Peak_Total'] = form.TimeofUse_Off_Peak_Total.data
@@ -123,12 +126,13 @@ def renderInputs2():
             flash(f"Running model now for timeofuse", "info")
             return redirect(url_for("render_Results", Complete_form=formDetails, scroll="scrollto_results"))
     if billtype == "tiered":
-        form = Tiered_Form(Location='9')
+        form = Tiered_Form(Location='9', csrf_enabled=False)
         print("============INITIALIZED TIERED FORM============")
         if form.validate_on_submit():
             formDetails = {}
             formDetails["BillType"] = "tiered"
-            formDetails['Location'] = dict(LOCATION_CHOICES).get(form.Location.data)
+            formDetails['Location'] = dict(
+                LOCATION_CHOICES).get(form.Location.data)
             formDetails['Tiered_LowerValue'] = form.Tiered_LowerValue.data
             formDetails['Tiered_LowerKWH'] = form.Tiered_LowerKWH.data
             formDetails['Tiered_LowerTotal'] = form.Tiered_LowerTotal.data
@@ -147,6 +151,34 @@ def renderInputs2():
             flash(f'{key} -> {value}', category='danger')
 
     return render_template('home.html', newelectricity_form=form, scroll=scroll, billtype=billtype)
+
+
+@app.route('/get_autofill_input', methods=['GET', 'POST'])
+def get_autofill_input():
+    dataGet = request.get_json(force=True)
+    d = dataGet['Date']
+    bill_type = dataGet['Bill_type']
+
+    if bill_type == "timeofuse":
+        dataReply = {
+            'off': 10,
+            'mid': 20,
+            'on': 30
+        }
+    if bill_type == "tiered":
+        dataReply = {
+            'lower': 10,
+            'upper': 20,
+        }
+
+    return jsonify(dataReply)
+
+
+@app.route('/_add_numbers')
+def add_numbers():
+    a = request.args.get('a', 0, type=int)
+    b = request.args.get('b', 0, type=int)
+    return jsonify(result=a + b)
 
 
 @app.route('/renderResults', methods=['GET', 'POST'])

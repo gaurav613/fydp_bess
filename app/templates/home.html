@@ -153,6 +153,29 @@
     </div>
 </form>
 
+<script>
+    $(function() {
+      $('a#calculate').bind('click', function() {
+        $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+          a: $('input[name="a"]').val(),
+          b: $('input[name="b"]').val()
+        }, function(data) {
+          $("#result").text(data.result);
+        });
+        return false;
+      });
+    });
+  </script>
+
+  <h1>jQuery Example</h1>
+  <p><input type=text size=5 name=a> +
+     <input type=text size=5 name=b> =
+     <span id=result>?</span>
+  <p><a id=calculate>calculate server side</a>
+
+
+
+
 <div class="container">
     <div class="card shadow1"
         style="width: 18rem; margin: 25px 25px 25px 25px; align-items: center; border-radius: 10px;position: relative;">
@@ -314,10 +337,11 @@
                             {% endwith %}
                         </span>
                     </div>
+
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.Month_Of_bill.label(class="input-lable-format")}}</span>
-                        <span>{{newelectricity_form.Month_Of_bill(class="form-control")}}
+                        <span>{{newelectricity_form.Month_Of_bill(class="form-control", id=Month_Of_bill)}}
                             {% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
                             {% for category, message in messages %}
@@ -331,6 +355,29 @@
                             {% endwith %}
                         </span>
                     </div>
+
+                    <script>
+                        $(document).ready(function(){
+                            $("input[name='Month_Of_bill'").on('change', function(e) {
+                                var YearMonth_of_bill = $(this).val()+"-01"
+                                var xml = new XMLHttpRequest();
+                                xml.open("POST","{{ url_for('get_autofill_input') }}",true);
+                                xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                                xml.onload = function(){
+                                    var dataReply = JSON.parse(this.responseText)
+                                    document.getElementById("TimeofUse_Off_Peak_KWH").value = dataReply['off'];
+                                    document.getElementById("TimeofUse_Mid_Peak_KWH").value = dataReply['mid'];
+                                    document.getElementById("TimeofUse_On_Peak_KWH").value = dataReply['on'];
+                                };// end function
+
+                                dataSend = JSON.stringify({
+                                    'Date': Date(YearMonth_of_bill),
+                                    'Bill_type':'timeofuse'
+                                });
+                                xml.send(dataSend)
+                            });
+                        });
+                    </script>
 
                     <div class="table-responsive">
                         <table class="table table-hover">
@@ -593,6 +640,28 @@
                             {% endwith %}
                         </span>
                     </div>
+
+                    <script>
+                        $(document).ready(function(){
+                            $("input[name='Month_Of_bill'").on('change', function(e) {
+                                var YearMonth_of_bill = $(this).val()+"-01"
+                                var xml = new XMLHttpRequest();
+                                xml.open("POST","{{ url_for('get_autofill_input') }}",true);
+                                xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                                xml.onload = function(){
+                                    var dataReply = JSON.parse(this.responseText)
+                                    document.getElementById("Tiered_UpperKWH").value = dataReply['upper'];
+                                    document.getElementById("Tiered_LowerKWH").value = dataReply['lower'];
+                                };// end function
+
+                                dataSend = JSON.stringify({
+                                    'Date': Date(YearMonth_of_bill),
+                                    'Bill_type':'tiered'
+                                });
+                                xml.send(dataSend)
+                            });
+                        });
+                    </script>
 
                     <div class="table-responsive">
                         <table class="table table-hover">
