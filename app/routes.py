@@ -10,9 +10,6 @@ import requests
 import pandas as pd
 from app.forms import LOCATION_CHOICES
 
-# s = requests.session()
-# app.permanent_session_lifetime = timedelta(seconds=10)
-
 
 @app.route("/register", methods=["GET", "POST"])
 def register_page():
@@ -167,7 +164,6 @@ def get_autofill_inputKWH():
 
     if bill_type == "timeofuse":
         if row_.empty:
-            print("null found")
             dataReply = {
                 'off': None,
                 'mid': None,
@@ -181,14 +177,11 @@ def get_autofill_inputKWH():
             }
     if bill_type == "tiered":
         if row_.empty:
-            print("null found")
             dataReply = {
-                'off': None,
-                'mid': None,
-                'on': None
+                'lower': None,
+                'upper': None
             }
         else:
-            print("row found")
             dataReply = {
                 'lower': round(row_.iloc[0]['lower_P']/100, 2),
                 'upper': round(row_.iloc[0]['upper_P']/100, 2),

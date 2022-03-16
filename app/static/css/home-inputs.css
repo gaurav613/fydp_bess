@@ -155,3 +155,23 @@ select {
   margin-right: 5px;
   padding-top: 10px;
 }
+
+.inputs-usage-table{
+  display: flex;
+}
+.inputs-question-mark-yellow{
+  padding: 10px 10px 10px 10px
+}
+
+.table thead th {
+  vertical-align: inherit;
+  text-align: center;
+}
+
+.modal-footer {
+  justify-content: center;
+}
+
+.inputs-Location-selectalign{
+  width: 40%;
+}
