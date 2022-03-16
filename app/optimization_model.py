@@ -343,6 +343,33 @@ def optimize(user_inputs):
 
   GHG_red = [np.round(Act_GHG[i-1] - Est_GHG[i-1],2) for i in months]
 
+  ## Calculating outage metrics
+  # Intialize outage supply - hours of eletricity supplied by the powerwall during 0:off-peak, 1:mid-peak, and 2:on-peak periods
+  # based on the usage of a household, up to the maximum discharge rate 
+  outage_supply = [0 for i in range(3)]
+
+  # Set the indexes of the first hours of off-peak, mid-peak, and on-peak periods
+  first_hour_winter = [0,11,7]
+  first_hour_summer = [0,7,11]
+  if (month_bill in months_winter):
+    for i in range(3):
+      if (PU_hm[month_bill-1][first_hour_winter[i]] < rate):
+        outage_supply[i] = capacity/PU_hm[month_bill-1][first_hour_winter[i]]
+      else:
+        outage_supply[i] = capacity/rate
+  elif (month_bill in months_summer):
+    for i in range(3):
+      if (PU_hm[month_bill-1][first_hour_summer[i]] < rate):
+        outage_supply[i] = capacity/PU_hm[month_bill-1][first_hour_summer[i]]
+      else:
+        outage_supply[i] = capacity/rate 
+
+  # Convert decimal hours into hour, minute string format
+  Duration_string = ["" for i in range(3)]
+  for i in range(3):
+    Duration_string[i] = ("%d hours, %02d minutes" % (int(outage_supply[i]), (outage_supply[i]*60) % 60))
+    
+    
   #### Formatting output data
   cost_output = pd.DataFrame(columns={'Year','Month','Act_cost','Est_cost','Cost_savings'})
   cost_output = pd.DataFrame(columns=['Year','Month','Act_cost','Est_cost','Cost_savings'])
@@ -362,6 +389,14 @@ def optimize(user_inputs):
                               'Est_GHG': Est_GHG,
                               'GHG_red': GHG_red,
                               })
+  
+  outage_output = pd.DataFrame(columns={'Period','Month','Hours','Duration_String'})
+  outage_df = {'Period':['off-peak','mid-peak','on-peak'],
+               'Month':[month_bill for i in range(3)],
+               'Hours': outage_supply,
+               'Duration_String':Duration_string}
+  
+  outage_output = outage_output.append(pd.DataFrame(outage_df), ignore_index=False)
 
   return cost_output
   ####
