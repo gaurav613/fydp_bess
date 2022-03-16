@@ -497,7 +497,7 @@
                                 xml.onload = function () {
                                     var dataReply = JSON.parse(this.responseText)
                                     if (dataReply['off'] != null) {
-                                        question_img = "<img class='inputs-question-mark' src='{{url_for('static', filename='question-mark-yellow.png')}}'> </img>";
+                                        question_img = "<img class='inputs-question-mark' src='{{url_for('static', filename='info-icon.png')}}'> </img>";
                                         var isEmpty = $("#timeofuseinputs-question-mark-yellow").html() === "";
                                         if (isEmpty == true) {
                                             document.getElementById("timeofuseinputs-question-mark-yellow").title = "Some fields have been auto-filled. To have the most accurate results, please review those fields.";
@@ -868,7 +868,7 @@
                                 xml.onload = function () {
                                     var dataReply = JSON.parse(this.responseText)
                                     if (dataReply['upper'] != null) {
-                                        question_img = "<img class='inputs-question-mark' src='{{url_for('static', filename='question-mark-yellow.png')}}'> </img>";
+                                        question_img = "<img class='inputs-question-mark' src='{{url_for('static', filename='info-icon.png')}}'> </img>";
                                         var isEmpty = $("#tieredinputs-question-mark-yellow").html() === "";
                                         if (isEmpty == true) {
                                             // document.getElementById("tieredinputs-question-mark-yellow").title = "Some fields have been auto-filled. To have the most accurate results, please review those fields.";
@@ -1197,7 +1197,7 @@
         <!-- ENABLE TOOLTIPS ON HOVER -->
         <script>
             $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
+                $('[data-toggle="tooltip"]').tooltip({show: {effect:"none", delay:0}})
             })
         </script>
 
