@@ -2,6 +2,9 @@ from app import app
 from flask import jsonify, redirect, render_template, request, url_for, session, flash
 from app.models import Item, User
 from app.forms import RegisterForm, Tiered_Form, Timeofuse_Form
+
+from datetime import timedelta
+import datetime
 from app import db
 import pandas as pd
 from app.forms import LOCATION_CHOICES
@@ -115,7 +118,7 @@ def renderInputs2():
             formDetails['On_Peak_Value'] = form.TimeofUse_On_Peak_Value.data
             formDetails['On_Peak_KWH'] = form.TimeofUse_On_Peak_KWH.data
             formDetails['On_Peak_Total'] = form.TimeofUse_On_Peak_Total.data
-            formDetails['Month_of_bill'] = form.Month_Of_bill.data
+            formDetails['Month_of_bill'] = form.Month_Of_bill.data.strftime("%m/%d/%Y")
             formDetails['DeliveryCharges'] = form.DeliveryCharges.data
             formDetails['RegulatoryCharges'] = form.RegulatoryCharges.data
             formDetails['TotalElectricityCost'] = form.TotalElectricityCost.data
@@ -127,8 +130,12 @@ def renderInputs2():
         if form.validate_on_submit():
             formDetails = {}
             formDetails["BillType"] = "tiered"
-            formDetails['Location'] = dict(
-                LOCATION_CHOICES).get(form.Location.data)
+
+            formDetails['Tiered_Value'] = form.Tiered_Value.data
+            formDetails['Tiered_KWH'] = form.Tiered_KWH.data
+            formDetails['Tiered_Total'] = form.Tiered_Total.data
+            formDetails['Month_of_bill'] = form.Month_Of_bill.data.strftime("%m/%d/%Y")
+            formDetails['Location'] = dict(LOCATION_CHOICES).get(form.Location.data)
             formDetails['Tiered_LowerValue'] = form.Tiered_LowerValue.data
             formDetails['Tiered_LowerKWH'] = form.Tiered_LowerKWH.data
             formDetails['Tiered_LowerTotal'] = form.Tiered_LowerTotal.data
@@ -147,6 +154,10 @@ def renderInputs2():
             flash(f'{key} -> {value}', category='danger')
 
     return render_template('home.html', newelectricity_form=form, scroll=scroll, billtype=billtype)
+
+
+from .optimization_model import optimize
+import json, ast
 
 
 @app.route('/get_autofill_inputKWH', methods=['GET', 'POST'])
@@ -208,11 +219,18 @@ def get_autofill_inputTotal():
     return jsonify(dataReply)
 
 
+
 @app.route('/renderResults', methods=['GET', 'POST'])
 def render_Results():
     complete_form = request.args['Complete_form']
     scrollto_results = request.args['scroll']
-    dataframe = None
+    # complete_form = complete_form.replace("'","\"").strip(" ")
+    complete_form_dict = eval(complete_form) 
+    result = optimize(complete_form_dict)
+    # dataframe = result[1]
+    dataframe = result
 
     # DO THE MIP MODEL PROCESS HERE AND PASS IN THE RESULTS AS A PARAM
-    return render_template('home.html', savings=dataframe, complete_form=complete_form, scrollto_results=scrollto_results)
+    return render_template('home.html', savings=[dataframe], complete_form=complete_form, scrollto_results=scrollto_results)
+
+
