@@ -109,7 +109,6 @@
 
     }
 
-
     #title2{
         position:absolute;
         top: 25%;
@@ -141,6 +140,7 @@
         align-items: center;
         z-index: 1;
     }
+
 
     .site-header {
         z-index: -1;
@@ -229,18 +229,6 @@
             4px 4px 5px 0px #0001;
         position: relative;
         top:-140px;
-    }
-
-    .shadow1:hover{
-        border-color:rgb(11, 233, 233);
-    }
-
-    .shadow2:hover{
-        border-color:rgb(29, 241, 29);
-    }
-
-    .shadow3:hover{
-        border-color:rgb(248, 37, 37);
     }
 
     .btn:hover {
