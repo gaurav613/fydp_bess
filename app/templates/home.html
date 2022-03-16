@@ -472,7 +472,9 @@
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.Month_Of_bill.label(class="input-lable-format")}}</span>
-                        <span class="inputs-Location-selectalign">{{newelectricity_form.Month_Of_bill(class="form-control", id=Month_Of_bill)}}
+                        <span
+                            class="inputs-Location-selectalign">{{newelectricity_form.Month_Of_bill(class="form-control",
+                            id=Month_Of_bill)}}
                             {% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
                             {% for category, message in messages %}
@@ -497,14 +499,20 @@
                                 xml.onload = function () {
                                     var dataReply = JSON.parse(this.responseText)
                                     if (dataReply['off'] != null) {
-                                        question_img = "<img class='inputs-question-mark' src='{{url_for('static', filename='info-icon.png')}}'> </img>";
+                                        question_img = "<img id=\"info-1\" class='inputs-question-mark' src='{{url_for('static', filename='info-icon.png')}}'> </img>";
                                         var isEmpty = $("#timeofuseinputs-question-mark-yellow").html() === "";
                                         if (isEmpty == true) {
-                                            document.getElementById("timeofuseinputs-question-mark-yellow").title = "Some fields have been auto-filled. To have the most accurate results, please review those fields.";
                                             document.getElementById("timeofuseinputs-question-mark-yellow").innerHTML = question_img;
+
+                                            tippy('#info-1', {
+                                                content: '<strong><span style="color: aqua;">Price per KWH</span></strong> fields have been <strong>auto-filled</strong>. To have the most accurate results, please review those fields to match your bill!.',
+                                                placement: 'top',
+                                                arrow: true,
+                                                interactive: true,
+                                                allowHTML: true,
+                                            });
                                         }
                                     } else {
-                                        document.getElementById("timeofuseinputs-question-mark-yellow").title = "";
                                         document.getElementById("timeofuseinputs-question-mark-yellow").innerHTML = "";
                                     }
                                     document.getElementById("TimeofUse_Off_Peak_KWH").value = dataReply['off'];
@@ -756,13 +764,14 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="inputs-question-mark-yellow" id="timeofuseinputs-question-mark-yellow"
-                            data-toggle="tooltip" title=""></div>
+                        <div class="inputs-question-mark-yellow" id="timeofuseinputs-question-mark-yellow"></div>
                     </div>
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.DeliveryCharges.label(class="input-lable-format")}}</span>
-                        <span class="inputs-Location-selectalign">{{newelectricity_form.DeliveryCharges(class="form-control", placeholder="$")}}
+                        <span
+                            class="inputs-Location-selectalign">{{newelectricity_form.DeliveryCharges(class="form-control",
+                            placeholder="$")}}
                             {% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
                             {% for category, message in messages %}
@@ -780,7 +789,9 @@
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.RegulatoryCharges.label(class="input-lable-format")}}</span>
-                        <span class="inputs-Location-selectalign">{{newelectricity_form.RegulatoryCharges(class="form-control", placeholder="$")}}
+                        <span
+                            class="inputs-Location-selectalign">{{newelectricity_form.RegulatoryCharges(class="form-control",
+                            placeholder="$")}}
                             {% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
                             {% for category, message in messages %}
@@ -798,7 +809,9 @@
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.TotalElectricityCost.label(class="input-lable-format")}}</span>
-                        <span class="inputs-Location-selectalign">{{newelectricity_form.TotalElectricityCost(class="form-control", placeholder="$")}}
+                        <span
+                            class="inputs-Location-selectalign">{{newelectricity_form.TotalElectricityCost(class="form-control",
+                            placeholder="$")}}
                             {% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
                             {% for category, message in messages %}
@@ -843,7 +856,8 @@
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.Month_Of_bill.label(class="input-lable-format")}}</span>
-                        <span class="inputs-Location-selectalign">{{newelectricity_form.Month_Of_bill(class="form-control")}}
+                        <span
+                            class="inputs-Location-selectalign">{{newelectricity_form.Month_Of_bill(class="form-control")}}
                             {% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
                             {% for category, message in messages %}
@@ -868,15 +882,20 @@
                                 xml.onload = function () {
                                     var dataReply = JSON.parse(this.responseText)
                                     if (dataReply['upper'] != null) {
-                                        question_img = "<img class='inputs-question-mark' src='{{url_for('static', filename='info-icon.png')}}'> </img>";
+                                        question_img = "<img id=\"info-2\" class='inputs-question-mark' src='{{url_for('static', filename='info-icon.png')}}'> </img>";
                                         var isEmpty = $("#tieredinputs-question-mark-yellow").html() === "";
                                         if (isEmpty == true) {
-                                            // document.getElementById("tieredinputs-question-mark-yellow").title = "Some fields have been auto-filled. To have the most accurate results, please review those fields.";
-                                            document.getElementById("tieredinputs-question-mark-yellow").setAttribute("title", "Some fields have been auto-filled. To have the most accurate results, please review those fields.");
                                             document.getElementById("tieredinputs-question-mark-yellow").innerHTML = question_img;
+
+                                            tippy('#info-2', {
+                                                content: '<strong><span style="color: aqua;">Price per KWH</span></strong> fields have been <strong>auto-filled</strong>. To have the most accurate results, please review those fields to match your bill!.',
+                                                placement: 'top',
+                                                arrow: true,
+                                                interactive: true,
+                                                allowHTML: true,
+                                            });
                                         }
                                     } else {
-                                        document.getElementById("tieredinputs-question-mark-yellow").title = "";
                                         document.getElementById('tieredinputs-question-mark-yellow').innerHTML = "";
                                     }
                                     document.getElementById("Tiered_UpperKWH").value = dataReply['upper'];
@@ -1060,7 +1079,9 @@
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.DeliveryCharges.label(class="input-lable-format")}}</span>
-                        <span class="inputs-Location-selectalign">{{newelectricity_form.DeliveryCharges(class="form-control", placeholder="$")}}
+                        <span
+                            class="inputs-Location-selectalign">{{newelectricity_form.DeliveryCharges(class="form-control",
+                            placeholder="$")}}
                             {% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
                             {% for category, message in messages %}
@@ -1078,7 +1099,9 @@
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.RegulatoryCharges.label(class="input-lable-format")}}</span>
-                        <span class="inputs-Location-selectalign">{{newelectricity_form.RegulatoryCharges(class="form-control", placeholder="$")}}
+                        <span
+                            class="inputs-Location-selectalign">{{newelectricity_form.RegulatoryCharges(class="form-control",
+                            placeholder="$")}}
                             {% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
                             {% for category, message in messages %}
@@ -1097,7 +1120,9 @@
                     <div class="form-row">
                         <span
                             class="col-6">{{newelectricity_form.TotalElectricityCost.label(class="input-lable-format")}}</span>
-                        <span class="inputs-Location-selectalign">{{newelectricity_form.TotalElectricityCost(class="form-control", placeholder="$")}}
+                        <span
+                            class="inputs-Location-selectalign">{{newelectricity_form.TotalElectricityCost(class="form-control",
+                            placeholder="$")}}
                             {% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
                             {% for category, message in messages %}
@@ -1194,13 +1219,9 @@
         </script>
         {% endif %}
 
-        <!-- ENABLE TOOLTIPS ON HOVER -->
-        <script>
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip({show: {effect:"none", delay:0}})
-            })
-        </script>
-
+        <!-- ENABLE TOOLTIPS ON HOVER USING TiPPY.JS-->
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/tippy.js@6"></script>
 
         <!-- END OF CONTENT -->
         {% endblock%}
