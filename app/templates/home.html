@@ -350,17 +350,16 @@
             <form method="POST" action="/renderInputs1" class="electricity-input-form-billtype" id="electricity_form">
                 <h5>Choose your bill type</h5>
                 <div class="input-questions-billtype">
-                    <input id="mySubmit1" type="submit" value="Time of Use" name="timeofuse"
+                    <input class="front" id="mySubmit1" type="submit" value="Time of Use" name="timeofuse"
                         style="height:40px; width:150px"></input>
                 </div>
                 <div class="input-questions-billtype">
-                    <input id="mySubmit2" type="submit" value="Tiered" name="tiered"
+                    <input class="front" id="mySubmit2" type="submit" value="Tiered" name="tiered"
                         style="height:40px; width:150px"></input>
                 </div>
                 <div class="input-questions-billtype">
                     <!-- Button to trigger popup -->
-                    <button class="inputs-question-mark-btn" type="button" data-toggle="modal"
-                        data-target="#exampleModal">
+                    <button class="inputs-question-mark-btn" type="button" data-toggle="modal" data-target="#BillModal">
                         <img class="inputs-question-mark"
                             src="{{url_for('static', filename='question-mark.png')}}"></img>
                     </button>
@@ -373,12 +372,12 @@
 {%endif%}
 
 <!-- popup to display example bills -->
-<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="BillModal" tabindex="-1" role="dialog" aria-labelledby="BillModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Types of Electricity Bills</h5>
+                <h5 class="modal-title" id="BillModalLabel">Types of Electricity Bills</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -448,6 +447,13 @@
                 <!-- TIMEOFUSE FORM -->
                 {% if billtype=="timeofuse" %}
                 {% if newelectricity_form %}
+
+                <script>
+                    (document.getElementById("mySubmit1")).setAttribute("class", "front2");
+                    (document.getElementById("mySubmit2")).setAttribute("class", "front");
+                </script>
+
+
                 <form method="POST" class="electricity-input-form" id="electricity_form">
                     {{newelectricity_form.hidden_tag()}}
 
@@ -834,6 +840,12 @@
 
                 <!-- TIERED FORM -->
                 {% elif billtype=="tiered"%}
+
+                <script>
+                    (document.getElementById("mySubmit1")).setAttribute("class", "front");
+                    (document.getElementById("mySubmit2")).setAttribute("class", "front2");
+                </script>
+
                 <form method="POST" class="electricity-input-form" id="electricity_form">
                     {{newelectricity_form.hidden_tag()}}
                     <div class="form-row-Location">
