@@ -212,9 +212,9 @@ def renderInputs2():
             formDetails = {}
             formDetails["BillType"] = "tiered"
 
-            formDetails['Tiered_Value'] = form.Tiered_Value.data
-            formDetails['Tiered_KWH'] = form.Tiered_KWH.data
-            formDetails['Tiered_Total'] = form.Tiered_Total.data
+            # formDetails['Tiered_Value'] = form.Tiered_Value.data
+            # formDetails['Tiered_KWH'] = form.Tiered_KWH.data
+            # formDetails['Tiered_Total'] = form.Tiered_Total.data
             formDetails['Month_of_bill'] = form.Month_Of_bill.data.strftime("%m/%d/%Y")
             formDetails['Location'] = dict(LOCATION_CHOICES).get(form.Location.data)
             formDetails['Tiered_LowerValue'] = form.Tiered_LowerValue.data
@@ -307,11 +307,50 @@ def render_Results():
     scrollto_results = request.args['scroll']
     # complete_form = complete_form.replace("'","\"").strip(" ")
     complete_form_dict = eval(complete_form) 
+    # print(complete_form_dict)
     result = optimize(complete_form_dict)
-    # dataframe = result[1]
-    dataframe = result
+    cost_savings = result[0]
 
+
+    ## plotting the results
+    month_map = {1:"Jan", 2:"Feb", 3:"Mar", 4:"Apr", 5:"May", 6:"Jun", 7:"Jul", 8:"Aug", 9:"Sep", 10:"Oct", 11:"Nov", 12:"Dec"}
+
+    cost_savings['Month_str'] = cost_savings['Month'].map(month_map)
+    cost_savings['Date'] = cost_savings['Month_str'] + cost_savings['Year'].astype(str)
+    fig = make_subplots(rows=1, cols=2)
+
+    fig.append_trace(go.Scatter(
+    x=cost_savings['Date'],
+    y=cost_savings['Act_cost'],
+    name="Original Cost"), row=1, col=1)
+    headers = ["Cost Graph", "GHG Graph"]
+
+    descriptions = ["Plotting cost for each month", "Plotting GHG for each month"]
+
+    fig.append_trace(go.Scatter(
+    x=cost_savings['Date'],
+    y=cost_savings['Est_cost'],
+    name="BESST Cost"), row=1, col=1)
+
+    fig.update_yaxes(title_text="Cost Savings", row=1, col=1)
+    fig.update_xaxes(title_text="Month", row=1, col=1)
+
+    fig.append_trace(go.Bar(
+    x=cost_savings['Date'],
+    y=cost_savings['Act_cost'],
+    name="Original Cost"), row=1, col=2)
+
+    fig.append_trace(go.Bar(
+    x=cost_savings['Date'],
+    y=cost_savings['Est_cost'],
+    name="BESST Cost"), row=1, col=2)
+    fig.update_yaxes(title_text="Cost Savings", row=1, col=2)
+    fig.update_xaxes(title_text="Month", row=1, col=2)
+    # dataframe = result
+    graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    # graphJSON_ghg = json.dumps(fig_ghg, cls=plotly.utils.PlotlyJSONEncoder) , graphJSON2= graphJSON_ghg
+    return render_template('visualization.html', graphJSON1=graphJSON_cost, headers=headers,descriptions=descriptions)
     # DO THE MIP MODEL PROCESS HERE AND PASS IN THE RESULTS AS A PARAM
-    return render_template('home.html', savings=[dataframe], complete_form=complete_form, scrollto_results=scrollto_results)
+    # return render_template('home.html', savings=[dataframe], complete_form=complete_form, scrollto_results=scrollto_results)
 
 
