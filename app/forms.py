@@ -37,7 +37,7 @@ class Tiered_Form(FlaskForm):
             )
 
     Location = SelectField(u'Nearest Location within Ontario', choices=LOCATION_CHOICES, validators=[InputRequired("Please choose your nearest location.")])
-    Month_Of_bill = MonthField(u'Month of bill', validators=[InputRequired()])
+    Month_Of_bill = MonthField(u'Month of bill', id="Month_Of_bill", validators=[InputRequired()])
     Tiered_LowerValue = FloatField(label='Lower', validators=[InputRequired(), NumberRange(min=0,max=99999)])
     Tiered_LowerKWH = FloatField(label='Tiered Lower KWH', validators=[InputRequired(), NumberRange(min=0,max=99999)])
     Tiered_LowerTotal = FloatField(label='Tiered Lower Total', validators=[InputRequired(), NumberRange(min=0,max=99999)])
@@ -58,7 +58,7 @@ class Timeofuse_Form(FlaskForm):
             )
 
     Location = SelectField(u'Nearest Location within Ontario', choices=LOCATION_CHOICES, validators=[InputRequired()])
-    Month_Of_bill = MonthField(u'Month of bill', validators=[InputRequired()])
+    Month_Of_bill = MonthField(u'Month of bill', id="Month_Of_bill", validators=[InputRequired()])
     TimeofUse_Off_Peak_Value = FloatField(label='Off Peak', validators=[InputRequired(), NumberRange(min=0,max=99999)])
     TimeofUse_Off_Peak_KWH = FloatField(label='KWH', validators=[InputRequired(), NumberRange(min=0,max=99999)])
     TimeofUse_Off_Peak_Total = FloatField(label='Total', validators=[InputRequired(), NumberRange(min=0,max=99999)])
