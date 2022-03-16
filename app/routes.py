@@ -87,21 +87,30 @@ def output_page():
     descriptions = ["Plotting cost for each month", "Plotting GHG for each month"]
     fig = make_subplots(rows=2, cols=2)
     cost_rows = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    cost_cols = ['Month', 'Cost']
-    cost_data = [[1, 114], [2, 119], [3, 122], [4, 102],[5, 135], [6, 114], [7, 190], [8, 122], [9, 102],[10, 180], [11, 127], [12, 194]]
+    cost_cols = [ 'Month', 'Act_cost','Est_cost','Cost_savings'] # Year	Month	Act_cost	Est_cost	Cost_savings
+    cost_data = [[1, 179.63, 160.91, 18.72], [2, 170.63, 140.91, 18.72], [3, 189.63, 168.91, 18.72], [4, 199.63, 180.91, 18.72],[5, 178.63, 164.91, 18.72], [6, 188.63, 176.91, 18.72], [7, 180.63, 168.91, 18.72], [8, 175.63, 161.91, 18.72], [9, 170.63, 158.91, 18.72],[10, 168.63, 156.91, 18.72], [11, 190.63, 173.91, 18.72], [12, 159.63, 140.91, 18.72]]
     df_cost = pd.DataFrame(cost_data, index=cost_rows, columns=cost_cols)
     
     fig.append_trace(go.Scatter(
     x=df_cost['Month'],
-    y=df_cost['Cost'],
-    name="Cost"), row=1, col=1)
+    y=df_cost['Act_cost'],
+    name="Original Cost"), row=1, col=1)
+    fig.append_trace(go.Scatter(
+    x=df_cost['Month'],
+    y=df_cost['Est_cost'],
+    name="BESST Cost"), row=1, col=1)
     fig.update_yaxes(title_text="Cost Savings", row=1, col=1)
     fig.update_xaxes(title_text="Month", row=1, col=1)
 
     fig.append_trace(go.Bar(
     x=df_cost['Month'],
-    y=df_cost['Cost'],
-    name="Cost"),  row=1, col=2)
+    y=df_cost['Act_cost'],
+    name="Original Cost"), row=1, col=2)
+    fig.append_trace(go.Bar(
+    x=df_cost['Month'],
+    y=df_cost['Est_cost'],
+    name="BESST Cost"), row=1, col=2)
+    fig.update_yaxes(title_text="Cost Savings", row=1, col=2)
     fig.update_xaxes(title_text="Month", row=1, col=2)
 
     
