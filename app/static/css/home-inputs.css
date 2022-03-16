@@ -30,6 +30,29 @@
   padding: 10px 10px 10px 10px;
 }
 
+.front {
+  border-radius: 3px;
+  cursor: pointer;
+  border-style: dashed;
+}
+
+.front:hover {
+  background: #007bff;
+  color: white;
+}
+
+.front2 {
+  height: 50px;
+  width: 200px;
+  border-radius: 3px;
+  align-items: center;
+  text-decoration: none;
+  font-size: 1.25rem;
+  background: #007bff;
+  color: white;
+  border: none;
+}
+
 .container-inputs {
   margin-left: 25%;
   margin-right: 25%;
@@ -154,4 +177,24 @@ select {
 .inputs-table-label {
   margin-right: 5px;
   padding-top: 10px;
+}
+
+.inputs-usage-table {
+  display: flex;
+}
+.inputs-question-mark-yellow {
+  padding: 10px 10px 10px 10px;
+}
+
+.table thead th {
+  vertical-align: inherit;
+  text-align: center;
+}
+
+.modal-footer {
+  justify-content: center;
+}
+
+.inputs-Location-selectalign {
+  width: 40%;
 }

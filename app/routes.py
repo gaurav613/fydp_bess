@@ -2,11 +2,9 @@ from app import app
 from flask import jsonify, redirect, render_template, request, url_for, session, flash
 from app.models import Item, User
 from app.forms import RegisterForm, Tiered_Form, Timeofuse_Form
-from datetime import timedelta
 from app import db
+import pandas as pd
 from app.forms import LOCATION_CHOICES
-
-app.permanent_session_lifetime = timedelta(seconds=10)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -101,12 +99,13 @@ def renderInputs2():
     billtype = request.args.get("billtype")
     form = None
     if billtype == "timeofuse":
-        form = Timeofuse_Form(Location='9')
+        form = Timeofuse_Form(Location='9', csrf_enabled=False)
         print("============INITIALIZED TIMEOFUSE FORM============")
         if form.validate_on_submit():
             formDetails = {}
             formDetails["BillType"] = "timeofuse"
-            formDetails['Location'] = dict(LOCATION_CHOICES).get(form.Location.data)
+            formDetails['Location'] = dict(
+                LOCATION_CHOICES).get(form.Location.data)
             formDetails['Off_Peak_Value'] = form.TimeofUse_Off_Peak_Value.data
             formDetails['Off_Peak_KWH'] = form.TimeofUse_Off_Peak_KWH.data
             formDetails['Off_Peak_Total'] = form.TimeofUse_Off_Peak_Total.data
@@ -123,12 +122,13 @@ def renderInputs2():
             flash(f"Running model now for timeofuse", "info")
             return redirect(url_for("render_Results", Complete_form=formDetails, scroll="scrollto_results"))
     if billtype == "tiered":
-        form = Tiered_Form(Location='9')
+        form = Tiered_Form(Location='9', csrf_enabled=False)
         print("============INITIALIZED TIERED FORM============")
         if form.validate_on_submit():
             formDetails = {}
             formDetails["BillType"] = "tiered"
-            formDetails['Location'] = dict(LOCATION_CHOICES).get(form.Location.data)
+            formDetails['Location'] = dict(
+                LOCATION_CHOICES).get(form.Location.data)
             formDetails['Tiered_LowerValue'] = form.Tiered_LowerValue.data
             formDetails['Tiered_LowerKWH'] = form.Tiered_LowerKWH.data
             formDetails['Tiered_LowerTotal'] = form.Tiered_LowerTotal.data
@@ -147,6 +147,65 @@ def renderInputs2():
             flash(f'{key} -> {value}', category='danger')
 
     return render_template('home.html', newelectricity_form=form, scroll=scroll, billtype=billtype)
+
+
+@app.route('/get_autofill_inputKWH', methods=['GET', 'POST'])
+def get_autofill_inputKWH():
+    dataGet = request.get_json(force=True)
+    d = dataGet['Date'].replace("-", ",")
+    Historical_price = pd.read_csv(
+        "https://raw.githubusercontent.com/gaurav613/fydp_bess/main/Data/Historical_price-byMonth.csv")
+    row_ = Historical_price[Historical_price['Date'] == d]
+    bill_type = dataGet['Bill_type']
+
+    if bill_type == "timeofuse":
+        if row_.empty:
+            dataReply = {
+                'off': None,
+                'mid': None,
+                'on': None
+            }
+        else:
+            dataReply = {
+                'off': round(row_.iloc[0]['off_P']/100, 2),
+                'mid': round(row_.iloc[0]['mid_P']/100, 2),
+                'on': round(row_.iloc[0]['on_P']/100, 2)
+            }
+    if bill_type == "tiered":
+        if row_.empty:
+            dataReply = {
+                'lower': None,
+                'upper': None
+            }
+        else:
+            dataReply = {
+                'lower': round(row_.iloc[0]['lower_P']/100, 2),
+                'upper': round(row_.iloc[0]['upper_P']/100, 2),
+            }
+
+    return jsonify(dataReply)
+
+
+def is_float(str) -> bool:
+    try:
+        float(str)
+        return True
+    except ValueError:
+        return False
+
+
+@app.route('/get_autofill_inputTotal', methods=['GET', 'POST'])
+def get_autofill_inputTotal():
+    dataGet = request.get_json(force=True)
+    usage = dataGet['usage']
+    kwh = dataGet['kwh']
+
+    if is_float(usage) == True and is_float(kwh) == True:
+        dataReply = {'total': float(usage) * float(kwh)}
+    else:
+        dataReply = {'total': None}
+
+    return jsonify(dataReply)
 
 
 @app.route('/renderResults', methods=['GET', 'POST'])
