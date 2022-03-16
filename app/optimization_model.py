@@ -36,8 +36,32 @@ def optimize(user_inputs):
   bill_type = user_inputs['BillType']
 
   if bill_type=="tiered":
-        pass
+        total_usage = user_inputs['Tiered_LowerKWH'] + user_inputs['Tiered_UpperKWH'] 
+        total_cost = user_inputs['Tiered_LowerValue'] +user_inputs['Tiered_UpperValue'] 
+        # UmN = household usage during on-peak [kWh]
+        UN_m = 0.5*total_usage
+        # UmM = household usage during mid-peak [kWh]
+        UM_m = 0.3*total_usage
+        # UmF = household usage during off-peak [kWh]
+        UF_m = 0.2*total_usage
 
+        # CN = fixed on-peak electricity pricing [$/kWh]
+        CN = 0.5*total_cost
+        # # CM = fixed mid-peak electricity pricing [$/kWh]
+        CM = 0.3*total_cost
+        # # CF = fixed off-peak electricity pricing [$/kWh]
+        CF = 0.2*total_cost
+        print(user_inputs['Month_of_bill'])
+        month_bill = int(str(user_inputs['Month_of_bill'])[5:7])
+        
+        user_geo = user_inputs['Location']
+        print(user_geo)
+
+        # Additional charges
+        del_charge = user_inputs['DeliveryCharges']
+        reg_charge = user_inputs['RegulatoryCharges']
+
+        
   elif bill_type == "timeofuse":
         # UmN = household usage during on-peak [kWh]
         UN_m = user_inputs['On_Peak_KWH']
@@ -46,11 +70,17 @@ def optimize(user_inputs):
         # UmF = household usage during off-peak [kWh]
         UF_m = user_inputs['Off_Peak_KWH']
 
+        # CN = fixed on-peak electricity pricing [$/kWh]
+        CN = user_inputs['On_Peak_Value']
+        # # CM = fixed mid-peak electricity pricing [$/kWh]
+        CM = user_inputs['Mid_Peak_Value']
+        # # CF = fixed off-peak electricity pricing [$/kWh]
+        CF = user_inputs['Off_Peak_Value']
         # Month of the user's provided eletricity bill
         month_bill = int(user_inputs['Month_of_bill'][:2])
-        # print(month_bill)
+        print(month_bill)
         # Nearest geographic location of the household
-        user_geo = 'Toronto'
+        user_geo = user_inputs['Location']
 
         # Additional charges
         del_charge = user_inputs['DeliveryCharges']
@@ -150,6 +180,9 @@ def optimize(user_inputs):
     I_hm.append(intensity_scores[intensity_scores['Month'] == month]['avg_GHGIntensity'].tolist())
 
   # monthly variation factor based on the provided user monthly bill
+  for city in var_geo_month['City']:
+        if city in user_geo:
+              user_geo = city
   geo_var = var_geo_month.loc[var_geo_month['City'] == user_geo]
   geo_var = geo_var.drop(columns=['City'])
   geo_var = geo_var.values.flatten().tolist()
@@ -181,12 +214,12 @@ def optimize(user_inputs):
   months_summer = [5,6,7,8,9,10]
 
   ## eletricity rates
-  # CN = fixed on-peak electricity pricing [$/kWh]
-  CN = 0.17
-  # CM = fixed mid-peak electricity pricing [$/kWh]
-  CM = 0.113
-  # CF = fixed off-peak electricity pricing [$/kWh]
-  CF = 0.082
+  # # CN = fixed on-peak electricity pricing [$/kWh]
+  # CN = 0.17
+  # # CM = fixed mid-peak electricity pricing [$/kWh]
+  # CM = 0.113
+  # # CF = fixed off-peak electricity pricing [$/kWh]
+  # CF = 0.082
   # Interest rate
   beta_y = 0.05
 
@@ -398,5 +431,5 @@ def optimize(user_inputs):
   
   outage_output = outage_output.append(pd.DataFrame(outage_df), ignore_index=False)
 
-  return cost_output
+  return cost_output, GHG_output
   ####
