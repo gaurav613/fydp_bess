@@ -1,5 +1,5 @@
-from numpy import empty
-from sqlalchemy import null
+from numpy import empty, number
+from sqlalchemy import null, true
 from app import app
 from flask import jsonify, redirect, render_template, request, url_for, session, flash
 from app.models import Item, User
@@ -156,8 +156,8 @@ def renderInputs2():
     return render_template('home.html', newelectricity_form=form, scroll=scroll, billtype=billtype)
 
 
-@app.route('/get_autofill_input', methods=['GET', 'POST'])
-def get_autofill_input():
+@app.route('/get_autofill_inputKWH', methods=['GET', 'POST'])
+def get_autofill_inputKWH():
     dataGet = request.get_json(force=True)
     d = dataGet['Date'].replace("-", ",")
     Historical_price = pd.read_csv(
@@ -193,6 +193,28 @@ def get_autofill_input():
                 'lower': round(row_.iloc[0]['lower_P']/100, 2),
                 'upper': round(row_.iloc[0]['upper_P']/100, 2),
             }
+
+    return jsonify(dataReply)
+
+
+def is_float(str) -> bool:
+    try:
+        float(str)
+        return True
+    except ValueError:
+        return False
+
+
+@app.route('/get_autofill_inputTotal', methods=['GET', 'POST'])
+def get_autofill_inputTotal():
+    dataGet = request.get_json(force=True)
+    usage = dataGet['usage']
+    kwh = dataGet['kwh']
+
+    if is_float(usage) == True and is_float(kwh) == True:
+        dataReply = {'total': float(usage) + float(kwh)}
+    else:
+        dataReply = {'total': None}
 
     return jsonify(dataReply)
 

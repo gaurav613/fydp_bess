@@ -338,7 +338,7 @@
                             $("input[name='Month_Of_bill'").on('change', function(e) {
                                 var YearMonth_of_bill = "("+$(this).val()+"-1)"
                                 var xml = new XMLHttpRequest();
-                                xml.open("POST","{{ url_for('get_autofill_input') }}",true);
+                                xml.open("POST","{{ url_for('get_autofill_inputKWH') }}",true);
                                 xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
                                 xml.onload = function(){
                                     var dataReply = JSON.parse(this.responseText)
@@ -386,6 +386,30 @@
                                                 {% endwith %}
                                             </div>
                                         </div>
+
+                                        <script>
+                                            $(document).ready(function(){
+                                                $("input[name='TimeofUse_Off_Peak_Value'").on('change', function(e) {
+                                                    var usage_val = $(this).val()
+                                                    var kwh_val = document.getElementById("TimeofUse_Off_Peak_KWH").value;
+                                                    var xml = new XMLHttpRequest();
+                                                    xml.open("POST","{{ url_for('get_autofill_inputTotal') }}",true);
+                                                    xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                                                    xml.onload = function(){
+                                                        var dataReply = JSON.parse(this.responseText)
+                                                        console.log(dataReply)
+                                                        document.getElementById("TimeofUse_Off_Peak_Total").value = dataReply['total'];
+                                                    };// end function
+                    
+                                                    dataSend = JSON.stringify({
+                                                        'usage': usage_val,
+                                                        'kwh': kwh_val,
+                                                    });
+                                                    xml.send(dataSend)
+                                                });
+                                            });
+                                        </script>
+
                                     </td>
                                     <td>{{newelectricity_form.TimeofUse_Off_Peak_KWH(class="form-control",
                                         placeholder="$")}}
@@ -436,6 +460,30 @@
                                                 {% endwith %}
                                             </div>
                                         </div>
+
+                                        <script>
+                                            $(document).ready(function(){
+                                                $("input[name='TimeofUse_Mid_Peak_Value'").on('change', function(e) {
+                                                    var usage_val = $(this).val()
+                                                    var kwh_val = document.getElementById("TimeofUse_Mid_Peak_KWH").value;
+                                                    var xml = new XMLHttpRequest();
+                                                    xml.open("POST","{{ url_for('get_autofill_inputTotal') }}",true);
+                                                    xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                                                    xml.onload = function(){
+                                                        var dataReply = JSON.parse(this.responseText)
+                                                        console.log(dataReply)
+                                                        document.getElementById("TimeofUse_Mid_Peak_Total").value = dataReply['total'];
+                                                    };// end function
+                    
+                                                    dataSend = JSON.stringify({
+                                                        'usage': usage_val,
+                                                        'kwh': kwh_val,
+                                                    });
+                                                    xml.send(dataSend)
+                                                });
+                                            });
+                                        </script>
+
                                     </td>
                                     <td>{{newelectricity_form.TimeofUse_Mid_Peak_KWH(class="form-control",
                                         placeholder="$")}}
@@ -486,6 +534,30 @@
                                                 {% endwith %}
                                             </div>
                                         </div>
+
+                                        <script>
+                                            $(document).ready(function(){
+                                                $("input[name='TimeofUse_On_Peak_Value'").on('change', function(e) {
+                                                    var usage_val = $(this).val()
+                                                    var kwh_val = document.getElementById("TimeofUse_On_Peak_KWH").value;
+                                                    var xml = new XMLHttpRequest();
+                                                    xml.open("POST","{{ url_for('get_autofill_inputTotal') }}",true);
+                                                    xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                                                    xml.onload = function(){
+                                                        var dataReply = JSON.parse(this.responseText)
+                                                        console.log(dataReply)
+                                                        document.getElementById("TimeofUse_On_Peak_Total").value = dataReply['total'];
+                                                    };// end function
+                    
+                                                    dataSend = JSON.stringify({
+                                                        'usage': usage_val,
+                                                        'kwh': kwh_val,
+                                                    });
+                                                    xml.send(dataSend)
+                                                });
+                                            });
+                                        </script>
+
                                     </td>
                                     <td>{{newelectricity_form.TimeofUse_On_Peak_KWH(class="form-control",
                                         placeholder="$")}}
@@ -623,7 +695,7 @@
                             $("input[name='Month_Of_bill'").on('change', function(e) {
                                 var YearMonth_of_bill = "("+$(this).val()+"-1)";
                                 var xml = new XMLHttpRequest();
-                                xml.open("POST","{{ url_for('get_autofill_input') }}",true);
+                                xml.open("POST","{{ url_for('get_autofill_inputKWH') }}",true);
                                 xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
                                 xml.onload = function(){
                                     var dataReply = JSON.parse(this.responseText)
@@ -670,6 +742,30 @@
                                                 {% endwith %}
                                             </div>
                                         </div>
+
+                                        <script>
+                                            $(document).ready(function(){
+                                                $("input[name='Tiered_LowerValue'").on('change', function(e) {
+                                                    var usage_val = $(this).val()
+                                                    var kwh_val = document.getElementById("Tiered_LowerKWH").value;
+                                                    var xml = new XMLHttpRequest();
+                                                    xml.open("POST","{{ url_for('get_autofill_inputTotal') }}",true);
+                                                    xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                                                    xml.onload = function(){
+                                                        var dataReply = JSON.parse(this.responseText)
+                                                        console.log(dataReply)
+                                                        document.getElementById("Tiered_LowerTotal").value = dataReply['total'];
+                                                    };// end function
+                    
+                                                    dataSend = JSON.stringify({
+                                                        'usage': usage_val,
+                                                        'kwh': kwh_val,
+                                                    });
+                                                    xml.send(dataSend)
+                                                });
+                                            });
+                                        </script>
+
                                     </td>
                                     <td>{{newelectricity_form.Tiered_LowerKWH(class="form-control", placeholder="$")}}
                                         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -718,6 +814,30 @@
                                                 {% endwith %}
                                             </div>
                                         </div>
+
+                                        <script>
+                                            $(document).ready(function(){
+                                                $("input[name='Tiered_UpperValue'").on('change', function(e) {
+                                                    var usage_val = $(this).val()
+                                                    var kwh_val = document.getElementById("Tiered_UpperKWH").value;
+                                                    var xml = new XMLHttpRequest();
+                                                    xml.open("POST","{{ url_for('get_autofill_inputTotal') }}",true);
+                                                    xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                                                    xml.onload = function(){
+                                                        var dataReply = JSON.parse(this.responseText)
+                                                        console.log(dataReply)
+                                                        document.getElementById("Tiered_UpperTotal").value = dataReply['total'];
+                                                    };// end function
+                    
+                                                    dataSend = JSON.stringify({
+                                                        'usage': usage_val,
+                                                        'kwh': kwh_val,
+                                                    });
+                                                    xml.send(dataSend)
+                                                });
+                                            });
+                                        </script>
+
                                     </td>
                                     <td>{{newelectricity_form.Tiered_UpperKWH(class="form-control", placeholder="$")}}
                                         {% with messages = get_flashed_messages(with_categories=true) %}
