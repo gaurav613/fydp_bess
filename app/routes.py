@@ -310,23 +310,25 @@ def render_Results():
     # print(complete_form_dict)
     result = optimize(complete_form_dict)
     cost_savings = result[0]
-
-
+    ghg_reduction = result[1]
+    print(ghg_reduction)
     ## plotting the results
     month_map = {1:"Jan", 2:"Feb", 3:"Mar", 4:"Apr", 5:"May", 6:"Jun", 7:"Jul", 8:"Aug", 9:"Sep", 10:"Oct", 11:"Nov", 12:"Dec"}
 
     cost_savings['Month_str'] = cost_savings['Month'].map(month_map)
     cost_savings['Date'] = cost_savings['Month_str'] + cost_savings['Year'].astype(str)
-    fig = make_subplots(rows=1, cols=2)
 
+    ghg_reduction['Month_str'] = ghg_reduction['Month'].map(month_map)
+    ghg_reduction['Date'] = ghg_reduction['Month_str'] + ghg_reduction['Year'].astype(str)
+    fig = make_subplots(rows=2, cols=2)
+    ### plotting cost comparison ###
+    
+    # scatter plot for original cost
     fig.append_trace(go.Scatter(
     x=cost_savings['Date'],
     y=cost_savings['Act_cost'],
     name="Original Cost"), row=1, col=1)
-    headers = ["Cost Graph", "GHG Graph"]
-
-    descriptions = ["Plotting cost for each month", "Plotting GHG for each month"]
-
+    # scatter plot for new cost
     fig.append_trace(go.Scatter(
     x=cost_savings['Date'],
     y=cost_savings['Est_cost'],
@@ -335,21 +337,51 @@ def render_Results():
     fig.update_yaxes(title_text="Cost Savings", row=1, col=1)
     fig.update_xaxes(title_text="Month", row=1, col=1)
 
+    # scatter plot for original cost
     fig.append_trace(go.Bar(
     x=cost_savings['Date'],
     y=cost_savings['Act_cost'],
     name="Original Cost"), row=1, col=2)
-
+    # scatter plot for new cost
     fig.append_trace(go.Bar(
     x=cost_savings['Date'],
     y=cost_savings['Est_cost'],
     name="BESST Cost"), row=1, col=2)
+
     fig.update_yaxes(title_text="Cost Savings", row=1, col=2)
     fig.update_xaxes(title_text="Month", row=1, col=2)
+
+    ### plotting GHG comparison ###
+    # scatter plot for original ghg
+    fig.append_trace(go.Scatter(
+    x=ghg_reduction['Date'],
+    y=ghg_reduction['Act_GHG'],
+    name="Original GHG"), row=2, col=1)
+    # scatter plot for new ghg
+    fig.append_trace(go.Scatter(
+    x=ghg_reduction['Date'],
+    y=ghg_reduction['Est_GHG'],
+    name="New GHG"), row=2, col=1)
+    fig.update_yaxes(title_text="GHG Reduction", row=2, col=1)
+    fig.update_xaxes(title_text="Date", row=2, col=1)
+
+    # bar plot for original ghg
+    fig.append_trace(go.Bar(
+    x=ghg_reduction['Date'],
+    y=ghg_reduction['Act_GHG'],
+    name="Original GHG"), row=2, col=2)
+    # bar plot for new ghg
+    fig.append_trace(go.Bar(
+    x=ghg_reduction['Date'],
+    y=ghg_reduction['Est_GHG'],
+    name="New GHG"), row=2, col=2)
+    fig.update_xaxes(title_text="GHG Reduction", row=2, col=2)
+
+    fig.update_layout(height=1500, width=1500, title_text="COST AND GHG GRAPHS")
     # dataframe = result
     graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     # graphJSON_ghg = json.dumps(fig_ghg, cls=plotly.utils.PlotlyJSONEncoder) , graphJSON2= graphJSON_ghg
-    return render_template('visualization.html', graphJSON1=graphJSON_cost, headers=headers,descriptions=descriptions)
+    return render_template('visualization.html', graphJSON1=graphJSON_cost)
     # DO THE MIP MODEL PROCESS HERE AND PASS IN THE RESULTS AS A PARAM
     # return render_template('home.html', savings=[dataframe], complete_form=complete_form, scrollto_results=scrollto_results)
 
