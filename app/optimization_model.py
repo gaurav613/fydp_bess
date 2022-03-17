@@ -425,6 +425,6 @@ def optimize(user_inputs):
                'Duration_String':Duration_string}
   
   outage_output = outage_output.append(pd.DataFrame(outage_df), ignore_index=False)
-
-  return cost_output, GHG_output
+  print(outage_output)
+  return cost_output, GHG_output, outage_output
   ####

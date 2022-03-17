@@ -311,7 +311,7 @@ def render_Results():
     result = optimize(complete_form_dict)
     cost_savings = result[0]
     ghg_reduction = result[1]
-    print(ghg_reduction)
+    outage_reduction = result[2]
     ## plotting the results
     month_map = {1:"Jan", 2:"Feb", 3:"Mar", 4:"Apr", 5:"May", 6:"Jun", 7:"Jul", 8:"Aug", 9:"Sep", 10:"Oct", 11:"Nov", 12:"Dec"}
 
@@ -320,7 +320,7 @@ def render_Results():
 
     ghg_reduction['Month_str'] = ghg_reduction['Month'].map(month_map)
     ghg_reduction['Date'] = ghg_reduction['Month_str'] + ghg_reduction['Year'].astype(str)
-    fig = make_subplots(rows=2, cols=2)
+    fig = make_subplots(rows=3, cols=3)
     ### plotting cost comparison ###
     
     # scatter plot for original cost
@@ -362,7 +362,7 @@ def render_Results():
     x=ghg_reduction['Date'],
     y=ghg_reduction['Est_GHG'],
     name="New GHG"), row=2, col=1)
-    fig.update_yaxes(title_text="GHG Reduction", row=2, col=1)
+    fig.update_yaxes(title_text="GHG Comparison", row=2, col=1)
     fig.update_xaxes(title_text="Date", row=2, col=1)
 
     # bar plot for original ghg
@@ -375,9 +375,21 @@ def render_Results():
     x=ghg_reduction['Date'],
     y=ghg_reduction['Est_GHG'],
     name="New GHG"), row=2, col=2)
-    fig.update_xaxes(title_text="GHG Reduction", row=2, col=2)
+    fig.update_xaxes(title_text="Date", row=2, col=2)
 
-    fig.update_layout(height=1500, width=1500, title_text="COST AND GHG GRAPHS")
+    ### plotting outage reduction ###
+    # bar plot for new ghg
+    fig.append_trace(go.Bar(
+    x=outage_reduction['Period'],
+    y=outage_reduction['Hours'],
+    name="Hours", marker_color="firebrick"), row=3, col=1)
+    fig.update_yaxes(title_text="Reliability - Hours Available", row=3, col=1)
+    fig.update_xaxes(title_text="Peak periods", row=3, col=1)
+
+    fig.update_layout(height=1800, width=1800, title_text="COST AND GHG GRAPHS")
+    fig.update_layout(legend=dict(
+    x=0.8
+    ))
     # dataframe = result
     graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     # graphJSON_ghg = json.dumps(fig_ghg, cls=plotly.utils.PlotlyJSONEncoder) , graphJSON2= graphJSON_ghg
