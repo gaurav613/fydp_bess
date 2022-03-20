@@ -919,7 +919,7 @@
                                 {% for category, message in messages %}
                                 {% if "Month_Of_bill" in message%}
                                 <div class="inputs-validations">
-                                    {{ "Please use a more recent bill." }}
+                                    {{ (message.split("['")[1]).replace("']","") }}
                                 </div>
                                 {% endif %}
                                 {% endfor %}
