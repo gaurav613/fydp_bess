@@ -212,7 +212,7 @@ def get_autofill_inputTotal():
     kwh = dataGet['kwh']
 
     if is_float(usage) == True and is_float(kwh) == True:
-        dataReply = {'total': round(float(usage) * float(kwh),2)}
+        dataReply = {'total': float(usage) * float(kwh)}
     else:
         dataReply = {'total': None}
 
