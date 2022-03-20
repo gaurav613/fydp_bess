@@ -386,7 +386,7 @@ def render_Results():
     fig.update_yaxes(title_text="Reliability - Hours Available", row=3, col=1)
     fig.update_xaxes(title_text="Peak periods", row=3, col=1)
 
-    fig.update_layout(height=1800, width=1800, title_text="COST AND GHG GRAPHS")
+    fig.update_layout(height=1800, width=1800, title_text="Based on your bill, here are your results:")
     fig.update_layout(legend=dict(
     x=0.8
     ))
