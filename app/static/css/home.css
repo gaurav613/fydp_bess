@@ -220,6 +220,10 @@
   margin-top: 10px;
 }
 
+.col-4 {
+  display: flex;
+}
+
 .card {
   align-items: center;
   text-align: center;
@@ -238,16 +242,19 @@
   top: -140px;
 }
 
-.shadow1:hover {
-  border-color: rgb(11, 233, 233);
+.shadow1 {
+  border-color: rgb(12, 162, 207);
+  color: rgb(12, 162, 207);
 }
 
-.shadow2:hover {
-  border-color: rgb(29, 241, 29);
+.shadow2 {
+  border-color: rgb(43, 165, 43);
+  color: rgb(43, 165, 43);
 }
 
-.shadow3:hover {
-  border-color: rgb(248, 37, 37);
+.shadow3 {
+  border-color: rgb(230, 38, 38);
+  color: rgb(230, 38, 38);
 }
 
 @media (max-height: 100%) {
