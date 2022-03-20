@@ -2,6 +2,7 @@ import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, FloatField, MonthField, SelectField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, InputRequired, ValidationError, NumberRange
+
 from app.models import User
 
 LOCATION_CHOICES = [('1', 'Barrie, Ontario'), ('2', 'Brantford, Ontario'), ('3', 'Grand Sudbury, Ontario'), ('4', 'Guelph, Ontario'), ('5', 'Hamilton, Ontario')
@@ -35,6 +36,10 @@ class Tiered_Form(FlaskForm):
             raise ValidationError(
                 "Please use a more recent bill!"
             )
+        if Month_Of_bill.data > datetime.date.today():
+            raise ValidationError(
+                "Please choose an earlier Date!"
+            )
 
     Location = SelectField(u'Nearest Location within Ontario', choices=LOCATION_CHOICES, validators=[InputRequired("Please choose your nearest location.")])
     Month_Of_bill = MonthField(u'Month of bill', id="Month_Of_bill", validators=[InputRequired()])
@@ -46,7 +51,7 @@ class Tiered_Form(FlaskForm):
     Tiered_UpperTotal = FloatField(label='Tiered Upper Total', validators=[InputRequired(), NumberRange(min=0,max=99999)])
     DeliveryCharges = FloatField(label='Delivery Charges', validators=[InputRequired(), NumberRange(min=0,max=999999)])
     RegulatoryCharges = FloatField(label='Regulatory Charges', validators=[InputRequired(), NumberRange(min=0,max=999999)])
-    TotalElectricityCost = FloatField(label='Total Electricity Cost wo h.s.t', validators=[InputRequired(), NumberRange(min=0,max=9999999)])
+    TotalElectricityCost = FloatField(label='Total Electricity Cost minus H.S.T', validators=[InputRequired(), NumberRange(min=0,max=9999999)])
     submit = SubmitField(label='Next', id="submit_electricity")
 
 class Timeofuse_Form(FlaskForm):
@@ -55,6 +60,10 @@ class Timeofuse_Form(FlaskForm):
         if Month_Of_bill.data < datetime.date(2015,4,1):
             raise ValidationError(
                 "Please use a more recent bill!"
+            )
+        if Month_Of_bill.data > datetime.date.today():
+            raise ValidationError(
+                "Please choose an earlier Date!"
             )
 
     Location = SelectField(u'Nearest Location within Ontario', choices=LOCATION_CHOICES, validators=[InputRequired()])
@@ -70,5 +79,5 @@ class Timeofuse_Form(FlaskForm):
     TimeofUse_On_Peak_Total = FloatField(label='Total', validators=[InputRequired(), NumberRange(min=0,max=99999)])
     DeliveryCharges = FloatField(label='Delivery Charges', validators=[InputRequired(), NumberRange(min=0,max=99999)])
     RegulatoryCharges = FloatField(label='Regulatory Charges', validators=[InputRequired(), NumberRange(min=0,max=99999)])
-    TotalElectricityCost = FloatField(label='Total Electricity Cost wo h.s.t', validators=[InputRequired(), NumberRange(min=0,max=9999999)])
+    TotalElectricityCost = FloatField(label='Total Electricity Cost minus H.S.T', validators=[InputRequired(), NumberRange(min=0,max=9999999)])
     submit = SubmitField(label='Next', id="submit_electricity")

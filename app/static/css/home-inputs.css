@@ -8,7 +8,6 @@
   margin-left: 25%;
   margin-right: 25%;
   margin-bottom: 10px;
-  height: 75px;
   background-color: #e3e3e3;
   border-radius: 10px;
 }
@@ -26,14 +25,28 @@
   justify-content: center;
 }
 
-.input-questions-billtype {
-  padding: 10px 10px 10px 10px;
+.form-row-billtype-title {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.form-row-billtype-title h5 {
+  font-weight: bolder;
+  font-size: x-large;
+  margin: 0;
+}
+
+.form-group {
+  padding: 0px 10px 0px 10px;
 }
 
 .front {
   border-radius: 3px;
   cursor: pointer;
   border-style: dashed;
+  font-size: x-large;
 }
 
 .front:hover {
@@ -42,15 +55,39 @@
 }
 
 .front2 {
-  height: 50px;
-  width: 200px;
   border-radius: 3px;
+  font-size: x-large;
   align-items: center;
   text-decoration: none;
-  font-size: 1.25rem;
   background: #007bff;
   color: white;
   border: none;
+}
+
+@media (max-width: 1080px) {
+  .container-inputs-billtype {
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+}
+
+@media (max-width: 600px) {
+  .container-inputs-billtype {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .form-row-billtype-title h5 {
+    font-size: larger;
+  }
+
+  .front {
+    font-size: smaller;
+  }
+
+  .front2 {
+    font-size: smaller;
+  }
 }
 
 .container-inputs {
@@ -144,6 +181,7 @@ select {
 .w-100 {
   padding: 0px 30px 100px 30px;
 }
+
 .carousel-control-next {
   width: 5%;
 }
@@ -153,6 +191,10 @@ select {
 .carousel-control-next-icon,
 .carousel-control-prev-icon {
   border-radius: 10%;
+}
+
+.modal-footer {
+  justify-content: center;
 }
 
 .inputs-validations {
@@ -191,10 +233,73 @@ select {
   text-align: center;
 }
 
-.modal-footer {
-  justify-content: center;
-}
-
 .inputs-Location-selectalign {
   width: 40%;
+}
+.inputs-Location-selectalign select {
+  font-size: 15px;
+}
+
+.container-inputssubmit {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+@media (max-width: 1080px) {
+  .container-inputs {
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+}
+
+@media (max-width: 600px) {
+  .container-inputs {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .electricity-input-form {
+    margin: 20px 0px 20px 0px;
+  }
+
+  .form-row {
+    font-size: small;
+  }
+
+  .form-control {
+    font-size: x-small;
+  }
+
+  .form-row-Location {
+    font-size: small;
+  }
+
+  .inputs-Location-selectalign select {
+    text-indent: 0px;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 10px;
+  }
+
+  .table th {
+    font-size: 12px;
+  }
+
+  .table td,
+  .table th {
+    padding: 0;
+  }
+
+  .inputs-table-label {
+    font-size: small;
+  }
+
+  .inputs-validations{
+    font-size: xx-small
+  }
 }
