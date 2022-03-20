@@ -299,7 +299,7 @@
         <!-- Begin button element-->
         <div class="container-btn">
             <form action="{{url_for('renderInputs1', scroll='scrollto_electricity_form-billtype')}}" method="post">
-                <button id="begin-proc-btn" class="btn btn-primary" name="renderInputs" type="submit">Begin</button>
+                <button id="begin-proc-btn" class="btn btn-primary" style="width: 15vw;" name="renderInputs" type="submit">Begin</button>
             </form>
         </div>
     </div>
@@ -763,7 +763,7 @@
                         </div>
                     </div>
                     <div class="container-inputssubmit">
-                        {{ newelectricity_form.submit(class="btn btn-primary") }}
+                        {{ newelectricity_form.submit(class="btn btn-primary submit-w") }}
                     </div>
                 </form>
                 {% endif %}
@@ -1050,7 +1050,7 @@
                     </div>
 
                     <div class="container-inputssubmit">
-                        {{ newelectricity_form.submit(class="btn btn-primary") }}
+                        {{ newelectricity_form.submit(class="btn btn-primary submit-w",) }}
                     </div>
                 </form>
                 {% endif %}
