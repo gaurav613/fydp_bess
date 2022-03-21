@@ -326,24 +326,24 @@ def render_Results():
     ))
     
     ## calculate payback period
-    yearly_savings = cost_savings.groupby('Year').sum('Cost_savings')
-    yearly_mean_savings = mean(yearly_savings['Cost_savings'])
-    payback_period = 10000/yearly_mean_savings
-    print(payback_period)
+    # yearly_savings = cost_savings.groupby('Year').sum('Cost_savings')
+    # yearly_mean_savings = mean(yearly_savings['Cost_savings'])
+    # payback_period = 10000/yearly_mean_savings
+    # print(payback_period)
 
     ## calculating ghg savings equivalent: smartphones charged - https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator
     # 1 kWh/charge x 1,562.4 pounds CO2/MWh delivered electricity x 1 metric ton/2,204.6 lbs
-    print(ghg_reduction)
-    total_ghg_saved = sum(ghg_reduction['GHG_red'])
-    print(total_ghg_saved)
-    # phones charged from savings
-    phones_charged = round(total_ghg_saved/8.22)
-    phones_charged_10_years = 10*phones_charged
-    print(phones_charged)
+    # print(ghg_reduction)
+    # total_ghg_saved = sum(ghg_reduction['GHG_red'])
+    # print(total_ghg_saved)
+    # # phones charged from savings
+    # phones_charged = round(total_ghg_saved/8.22)
+    # phones_charged_10_years = 10*phones_charged
+    # print(phones_charged)
 
-    # miles driven
-    miles_driven = round(total_ghg_saved/398)
-    print(miles_driven)
+    # # miles driven
+    # miles_driven = round(total_ghg_saved/398)
+    # print(miles_driven)
 
     # dataframe = result
     # graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
