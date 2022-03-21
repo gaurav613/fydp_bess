@@ -1,0 +1,25 @@
+{% extends 'base.html'%} {% block title%} Visualizations {% endblock%}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/output.css')}}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div id="chart" class="chart"></div>
+</div>
+
+
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+    var graphs = {{ graphJSON1 | safe}};
+    console.log(graphs)
+    Plotly.plot('chart', graphs, {});
+</script>
+
+
+
+{% endblock%}
