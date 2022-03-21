@@ -1,7 +1,7 @@
 from statistics import mean
 from enum import auto
 from tkinter import font
-from turtle import width
+from turtle import bgcolor, color, width
 from app import app
 from app import db
 from flask import jsonify, redirect, render_template, request, url_for, flash
@@ -247,7 +247,8 @@ def render_Results():
     ghg_reduction['Date'] = ghg_reduction['Month_str'] + \
         ghg_reduction['Year'].astype(str)
 
-    fig = make_subplots(rows=5, cols=1)
+    fig = make_subplots(rows=5, cols=1, vertical_spacing=0.1, subplot_titles=("Cost Comparison - Line Graph", "Cost Comparison - Bar Graph", "GHG Emission Comparison - Line Graph", "GHG Emission Comparison - Bar Graph", "Reliability"))
+    
 
     ### plotting cost comparison ###
     # scatter plot for original cost
@@ -322,7 +323,7 @@ def render_Results():
     fig.update_yaxes(title_text="Reliability - Hours Available", row=5, col=1)
     fig.update_xaxes(title_text="Peak periods", row=5, col=1)
 
-    fig.update_layout(height=1800, width=1200, title_text="Based on your bill, here are your results:")
+    fig.update_layout(height=2400)
     fig.update_layout(legend=dict(
     x=0.8
     ))
@@ -354,13 +355,15 @@ def render_Results():
     # DO THE MIP MODEL PROCESS HERE AND PASS IN THE RESULTS AS A PARAM
     # return render_template('home.html', savings=[dataframe], complete_form=complete_form, scrollto_results=scrollto_results)
     fig.update_layout(
-        hovermode="closest",
+        hovermode="x unified",
+        hoverlabel = dict(font_color = 'black', bgcolor = 'white', align='left', bordercolor='white'),#whatever format you want)
         autosize=True,
-        paper_bgcolor="LightSteelBlue",
-        margin=dict(l=10, r=35, t=20, b=10, pad=0),
-        title_text="Based on your bill, here are your results:",
+        plot_bgcolor = "white",
+        # paper_bgcolor="LightSteelBlue",
+        margin=dict(l=10, r=35, t=60, b=10, pad=0),
+        # title_text="Based on your bill, here are your results:",
         font=dict(
-            family="Courier New, monospace",
+            # family="Courier New, monospace",
             size=12)
     )
 
@@ -370,8 +373,11 @@ def render_Results():
         x=1.0
     ))
 
+    for i in fig['layout']['annotations']:
+        i['font'] = dict(size=15, color='black')
+
     fig.update_layout(
-        legend=dict(font=dict(family="Courier", size=8, color="black")),
+        legend=dict(font=dict( size=12, color="black")),
     )
 
     graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)

@@ -1063,31 +1063,35 @@
 <!-- RESULTS HERE -->
 <div id="scrollto_results">
     {% if scrollto_results %} {% if graphJSON1 %}
-    <div id="fullscreen" class="container">
+    <div id="fullscreen">
+        <div class="results-title">
+            <h5>
+                Based on your information, here are the results
+            </h5>
+        </div>
         <!-- <div class="results-control"> -->
-        <div id="chart" style="height: inherit" class="chart"></div>
-    </div>
+        <div id="chart" style="height: inherit" class="chart">
+            <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script type="text/javascript">
-        var graphs = {{graphJSON1 | safe}};
-        console.log(graphs)
-        Plotly.newPlot('chart', graphs, {});
-    </script>
-    <!-- <script>
-        var charts = document.getElementById('chart');
-        window.onresize = function () {
-            Plotly.Plots.resize(charts);
-        };
-    </script> -->
-    <!--</div> -->
-    <!-- </div> -->
-</div>
-<form action="{{url_for('home_page')}}" method="POST" class="container">
-    <div class="frame">
-        <button id="return_home-btn" class="btn btn-primary" name="return_home" type="submit">Reset</button>
+            <script type="text/javascript">
+                var graphs = {{graphJSON1 | safe}};
+                console.log(graphs)
+                Plotly.newPlot('chart', graphs, {});
+            </script>
+            <script>
+                var charts = document.getElementById('chart');
+                window.onresize = function() {
+                    Plotly.Plots.resize(charts);
+                };
+            </script>
+            <!--</div> -->
+        </div>
     </div>
-</form>
+    <form action="{{url_for('home_page')}}" method="POST" class="container">
+        <div class="frame">
+            <button id="return_home-btn" class="btn btn-primary" name="return_home" type="submit">Reset</button>
+        </div>
+    </form>
 </div>
 
 {% endif %} {% endif %}
