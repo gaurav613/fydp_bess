@@ -1,4 +1,5 @@
 from app import app
+from statistics import mean
 from app import db
 from flask import jsonify, redirect, render_template, request, url_for, flash
 from app.models import Item, User
