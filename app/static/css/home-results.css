@@ -1,29 +1,36 @@
 #scrollto_results {
-  width: 100%;
-  /* align-items: center; */
 }
 
-.container-results {
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 10%;
+#fullscreen {
+  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
+  flex-direction: column;
+  height: 100%;
+  margin-bottom: 20px;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  height: 80vh;
 }
 
-.results-format {
-  /* align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column; */
+#chart {
+  flex-grow: 1;
 }
 
-.results-1 {
-  margin: 20px 20px 20px 20px;
+.chart {
 }
 
-.results-2 {
-  margin: 20px 20px 20px 20px;
+.js-plotly-plot .plotly .main-svg {
+  padding: 10px 10px 10px 10px;
+}
+
+@media (max-width: 1080px) {
+}
+
+@media (max-width: 600px) {
+  #fullscreen {
+    height: 100vh;
+    left: 5px;
+    right: 5px;
+  }
 }

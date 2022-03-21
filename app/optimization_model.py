@@ -311,7 +311,7 @@ def optimize(user_inputs):
   ## Objective function
   # Aggregate total cost & GHG emissions into one variable
   opt_model.addConstrs(((TN_my[i,k]+TM_my[i,k]+TF_my[i,k])) == cost_my[i,k] for i in months for k in years)
-  opt_model.addConstrs(grb.quicksum(I_hm[i-1][j]*PG_hm[i,j] for j in hours) == ghg_m[i-1] for i in months)
+  opt_model.addConstrs(grb.quicksum(I_hm[i-1][j]*PG_hm[i,j] for j in hours)*days_in_month[i-1] == ghg_m[i-1] for i in months)
   # Set objective functions
   opt_model.setObjectiveN(sum(cost_my[i,k] for i in months for k in years),0,priority=1)
   opt_model.setObjectiveN(grb.quicksum(ghg_m[i-1] for i in months),1,priority=0)
@@ -366,7 +366,7 @@ def optimize(user_inputs):
   Act_GHG = [0 for month in months]
 
   for i in months:
-    Act_GHG[i-1] = round(sum(I_hm[i-1][j]*(PU_hm[i-1][j]) for j in hours),2)
+    Act_GHG[i-1] = round(sum(I_hm[i-1][j]*(PU_hm[i-1][j]) for j in hours)*days_in_month[i-1],2)
 
   Est_GHG = [round(ghg_results['Val'].loc[(ghg_results['Month'].astype(int) == i)].values[0],2) for i in months]
 
@@ -415,9 +415,9 @@ def optimize(user_inputs):
                               'Month': [month for month in months],
                               'Act_GHG': Act_GHG,
                               'Est_GHG': Est_GHG,
-                              'GHG_red': GHG_red,
+                              'GHG_red': GHG_red
                               })
-  
+  days_in_month
   outage_output = pd.DataFrame(columns={'Period','Month','Hours','Duration_String'})
   outage_df = {'Period':['off-peak','mid-peak','on-peak'],
                'Month':[month_bill for i in range(3)],

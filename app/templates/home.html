@@ -1,7 +1,7 @@
 {% extends 'base.html'%} {% block title %} Home {% endblock %} {% block styles %}
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home.css')}}">
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home-inputs.css')}}">
-<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home-results.css')}}"> {% endblock %} {% block scripts %} {% endblock %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home-results.css')}}"> {% endblock %} {%block scripts %} {% endblock %}
 
 <!-- CONTENT HERE -->
 {% block content %}
@@ -321,7 +321,7 @@
                 <img class="card-img-top" src="{{url_for('static', filename='home-card-env.png')}}">
                 <div class="card-body">
                     <h5 class="card-title">C02 Footprint Reduction</h5>
-                    <p class="card-text">See how owning Battery Energy Storage Systems impact your household carbond footprint overtime. </p>
+                    <p class="card-text">See how owning Battery Energy Storage Systems impact your household carbon footprint overtime. </p>
                 </div>
             </div>
         </div>
@@ -1059,6 +1059,43 @@
     </div>
 </div>
 
+
+<!-- RESULTS HERE -->
+<div id="scrollto_results">
+    {% if scrollto_results %} {% if graphJSON1 %}
+    <div id="fullscreen" class="container">
+        <!-- <div class="results-control"> -->
+        <div id="chart" style="height: inherit" class="chart"></div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        var graphs = {{graphJSON1 | safe}};
+        console.log(graphs)
+        Plotly.newPlot('chart', graphs, {});
+    </script>
+    <!-- <script>
+        var charts = document.getElementById('chart');
+        window.onresize = function () {
+            Plotly.Plots.resize(charts);
+        };
+    </script> -->
+    <!--</div> -->
+    <!-- </div> -->
+</div>
+<form action="{{url_for('home_page')}}" method="POST" class="container">
+    <div class="frame">
+        <button id="return_home-btn" class="btn btn-primary" name="return_home" type="submit">Reset</button>
+    </div>
+</form>
+</div>
+
+{% endif %} {% endif %}
+</div>
+
+
+
+
 <!-- Scrolling to the selected div -->
 {% if scroll %}
 <script type="text/javascript">
@@ -1066,97 +1103,29 @@
 </script>
 {% endif %}
 
+<!-- ENABLE TOOLTIPS ON HOVER USING TiPPY.JS-->
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
 
+<script>
+    tippy('#info-3', {
+        content: 'You have selected <Strong><span style="color: Red;">Tiered</span></Strong>. This feature is currently a work-in-progress.',
+        placement: 'top',
+        arrow: true,
+        interactive: true,
+        allowHTML: true
+    });
+</script>
 
+<script>
+    tippy('#info-4', {
+        content: 'Select <Strong><span style="color: Red;">Ontario Non-CMA</span></Strong> if your city is not listed!',
+        placement: 'top',
+        arrow: true,
+        interactive: true,
+        allowHTML: true
+    });
+</script>
 
-<!-- RESULTS HERE -->
-<div id="scrollto_results">
-
-    {% if savings %}
-    <div class="container-results">
-        <div class="results-format">
-            <div class="results-1">
-
-                <table class="table table-hover table-light table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Month/Year</th>
-                            <th scope="col">Current Bill</th>
-                            <th scope="col">Estimated Price</th>
-                            <th scope="col">Savings</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in savings %}
-                        <tr>
-                            <td>{{item.Month}}-{{item.Year}}</td>
-                            <td>${{item.CurrentBill}}</td>
-                            <td>${{item.EstimatedPrice}}</td>
-                            <td>${{item.Savings}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-
-                {% else %}
-                <!-- DO NOTHING -->
-
-                {% endif %}
-            </div>
-            <div class="results-2">
-                {% if complete_form %}
-                <div class="container-results">
-                    <div class="results-format">
-                        <div class="results-1">
-
-                            <p>{{complete_form}}</p>
-                            <form action="{{url_for('home_page')}}" method="POST" class="container">
-                                <div class="frame">
-                                    <button id="return_home-btn" class="btn btn-primary mb-2" name="return_home" type="submit">Reset</button>
-                                </div>
-                            </form>
-
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Scrolling the the Results after submitting the inputs -->
-        {% if scrollto_results %}
-        <script>
-            document.getElementById('{{ scrollto_results }}').scrollIntoView();
-        </script>
-        {% endif %}
-
-
-
-
-
-        <!-- ENABLE TOOLTIPS ON HOVER USING TiPPY.JS-->
-        <script src="https://unpkg.com/@popperjs/core@2"></script>
-        <script src="https://unpkg.com/tippy.js@6"></script>
-
-        <script>
-            tippy('#info-3', {
-                content: 'You have selected <Strong><span style="color: Red;">Tiered</span></Strong>. This feature is currently a work-in-progress.',
-                placement: 'top',
-                arrow: true,
-                interactive: true,
-                allowHTML: true
-            });
-        </script>
-
-        <script>
-            tippy('#info-4', {
-                content: 'Select <Strong><span style="color: Red;">Ontario Non-CMA</span></Strong> if your city is not listed!',
-                placement: 'top',
-                arrow: true,
-                interactive: true,
-                allowHTML: true
-            });
-        </script>
-
-        <!-- END OF CONTENT -->
-        {% endblock%}
+<!-- END OF CONTENT -->
+{% endblock%}
