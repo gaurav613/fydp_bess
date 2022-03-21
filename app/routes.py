@@ -1,7 +1,3 @@
-from statistics import mean
-from enum import auto
-from tkinter import font
-from turtle import bgcolor, color, width
 from app import app
 from app import db
 from flask import jsonify, redirect, render_template, request, url_for, flash
