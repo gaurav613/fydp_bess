@@ -1,29 +1,42 @@
-#scrollto_results {
-  width: 100%;
-  /* align-items: center; */
-}
+#scrollto_results {}
 
-.container-results {
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-}
-
-.results-format {
-  /* align-items: center;
-    justify-content: center;
+#fullscreen {
+    position: relative;
     display: flex;
-    flex-direction: column; */
+    flex-direction: column;
+    margin-bottom: 20px;
+    top: 10px;
 }
 
-.results-1 {
-  margin: 20px 20px 20px 20px;
+.results-title {
+    text-align: center;
+    background: aqua;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 5px;
 }
 
-.results-2 {
-  margin: 20px 20px 20px 20px;
+.results-title h5 {
+    padding: 0 !important;
+    margin: 0;
+}
+
+#chart {
+    flex-grow: 1;
+}
+
+.chart {}
+
+.js-plotly-plot .plotly .main-svg {
+    padding: 10px 10px 10px 10px;
+}
+
+@media (max-width: 1080px) {}
+
+@media (max-width: 600px) {
+    #fullscreen {
+        height: 100vh;
+        left: 5px;
+        right: 5px;
+    }
 }

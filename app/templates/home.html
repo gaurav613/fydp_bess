@@ -1,7 +1,7 @@
 {% extends 'base.html'%} {% block title %} Home {% endblock %} {% block styles %}
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home.css')}}">
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home-inputs.css')}}">
-<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home-results.css')}}"> {% endblock %} {% block scripts %} {% endblock %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/home-results.css')}}"> {% endblock %} {%block scripts %} {% endblock %}
 
 <!-- CONTENT HERE -->
 {% block content %}
@@ -10,8 +10,7 @@
     <div class="site-header">
         <img src="{{url_for('static', filename='TeslaPowerwall2-indoors.jpg')}}">
         <div class="spacer">
-            <svg id="visual" viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+            <svg id="visual" viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
                 <rect x="0" y="0" width="960" height="540" fill="#ffffff"></rect>
                 <path
                     d="M0 263L16 283C32 303 64 343 96 340C128 337 160 291 192 282.8C224 274.7 256 304.3 288 300C320 295.7 352 257.3 384 232.8C416 208.3 448 197.7 480 211C512 224.3 544 261.7 576 271.3C608 281 640 263 672 275.3C704 287.7 736 330.3 768 328.5C800 326.7 832 280.3 864 282C896 283.7 928 333.3 944 358.2L960 383L960 0L944 0C928 0 896 0 864 0C832 0 800 0 768 0C736 0 704 0 672 0C640 0 608 0 576 0C544 0 512 0 480 0C448 0 416 0 384 0C352 0 320 0 288 0C256 0 224 0 192 0C160 0 128 0 96 0C64 0 32 0 16 0L0 0Z"
@@ -313,8 +312,7 @@
                 <img class="card-img-top" src="{{url_for('static', filename='home-card-save.png')}}">
                 <div class="card-body">
                     <h5 class="card-title">Long-term Savings</h5>
-                    <p class="card-text">Look into the full visibility of long-term cost
-                        saving and the payback period for your powerwall system.</p>
+                    <p class="card-text">Look into the full visibility of long-term cost saving and the payback period for your powerwall system.</p>
                 </div>
             </div>
         </div>
@@ -323,8 +321,8 @@
                 <img class="card-img-top" src="{{url_for('static', filename='home-card-env.png')}}">
                 <div class="card-body">
                     <h5 class="card-title">C02 Footprint Reduction</h5>
-                    <p class="card-text">See how owning Battery Energy Storage Systems
-                        impact your household carbon footprint overtime. </p>
+                    <p class="card-text">See how owning Battery Energy Storage Systems impact your household carbon footprint overtime. </p>
+
                 </div>
             </div>
         </div>
@@ -333,8 +331,7 @@
                 <img class="card-img-top" src="{{url_for('static', filename='home-card-outs.png')}}">
                 <div class="card-body">
                     <h5 class="card-title">Mitigate Blackouts</h5>
-                    <p class="card-text">Prevent powerages to your home with a Battery
-                        Energy Storage System.</p>
+                    <p class="card-text">Prevent powerages to your home with a Battery Energy Storage System.</p>
                 </div>
             </div>
         </div>
@@ -344,8 +341,7 @@
 
 <!-- INPUTS HERE -->
 
-{% if scroll %}
-{%if scroll=='scrollto_electricity_form-billtype' or newelectricity_form %}
+{% if scroll %} {%if scroll=='scrollto_electricity_form-billtype' or newelectricity_form %}
 <div id="scrollto_electricity_form-billtype">
     <div class="container-inputs-billtype">
         <div class="inputForm-control-billtype">
@@ -370,13 +366,11 @@
         </div>
     </div>
 </div>
-{%endif%}
-{%endif%}
+{%endif%} {%endif%}
 
 <!-- popup to display example bills -->
 
-<div class="modal fade bd-example-modal-lg" id="BillModal" tabindex="-1" role="dialog" aria-labelledby="BillModalLabel"
-    aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="BillModal" tabindex="-1" role="dialog" aria-labelledby="BillModalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -443,8 +437,7 @@
 
                 <!-- TIMEOFUSE FORM -->
 
-                {% if billtype=="timeofuse" %}
-                {% if newelectricity_form %}
+                {% if billtype=="timeofuse" %} {% if newelectricity_form %}
 
                 <script>
                     (document.getElementById("mySubmit1")).setAttribute("class", "front2");
@@ -457,10 +450,8 @@
 
                     <div class="form-group">
                         <div class="form-row-Location">
-                            <span class="col-6"
-                                style="padding-left: 5px;">{{newelectricity_form.Location.label(class="input-lable-format")}}</span>
-                            <span
-                                class="inputs-Location-selectalign">{{newelectricity_form.Location(class="form-control")}}
+                            <span class="col-6" style="padding-left: 5px;">{{newelectricity_form.Location.label(class="input-lable-format")}}</span>
+                            <span class="inputs-Location-selectalign">{{newelectricity_form.Location(class="form-control")}}
                                 {% with messages = get_flashed_messages(with_categories=true) %}
                                 {% if messages %}
                                 {% for category, message in messages %}
@@ -474,18 +465,15 @@
                                 {% endwith %}
                             </span>
                             <div class="inputs-question-mark-yellow" id="inputs-Locationinfo">
-                                <img id="info-4" class='inputs-question-mark'
-                                    src="{{url_for('static', filename='info-icon.png')}}"> </img>
+                                <img id="info-4" class='inputs-question-mark' src="{{url_for('static', filename='info-icon.png')}}"> </img>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="form-row">
-                            <span
-                                class="col-6">{{newelectricity_form.Month_Of_bill.label(class="input-lable-format")}}</span>
-                            <span
-                                class="inputs-Location-selectalign">{{newelectricity_form.Month_Of_bill(class="form-control",
+                            <span class="col-6">{{newelectricity_form.Month_Of_bill.label(class="input-lable-format")}}</span>
+                            <span class="inputs-Location-selectalign">{{newelectricity_form.Month_Of_bill(class="form-control",
                                 id=Month_Of_bill)}}
                                 {% with messages = get_flashed_messages(with_categories=true) %}
                                 {% if messages %}
@@ -503,13 +491,13 @@
                     </div>
 
                     <script>
-                        $(document).ready(function () {
-                            $("input[name='Month_Of_bill'").on('change', function (e) {
+                        $(document).ready(function() {
+                            $("input[name='Month_Of_bill'").on('change', function(e) {
                                 var YearMonth_of_bill = "(" + $(this).val() + "-1)"
                                 var xml = new XMLHttpRequest();
                                 xml.open("POST", "{{ url_for('get_autofill_inputKWH') }}", true);
                                 xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                                xml.onload = function () {
+                                xml.onload = function() {
                                     var dataReply = JSON.parse(this.responseText)
                                     if (dataReply['off'] != null) {
                                         question_img = "<img id=\"info-1\" class='inputs-question-mark' src='{{url_for('static', filename='info-icon.png')}}'> </img>";
@@ -532,7 +520,7 @@
                                     document.getElementById("TimeofUse_Mid_Peak_KWH").value = dataReply['mid'];
                                     document.getElementById("TimeofUse_On_Peak_KWH").value = dataReply['on'];
 
-                                };// end function
+                                }; // end function
 
                                 dataSend = JSON.stringify({
                                     'Date': YearMonth_of_bill,
@@ -560,34 +548,26 @@
                                                 <div class="form-controlfix">
                                                     {{newelectricity_form.TimeofUse_Off_Peak_Value.label(class="inputs-table-label")}}
                                                     <div>
-                                                        {{newelectricity_form.TimeofUse_Off_Peak_Value(class="form-control",
-                                                        placeholder="#")}}
-                                                        {% with messages = get_flashed_messages(with_categories=true) %}
-                                                        {% if messages %}
-                                                        {% for category, message in messages %}
-                                                        {% if "TimeofUse_Off_Peak_Value" in message%}
+                                                        {{newelectricity_form.TimeofUse_Off_Peak_Value(class="form-control", placeholder="#")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %} {% if "TimeofUse_Off_Peak_Value" in message%}
                                                         <div class="inputs-validations">
                                                             {{ "Must be a postive number." }}
                                                         </div>
-                                                        {% endif %}
-                                                        {% endfor %}
-                                                        {% endif %}
-                                                        {% endwith %}
+                                                        {% endif %} {% endfor %} {% endif %} {% endwith %}
                                                     </div>
                                                 </div>
 
                                                 <script>
-                                                    $(document).ready(function () {
-                                                        $("input[name='TimeofUse_Off_Peak_Value'").on('change', function (e) {
+                                                    $(document).ready(function() {
+                                                        $("input[name='TimeofUse_Off_Peak_Value'").on('change', function(e) {
                                                             var usage_val = $(this).val()
                                                             var kwh_val = document.getElementById("TimeofUse_Off_Peak_KWH").value;
                                                             var xml = new XMLHttpRequest();
                                                             xml.open("POST", "{{ url_for('get_autofill_inputTotal') }}", true);
                                                             xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                                                            xml.onload = function () {
+                                                            xml.onload = function() {
                                                                 var dataReply = JSON.parse(this.responseText)
                                                                 document.getElementById("TimeofUse_Off_Peak_Total").value = dataReply['total'];
-                                                            };// end function
+                                                            }; // end function
 
                                                             dataSend = JSON.stringify({
                                                                 'usage': usage_val,
@@ -599,33 +579,19 @@
                                                 </script>
 
                                             </td>
-                                            <td>{{newelectricity_form.TimeofUse_Off_Peak_KWH(class="form-control",
-                                                placeholder="$")}}
-                                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                                {% if messages %}
-                                                {% for category, message in messages %}
+                                            <td>{{newelectricity_form.TimeofUse_Off_Peak_KWH(class="form-control", placeholder="$")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
                                                 {% if "TimeofUse_Off_Peak_KWH" in message%}
                                                 <div class="inputs-validations">
                                                     {{ "Must be a postive number." }}
                                                 </div>
-                                                {% endif %}
-                                                {% endfor %}
-                                                {% endif %}
-                                                {% endwith %}
+                                                {% endif %} {% endfor %} {% endif %} {% endwith %}
                                             </td>
-                                            <td>{{newelectricity_form.TimeofUse_Off_Peak_Total(class="form-control",
-                                                placeholder="$")}}
-                                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                                {% if messages %}
-                                                {% for category, message in messages %}
-                                                {% if "TimeofUse_Off_Peak_Total" in message%}
+                                            <td>{{newelectricity_form.TimeofUse_Off_Peak_Total(class="form-control", placeholder="$")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages
+                                                %} {% if "TimeofUse_Off_Peak_Total" in message%}
                                                 <div class="inputs-validations">
                                                     {{ "Must be a postive number." }}
                                                 </div>
-                                                {% endif %}
-                                                {% endfor %}
-                                                {% endif %}
-                                                {% endwith %}
+                                                {% endif %} {% endfor %} {% endif %} {% endwith %}
                                             </td>
                                         </tr>
                                         <tr>
@@ -633,35 +599,27 @@
                                                 <div class="form-controlfix">
                                                     {{newelectricity_form.TimeofUse_Mid_Peak_Value.label(class="inputs-table-label")}}
                                                     <div>
-                                                        {{newelectricity_form.TimeofUse_Mid_Peak_Value(class="form-control",
-                                                        placeholder="#")}}
-                                                        {% with messages = get_flashed_messages(with_categories=true) %}
-                                                        {% if messages %}
-                                                        {% for category, message in messages %}
-                                                        {% if "TimeofUse_Mid_Peak_Value" in message%}
+                                                        {{newelectricity_form.TimeofUse_Mid_Peak_Value(class="form-control", placeholder="#")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %} {% if "TimeofUse_Mid_Peak_Value" in message%}
                                                         <div class="inputs-validations">
                                                             {{ "Must be a postive number." }}
                                                         </div>
-                                                        {% endif %}
-                                                        {% endfor %}
-                                                        {% endif %}
-                                                        {% endwith %}
+                                                        {% endif %} {% endfor %} {% endif %} {% endwith %}
                                                     </div>
                                                 </div>
 
                                                 <script>
-                                                    $(document).ready(function () {
-                                                        $("input[name='TimeofUse_Mid_Peak_Value'").on('change', function (e) {
+                                                    $(document).ready(function() {
+                                                        $("input[name='TimeofUse_Mid_Peak_Value'").on('change', function(e) {
                                                             var usage_val = $(this).val()
                                                             var kwh_val = document.getElementById("TimeofUse_Mid_Peak_KWH").value;
                                                             var xml = new XMLHttpRequest();
                                                             xml.open("POST", "{{ url_for('get_autofill_inputTotal') }}", true);
                                                             xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                                                            xml.onload = function () {
+                                                            xml.onload = function() {
                                                                 var dataReply = JSON.parse(this.responseText)
                                                                 console.log(dataReply)
                                                                 document.getElementById("TimeofUse_Mid_Peak_Total").value = dataReply['total'];
-                                                            };// end function
+                                                            }; // end function
 
                                                             dataSend = JSON.stringify({
                                                                 'usage': usage_val,
@@ -673,33 +631,19 @@
                                                 </script>
 
                                             </td>
-                                            <td>{{newelectricity_form.TimeofUse_Mid_Peak_KWH(class="form-control",
-                                                placeholder="$")}}
-                                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                                {% if messages %}
-                                                {% for category, message in messages %}
+                                            <td>{{newelectricity_form.TimeofUse_Mid_Peak_KWH(class="form-control", placeholder="$")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
                                                 {% if "TimeofUse_Mid_Peak_KWH" in message%}
                                                 <div class="inputs-validations">
                                                     {{ "Must be a postive number." }}
                                                 </div>
-                                                {% endif %}
-                                                {% endfor %}
-                                                {% endif %}
-                                                {% endwith %}
+                                                {% endif %} {% endfor %} {% endif %} {% endwith %}
                                             </td>
-                                            <td>{{newelectricity_form.TimeofUse_Mid_Peak_Total(class="form-control",
-                                                placeholder="$")}}
-                                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                                {% if messages %}
-                                                {% for category, message in messages %}
-                                                {% if "TimeofUse_Mid_Peak_Total" in message%}
+                                            <td>{{newelectricity_form.TimeofUse_Mid_Peak_Total(class="form-control", placeholder="$")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages
+                                                %} {% if "TimeofUse_Mid_Peak_Total" in message%}
                                                 <div class="inputs-validations">
                                                     {{ "Must be a postive number." }}
                                                 </div>
-                                                {% endif %}
-                                                {% endfor %}
-                                                {% endif %}
-                                                {% endwith %}
+                                                {% endif %} {% endfor %} {% endif %} {% endwith %}
                                             </td>
                                         </tr>
                                         <tr>
@@ -707,34 +651,26 @@
                                                 <div class="form-controlfix">
                                                     {{newelectricity_form.TimeofUse_On_Peak_Value.label(class="inputs-table-label")}}
                                                     <div>
-                                                        {{newelectricity_form.TimeofUse_On_Peak_Value(class="form-control",
-                                                        placeholder="#")}}
-                                                        {% with messages = get_flashed_messages(with_categories=true) %}
-                                                        {% if messages %}
-                                                        {% for category, message in messages %}
-                                                        {% if "TimeofUse_On_Peak_Value" in message%}
+                                                        {{newelectricity_form.TimeofUse_On_Peak_Value(class="form-control", placeholder="#")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %} {% if "TimeofUse_On_Peak_Value" in message%}
                                                         <div class="inputs-validations">
                                                             {{ "Must be a postive number." }}
                                                         </div>
-                                                        {% endif %}
-                                                        {% endfor %}
-                                                        {% endif %}
-                                                        {% endwith %}
+                                                        {% endif %} {% endfor %} {% endif %} {% endwith %}
                                                     </div>
                                                 </div>
 
                                                 <script>
-                                                    $(document).ready(function () {
-                                                        $("input[name='TimeofUse_On_Peak_Value'").on('change', function (e) {
+                                                    $(document).ready(function() {
+                                                        $("input[name='TimeofUse_On_Peak_Value'").on('change', function(e) {
                                                             var usage_val = $(this).val()
                                                             var kwh_val = document.getElementById("TimeofUse_On_Peak_KWH").value;
                                                             var xml = new XMLHttpRequest();
                                                             xml.open("POST", "{{ url_for('get_autofill_inputTotal') }}", true);
                                                             xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                                                            xml.onload = function () {
+                                                            xml.onload = function() {
                                                                 var dataReply = JSON.parse(this.responseText)
                                                                 document.getElementById("TimeofUse_On_Peak_Total").value = dataReply['total'];
-                                                            };// end function
+                                                            }; // end function
 
                                                             dataSend = JSON.stringify({
                                                                 'usage': usage_val,
@@ -746,33 +682,19 @@
                                                 </script>
 
                                             </td>
-                                            <td>{{newelectricity_form.TimeofUse_On_Peak_KWH(class="form-control",
-                                                placeholder="$")}}
-                                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                                {% if messages %}
-                                                {% for category, message in messages %}
+                                            <td>{{newelectricity_form.TimeofUse_On_Peak_KWH(class="form-control", placeholder="$")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
                                                 {% if "TimeofUse_On_Peak_KWH" in message%}
                                                 <div class="inputs-validations">
                                                     {{ "Must be a postive number." }}
                                                 </div>
-                                                {% endif %}
-                                                {% endfor %}
-                                                {% endif %}
-                                                {% endwith %}
+                                                {% endif %} {% endfor %} {% endif %} {% endwith %}
                                             </td>
-                                            <td>{{newelectricity_form.TimeofUse_On_Peak_Total(class="form-control",
-                                                placeholder="$")}}
-                                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                                {% if messages %}
-                                                {% for category, message in messages %}
-                                                {% if "TimeofUse_On_Peak_Total" in message%}
+                                            <td>{{newelectricity_form.TimeofUse_On_Peak_Total(class="form-control", placeholder="$")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages
+                                                %} {% if "TimeofUse_On_Peak_Total" in message%}
                                                 <div class="inputs-validations">
                                                     {{ "Must be a postive number." }}
                                                 </div>
-                                                {% endif %}
-                                                {% endfor %}
-                                                {% endif %}
-                                                {% endwith %}
+                                                {% endif %} {% endfor %} {% endif %} {% endwith %}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -784,10 +706,8 @@
 
                     <div class="form-group">
                         <div class="form-row">
-                            <span
-                                class="col-6">{{newelectricity_form.DeliveryCharges.label(class="input-lable-format")}}</span>
-                            <span
-                                class="inputs-Location-selectalign">{{newelectricity_form.DeliveryCharges(class="form-control",
+                            <span class="col-6">{{newelectricity_form.DeliveryCharges.label(class="input-lable-format")}}</span>
+                            <span class="inputs-Location-selectalign">{{newelectricity_form.DeliveryCharges(class="form-control",
                                 placeholder="$")}}
                                 {% with messages = get_flashed_messages(with_categories=true) %}
                                 {% if messages %}
@@ -806,10 +726,8 @@
 
                     <div class="form-group">
                         <div class="form-row">
-                            <span
-                                class="col-6">{{newelectricity_form.RegulatoryCharges.label(class="input-lable-format")}}</span>
-                            <span
-                                class="inputs-Location-selectalign">{{newelectricity_form.RegulatoryCharges(class="form-control",
+                            <span class="col-6">{{newelectricity_form.RegulatoryCharges.label(class="input-lable-format")}}</span>
+                            <span class="inputs-Location-selectalign">{{newelectricity_form.RegulatoryCharges(class="form-control",
                                 placeholder="$")}}
                                 {% with messages = get_flashed_messages(with_categories=true) %}
                                 {% if messages %}
@@ -828,10 +746,8 @@
 
                     <div class="form-group">
                         <div class="form-row">
-                            <span
-                                class="col-6">{{newelectricity_form.TotalElectricityCost.label(class="input-lable-format")}}</span>
-                            <span
-                                class="inputs-Location-selectalign">{{newelectricity_form.TotalElectricityCost(class="form-control",
+                            <span class="col-6">{{newelectricity_form.TotalElectricityCost.label(class="input-lable-format")}}</span>
+                            <span class="inputs-Location-selectalign">{{newelectricity_form.TotalElectricityCost(class="form-control",
                                 placeholder="$")}}
                                 {% with messages = get_flashed_messages(with_categories=true) %}
                                 {% if messages %}
@@ -872,10 +788,8 @@
 
                     <div class="form-group">
                         <div class="form-row-Location">
-                            <span class="col-6"
-                                style="padding-left: 5px;">{{newelectricity_form.Location.label(class="input-lable-format")}}</span>
-                            <span
-                                class="inputs-Location-selectalign">{{newelectricity_form.Location(class="form-control")}}
+                            <span class="col-6" style="padding-left: 5px;">{{newelectricity_form.Location.label(class="input-lable-format")}}</span>
+                            <span class="inputs-Location-selectalign">{{newelectricity_form.Location(class="form-control")}}
                                 {% with messages = get_flashed_messages(with_categories=true) %}
                                 {% if messages %}
                                 {% for category, message in messages %}
@@ -889,18 +803,15 @@
                                 {% endwith %}
                             </span>
                             <div class="inputs-question-mark-yellow" id="inputs-Locationinfo">
-                                <img id="info-4" class='inputs-question-mark'
-                                    src="{{url_for('static', filename='info-icon.png')}}"> </img>
+                                <img id="info-4" class='inputs-question-mark' src="{{url_for('static', filename='info-icon.png')}}"> </img>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="form-row">
-                            <span
-                                class="col-6">{{newelectricity_form.Month_Of_bill.label(class="input-lable-format")}}</span>
-                            <span
-                                class="inputs-Location-selectalign">{{newelectricity_form.Month_Of_bill(class="form-control")}}
+                            <span class="col-6">{{newelectricity_form.Month_Of_bill.label(class="input-lable-format")}}</span>
+                            <span class="inputs-Location-selectalign">{{newelectricity_form.Month_Of_bill(class="form-control")}}
                                 {% with messages = get_flashed_messages(with_categories=true) %}
                                 {% if messages %}
                                 {% for category, message in messages %}
@@ -918,13 +829,13 @@
 
 
                     <script>
-                        $(document).ready(function () {
-                            $("input[name='Month_Of_bill'").on('change', function (e) {
+                        $(document).ready(function() {
+                            $("input[name='Month_Of_bill'").on('change', function(e) {
                                 var YearMonth_of_bill = "(" + $(this).val() + "-1)";
                                 var xml = new XMLHttpRequest();
                                 xml.open("POST", "{{ url_for('get_autofill_inputKWH') }}", true);
                                 xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                                xml.onload = function () {
+                                xml.onload = function() {
                                     var dataReply = JSON.parse(this.responseText)
                                     if (dataReply['upper'] != null) {
                                         question_img = "<img id=\"info-2\" class='inputs-question-mark' src='{{url_for('static', filename='info-icon.png')}}'> </img>";
@@ -945,7 +856,7 @@
                                     }
                                     document.getElementById("Tiered_UpperKWH").value = dataReply['upper'];
                                     document.getElementById("Tiered_LowerKWH").value = dataReply['lower'];
-                                };// end function
+                                }; // end function
 
                                 dataSend = JSON.stringify({
                                     'Date': YearMonth_of_bill,
@@ -973,35 +884,27 @@
                                                 <div class="form-controlfix">
                                                     {{newelectricity_form.Tiered_LowerValue.label(class="inputs-table-label")}}
                                                     <div>
-                                                        {{newelectricity_form.Tiered_LowerValue(class="form-control",
-                                                        placeholder="#")}}
-                                                        {% with messages = get_flashed_messages(with_categories=true) %}
-                                                        {% if messages %}
-                                                        {% for category, message in messages %}
-                                                        {% if "Tiered_LowerValue" in message%}
+                                                        {{newelectricity_form.Tiered_LowerValue(class="form-control", placeholder="#")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %} {% if "Tiered_LowerValue" in message%}
                                                         <div class="inputs-validations">
                                                             {{ "Must be a postive number." }}
                                                         </div>
-                                                        {% endif %}
-                                                        {% endfor %}
-                                                        {% endif %}
-                                                        {% endwith %}
+                                                        {% endif %} {% endfor %} {% endif %} {% endwith %}
                                                     </div>
                                                 </div>
 
                                                 <script>
-                                                    $(document).ready(function () {
-                                                        $("input[name='Tiered_LowerValue'").on('change', function (e) {
+                                                    $(document).ready(function() {
+                                                        $("input[name='Tiered_LowerValue'").on('change', function(e) {
                                                             var usage_val = $(this).val()
                                                             var kwh_val = document.getElementById("Tiered_LowerKWH").value;
                                                             var xml = new XMLHttpRequest();
                                                             xml.open("POST", "{{ url_for('get_autofill_inputTotal') }}", true);
                                                             xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                                                            xml.onload = function () {
+                                                            xml.onload = function() {
                                                                 var dataReply = JSON.parse(this.responseText)
                                                                 console.log(dataReply)
                                                                 document.getElementById("Tiered_LowerTotal").value = dataReply['total'];
-                                                            };// end function
+                                                            }; // end function
 
                                                             dataSend = JSON.stringify({
                                                                 'usage': usage_val,
@@ -1013,33 +916,19 @@
                                                 </script>
 
                                             </td>
-                                            <td>{{newelectricity_form.Tiered_LowerKWH(class="form-control",
-                                                placeholder="$")}}
-                                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                                {% if messages %}
-                                                {% for category, message in messages %}
-                                                {% if "Tiered_LowerKWH" in message%}
+                                            <td>{{newelectricity_form.Tiered_LowerKWH(class="form-control", placeholder="$")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %} {% if
+                                                "Tiered_LowerKWH" in message%}
                                                 <div class="inputs-validations">
                                                     {{ "Must be a postive number." }}
                                                 </div>
-                                                {% endif %}
-                                                {% endfor %}
-                                                {% endif %}
-                                                {% endwith %}
+                                                {% endif %} {% endfor %} {% endif %} {% endwith %}
                                             </td>
-                                            <td>{{newelectricity_form.Tiered_LowerTotal(class="form-control",
-                                                placeholder="$")}}
-                                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                                {% if messages %}
-                                                {% for category, message in messages %}
-                                                {% if "Tiered_LowerTotal" in message%}
+                                            <td>{{newelectricity_form.Tiered_LowerTotal(class="form-control", placeholder="$")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %} {%
+                                                if "Tiered_LowerTotal" in message%}
                                                 <div class="inputs-validations">
                                                     {{ "Must be a postive number." }}
                                                 </div>
-                                                {% endif %}
-                                                {% endfor %}
-                                                {% endif %}
-                                                {% endwith %}
+                                                {% endif %} {% endfor %} {% endif %} {% endwith %}
                                             </td>
                                         </tr>
                                         <tr>
@@ -1047,35 +936,27 @@
                                                 <div class="form-controlfix">
                                                     {{newelectricity_form.Tiered_UpperValue.label(class="inputs-table-label")}}
                                                     <div>
-                                                        {{newelectricity_form.Tiered_UpperValue(class="form-control",
-                                                        placeholder="#")}}
-                                                        {% with messages = get_flashed_messages(with_categories=true) %}
-                                                        {% if messages %}
-                                                        {% for category, message in messages %}
-                                                        {% if "Tiered_UpperValue" in message%}
+                                                        {{newelectricity_form.Tiered_UpperValue(class="form-control", placeholder="#")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %} {% if "Tiered_UpperValue" in message%}
                                                         <div class="inputs-validations">
                                                             {{ "Must be a postive number." }}
                                                         </div>
-                                                        {% endif %}
-                                                        {% endfor %}
-                                                        {% endif %}
-                                                        {% endwith %}
+                                                        {% endif %} {% endfor %} {% endif %} {% endwith %}
                                                     </div>
                                                 </div>
 
                                                 <script>
-                                                    $(document).ready(function () {
-                                                        $("input[name='Tiered_UpperValue'").on('change', function (e) {
+                                                    $(document).ready(function() {
+                                                        $("input[name='Tiered_UpperValue'").on('change', function(e) {
                                                             var usage_val = $(this).val()
                                                             var kwh_val = document.getElementById("Tiered_UpperKWH").value;
                                                             var xml = new XMLHttpRequest();
                                                             xml.open("POST", "{{ url_for('get_autofill_inputTotal') }}", true);
                                                             xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                                                            xml.onload = function () {
+                                                            xml.onload = function() {
                                                                 var dataReply = JSON.parse(this.responseText)
                                                                 console.log(dataReply)
                                                                 document.getElementById("Tiered_UpperTotal").value = dataReply['total'];
-                                                            };// end function
+                                                            }; // end function
 
                                                             dataSend = JSON.stringify({
                                                                 'usage': usage_val,
@@ -1087,49 +968,32 @@
                                                 </script>
 
                                             </td>
-                                            <td>{{newelectricity_form.Tiered_UpperKWH(class="form-control",
-                                                placeholder="$")}}
-                                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                                {% if messages %}
-                                                {% for category, message in messages %}
-                                                {% if "Tiered_UpperKWH" in message%}
+                                            <td>{{newelectricity_form.Tiered_UpperKWH(class="form-control", placeholder="$")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %} {% if
+                                                "Tiered_UpperKWH" in message%}
                                                 <div class="inputs-validations">
                                                     {{ "Must be a postive number." }}
                                                 </div>
-                                                {% endif %}
-                                                {% endfor %}
-                                                {% endif %}
-                                                {% endwith %}
+                                                {% endif %} {% endfor %} {% endif %} {% endwith %}
                                             </td>
-                                            <td>{{newelectricity_form.Tiered_UpperTotal(class="form-control",
-                                                placeholder="$")}}
-                                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                                {% if messages %}
-                                                {% for category, message in messages %}
-                                                {% if "Tiered_UpperTotal" in message%}
+                                            <td>{{newelectricity_form.Tiered_UpperTotal(class="form-control", placeholder="$")}} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %} {%
+                                                if "Tiered_UpperTotal" in message%}
                                                 <div class="inputs-validations">
                                                     {{ "Must be a postive number." }}
                                                 </div>
-                                                {% endif %}
-                                                {% endfor %}
-                                                {% endif %}
-                                                {% endwith %}
+                                                {% endif %} {% endfor %} {% endif %} {% endwith %}
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="inputs-question-mark-yellow" id="tieredinputs-question-mark-yellow"
-                                data-toggle="tooltip" title=""></div>
+                            <div class="inputs-question-mark-yellow" id="tieredinputs-question-mark-yellow" data-toggle="tooltip" title=""></div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="form-row">
-                            <span
-                                class="col-6">{{newelectricity_form.DeliveryCharges.label(class="input-lable-format")}}</span>
-                            <span
-                                class="inputs-Location-selectalign">{{newelectricity_form.DeliveryCharges(class="form-control",
+                            <span class="col-6">{{newelectricity_form.DeliveryCharges.label(class="input-lable-format")}}</span>
+                            <span class="inputs-Location-selectalign">{{newelectricity_form.DeliveryCharges(class="form-control",
                                 placeholder="$")}}
                                 {% with messages = get_flashed_messages(with_categories=true) %}
                                 {% if messages %}
@@ -1148,10 +1012,8 @@
 
                     <div class="form-group">
                         <div class="form-row">
-                            <span
-                                class="col-6">{{newelectricity_form.RegulatoryCharges.label(class="input-lable-format")}}</span>
-                            <span
-                                class="inputs-Location-selectalign">{{newelectricity_form.RegulatoryCharges(class="form-control",
+                            <span class="col-6">{{newelectricity_form.RegulatoryCharges.label(class="input-lable-format")}}</span>
+                            <span class="inputs-Location-selectalign">{{newelectricity_form.RegulatoryCharges(class="form-control",
                                 placeholder="$")}}
                                 {% with messages = get_flashed_messages(with_categories=true) %}
                                 {% if messages %}
@@ -1170,10 +1032,8 @@
 
                     <div class="form-group">
                         <div class="form-row">
-                            <span
-                                class="col-6">{{newelectricity_form.TotalElectricityCost.label(class="input-lable-format")}}</span>
-                            <span
-                                class="inputs-Location-selectalign">{{newelectricity_form.TotalElectricityCost(class="form-control",
+                            <span class="col-6">{{newelectricity_form.TotalElectricityCost.label(class="input-lable-format")}}</span>
+                            <span class="inputs-Location-selectalign">{{newelectricity_form.TotalElectricityCost(class="form-control",
                                 placeholder="$")}}
                                 {% with messages = get_flashed_messages(with_categories=true) %}
                                 {% if messages %}
@@ -1200,6 +1060,47 @@
     </div>
 </div>
 
+
+<!-- RESULTS HERE -->
+<div id="scrollto_results">
+    {% if scrollto_results %} {% if graphJSON1 %}
+    <div id="fullscreen">
+        <div class="results-title">
+            <h5>
+                Based on your information, here are the results
+            </h5>
+        </div>
+        <!-- <div class="results-control"> -->
+        <div id="chart" style="height: inherit" class="chart">
+            <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+            <script type="text/javascript">
+                var graphs = {{graphJSON1 | safe}};
+                console.log(graphs)
+                Plotly.newPlot('chart', graphs, {});
+            </script>
+            <script>
+                var charts = document.getElementById('chart');
+                window.onresize = function() {
+                    Plotly.Plots.resize(charts);
+                };
+            </script>
+            <!--</div> -->
+        </div>
+    </div>
+    <form action="{{url_for('home_page')}}" method="POST" class="container">
+        <div class="frame">
+            <button id="return_home-btn" class="btn btn-primary" name="return_home" type="submit">Reset</button>
+        </div>
+    </form>
+</div>
+
+{% endif %} {% endif %}
+</div>
+
+
+
+
 <!-- Scrolling to the selected div -->
 {% if scroll %}
 <script type="text/javascript">
@@ -1207,97 +1108,29 @@
 </script>
 {% endif %}
 
+<!-- ENABLE TOOLTIPS ON HOVER USING TiPPY.JS-->
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
 
+<script>
+    tippy('#info-3', {
+        content: 'You have selected <Strong><span style="color: Red;">Tiered</span></Strong>. This feature is currently a work-in-progress.',
+        placement: 'top',
+        arrow: true,
+        interactive: true,
+        allowHTML: true
+    });
+</script>
 
+<script>
+    tippy('#info-4', {
+        content: 'Select <Strong><span style="color: Red;">Ontario Non-CMA</span></Strong> if your city is not listed!',
+        placement: 'top',
+        arrow: true,
+        interactive: true,
+        allowHTML: true
+    });
+</script>
 
-<!-- RESULTS HERE -->
-<div id="scrollto_results">
-
-    {% if savings %}
-    <div class="container-results">
-        <div class="results-format">
-            <div class="results-1">
-
-                <table class="table table-hover table-light table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Month/Year</th>
-                            <th scope="col">Current Bill</th>
-                            <th scope="col">Estimated Price</th>
-                            <th scope="col">Savings</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in savings %}
-                        <tr>
-                            <td>{{item.Month}}-{{item.Year}}</td>
-                            <td>${{item.CurrentBill}}</td>
-                            <td>${{item.EstimatedPrice}}</td>
-                            <td>${{item.Savings}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-
-                {% else %}
-                <!-- DO NOTHING -->
-
-                {% endif %}
-            </div>
-            <div class="results-2">
-                {% if complete_form %}
-                <div class="container-results">
-                    <div class="results-format">
-                        <div class="results-1">
-
-                            <p>{{complete_form}}</p>
-                            <form action="{{url_for('home_page')}}" method="POST" class="container">
-                                <div class="frame">
-                                    <button id="return_home-btn" class="btn btn-primary mb-2" name="return_home" type="submit">Reset</button>
-                                </div>
-                            </form>
-
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Scrolling the the Results after submitting the inputs -->
-        {% if scrollto_results %}
-        <script>
-            document.getElementById('{{ scrollto_results }}').scrollIntoView();
-        </script>
-        {% endif %}
-
-
-
-
-
-        <!-- ENABLE TOOLTIPS ON HOVER USING TiPPY.JS-->
-        <script src="https://unpkg.com/@popperjs/core@2"></script>
-        <script src="https://unpkg.com/tippy.js@6"></script>
-
-        <script>
-            tippy('#info-3', {
-                content: 'You have selected <Strong><span style="color: Red;">Tiered</span></Strong>. This feature is currently a work-in-progress.',
-                placement: 'top',
-                arrow: true,
-                interactive: true,
-                allowHTML: true
-            });
-        </script>
-
-        <script>
-            tippy('#info-4', {
-                content: 'Select <Strong><span style="color: Red;">Ontario Non-CMA</span></Strong> if your city is not listed!',
-                placement: 'top',
-                arrow: true,
-                interactive: true,
-                allowHTML: true
-            });
-        </script>
-
-        <!-- END OF CONTENT -->
-        {% endblock%}
+<!-- END OF CONTENT -->
+{% endblock%}
