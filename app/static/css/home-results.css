@@ -119,11 +119,13 @@
 
 .shadow-res1 {
   border-color: rgba(204, 8, 8, 0.377);
+  border-width: 2px;
   color: black;
 }
 
 .shadow-res2 {
   border-color: rgba(8, 165, 255, 0.377);
+  border-width: 2px;
   color: black;
 }
 
@@ -154,8 +156,6 @@
 
   .results-title h3 {
     font-size: large;
-    /* font-weight: bold;
-    font-family: inherit; */
   }
 
   .card-titles-payback > h5 {
