@@ -1,6 +1,5 @@
 from statistics import mean
 from enum import auto
-from tkinter import font
 from turtle import bgcolor, color, width
 from app import app
 from app import db
@@ -247,8 +246,8 @@ def render_Results():
     ghg_reduction['Date'] = ghg_reduction['Month_str'] + \
         ghg_reduction['Year'].astype(str)
 
-    fig = make_subplots(rows=5, cols=1, vertical_spacing=0.1, subplot_titles=("Cost Comparison - Line Graph", "Cost Comparison - Bar Graph", "GHG Emission Comparison - Line Graph", "GHG Emission Comparison - Bar Graph", "Reliability"))
-    
+    fig = make_subplots(rows=5, cols=1, vertical_spacing=0.1, subplot_titles=("Cost Comparison - Line Graph",
+                        "Cost Comparison - Bar Graph", "GHG Emission Comparison - Line Graph", "GHG Emission Comparison - Bar Graph", "Reliability"))
 
     ### plotting cost comparison ###
     # scatter plot for original cost
@@ -325,45 +324,33 @@ def render_Results():
 
     fig.update_layout(height=2400)
     fig.update_layout(legend=dict(
-    x=0.8
+        x=0.8
     ))
-    
-    ## calculate payback period
+
+    # calculate payback period
     yearly_savings = cost_savings.groupby('Year').sum('Cost_savings')
     yearly_mean_savings = mean(yearly_savings['Cost_savings'])
-    payback_period = 10000/yearly_mean_savings
-    print(payback_period)
+    payback_period = round(10000/yearly_mean_savings, 1)
 
-    ## calculating ghg savings equivalent: smartphones charged - https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator
+    # calculating ghg savings equivalent: smartphones charged - https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator
     # 1 kWh/charge x 1,562.4 pounds CO2/MWh delivered electricity x 1 metric ton/2,204.6 lbs
-    print(ghg_reduction)
     total_ghg_saved = sum(ghg_reduction['GHG_red'])
-    print(total_ghg_saved)
     # phones charged from savings
-    phones_charged = round(total_ghg_saved/8.22)
-    phones_charged_10_years = 10*phones_charged
-    print(phones_charged)
+    phones_charged_1_year = total_ghg_saved/8.22
+    phones_charged_10_years = int(round(10*phones_charged_1_year, 0))
+    # print(f'ghg {total_ghg_saved}\nphones 1 {phones_charged_1_year}\nphones 10 {phones_charged_10_years}')
 
     # miles driven
     miles_driven = round(total_ghg_saved/398)
-    print(miles_driven)
 
-    # dataframe = result
-    # graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    # graphJSON_ghg = json.dumps(fig_ghg, cls=plotly.utils.PlotlyJSONEncoder) , graphJSON2= graphJSON_ghg
-    # return render_template('visualization.html', graphJSON1=graphJSON_cost)
-    # DO THE MIP MODEL PROCESS HERE AND PASS IN THE RESULTS AS A PARAM
-    # return render_template('home.html', savings=[dataframe], complete_form=complete_form, scrollto_results=scrollto_results)
     fig.update_layout(
         hovermode="x unified",
-        hoverlabel = dict(font_color = 'black', bgcolor = 'white', align='left', bordercolor='white'),#whatever format you want)
+        hoverlabel=dict(font_color='black', bgcolor='white', align='left',
+                        bordercolor='white'),  # whatever format you want)
         autosize=True,
-        plot_bgcolor = "white",
-        # paper_bgcolor="LightSteelBlue",
+        plot_bgcolor="#fafafa",
         margin=dict(l=10, r=35, t=60, b=10, pad=0),
-        # title_text="Based on your bill, here are your results:",
         font=dict(
-            # family="Courier New, monospace",
             size=12)
     )
 
@@ -377,9 +364,9 @@ def render_Results():
         i['font'] = dict(size=15, color='black')
 
     fig.update_layout(
-        legend=dict(font=dict( size=12, color="black")),
+        legend=dict(font=dict(size=12, color="black")),
     )
 
     graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('home.html', graphJSON1=graphJSON_cost, scrollto_results=scrollto_results)
+    return render_template('home.html', graphJSON1=graphJSON_cost, payback=payback_period, phonescharged_1=phones_charged_1_year, phonescharged_10=phones_charged_10_years, milesdriven=miles_driven, scrollto_results=scrollto_results)
