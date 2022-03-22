@@ -1,9 +1,5 @@
-{% extends 'base.html'%} {% block title%} FAQ {% endblock%}
-
-
-{% block styles %}
-<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/faq.css')}}">
-{% endblock %}
+{% extends 'base.html'%} {% block title%} FAQ {% endblock%} {% block styles %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/faq.css')}}"> {% endblock %}
 
 <!-- CONTENT HERE -->
 {% block content %}
@@ -11,10 +7,11 @@
 <div class="container-fluid">
     <div class="faq-title">
         <h1>Frequency Asked Questions(FAQ)</h1>
-        <h4>Learn more about BESST, Powerwalls and Battery Energy!<h4>
+        <h4>Learn more about BESST, Powerwalls and Battery Energy!
+            <h4>
     </div>
 
-    <div class = "capstone">
+    <div class="capstone">
         <div class="intro_vid">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/jlcd-_b6teo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border: 2px solid black;"></iframe>
         </div>
@@ -27,7 +24,7 @@
         <label for="acc1">What is a BESS(Battery Energy Storage System)?</label>
         <div class="content">
             <div class="inner">
-                A BESS is a group of batteries that stores energy (from the electrical grid or a solar panel system) and automatically adds to your home's energy source when the grid goes down or during on-peak hours. 
+                A BESS is a group of batteries that stores energy (from the electrical grid or a solar panel system) and automatically adds to your home's energy source when the grid goes down or during on-peak hours.
             </div>
         </div>
 
@@ -36,26 +33,28 @@
         <label for="acc2">How does a BESS work with the grid?</label>
         <div class="content">
             <div class="inner">
-                A Battery Energy Storage system charges and stores power during off-peak and mid-peak hours and then once the system is fully charged, during on-peak hours, the system discharges the stored energy and becomes the home's power source.
-                
+                A Battery Energy Storage system ideally charges and stores power during off-peak and mid-peak hours, and when fully charged, discharges during on-peak hours, making it the home's source of power.
             </div>
         </div>
-        
+
         <!-- 3rd menu -->
         <input type="checkbox" name="trg1" id="acc3">
-        <label for="acc3">What is peak-shaving? How does energy storage fit in?</label>
+        <label for="acc3">What is peak-shaving? How is it linked to energy storage?</label>
         <div class="content">
             <div class="inner">
-                During times of peak electricity demand like when air conditioners ramp up on hot days - many utilities charge customers extra since they have to ramp up expensive additional electricity production to meet the demand. These charges are called “time-of-use” or “peak” prices since they are tied solely to when a customer uses the electricity. Energy storage works in similar ways, but since energy storage lets customers decide when to buy and when to use the power, a customer is freed from premium charges, increasing cost savings.
+                During times of peak electricity demand(for example, when air conditioners ramp up on hot days), many utilities charge customers extra since they have to ramp up additional, often expensive electricity production to meet the demand. These charges are
+                called “time-of-use” or “peak” prices since they are tied solely to when a customer uses the electricity. Energy storage works in similar ways, but since energy storage lets customers decide when to store and when to use the power, they
+                are freed from premium charges, thus increasing cost savings.
+
             </div>
         </div>
 
         <!-- 4rd menu -->
         <input type="checkbox" name="trg1" id="acc4">
-        <label for="acc4">Can a BESS such as a Telsa powerwall be installed into a home without a solar panel system or already set up with solar panels?</label>
+        <label for="acc4">Can a BESS such as the Tesla Powerwall be installed into a household without solar energy sources?</label>
         <div class="content">
             <div class="inner">
-                Yes BESS can be integrated with solar panels for additional cost savings or as a standalone system utilizing the grid.
+                Yes, a BESS can be installed as a standalone system utilizing the grid, or integrated with solar panels for additional cost savings or .
             </div>
         </div>
 
@@ -66,7 +65,9 @@
         <label for="acc5">Why should I choose BESST?</label>
         <div class="content">
             <div class="inner">
-                BESST aims to reduce the amount of steps required from the user and make it easy for the user to use. With accordance to the user's electricity bill, BESST reduce the burden of users having to research & understand their usage. Additionally, by using the tesla powerwall as the product reference, the number of inputs for a user are reduced as well (mainly battery storage specifications). BESST essentially trade-off flexibility of the tool for simplification of the user interaction.
+                BESST aims to help household owners in making an important decision - whether investing in a BESS is worth it. In accordance with the homeowner’s electricity bill, BESST reduces the burden on them having to research & understand their energy usage. Additionally,
+                by using the Tesla Powerwall as the referenced product, the amount of information needed from them is reduced. BESST essentially presents homeowners with the most important details - including cost savings, reduction in greenhouse gas
+                emissions, and improvement in reliability - that they look for before making this decision.
             </div>
         </div>
 
@@ -75,7 +76,7 @@
         <label for="acc6">Is my data safe?</label>
         <div class="content">
             <div class="inner">
-                No, your inputs will be used one-time to calculate the results and will not be stored in any form.
+                Yes, your data will only be used once to calculate the results, and will not be stored in any form.
             </div>
         </div>
 
@@ -87,9 +88,9 @@
         <div class="content">
             <div class="inner">
                 Since electricity usage will vary by each month of the year - BESST simulates this variation using the average household usage per month in a given geographic location. The dataset can be found through:
-                <a href="https://oee.nrcan.gc.ca/corporate/statistics/neud/dpa/showTable.cfm?type=SHCMA&sector=AAA&juris=CA&rn=19&page=1" target="_blank">Average Household Electricity Use by Month!</a> 
+                <a href="https://oee.nrcan.gc.ca/corporate/statistics/neud/dpa/showTable.cfm?type=SHCMA&sector=AAA&juris=CA&rn=19&page=1" target="_blank">Average Household Electricity Use by Month!</a>
             </div>
-            
+
         </div>
 
         <!-- 8th menu -->
@@ -97,7 +98,8 @@
         <label for="acc8">How does a BESS result in GHG (Greenhouse gas) emission reduction?</label>
         <div class="content">
             <div class="inner">
-                Similar to the idea of cost-savings, throughout the day - GHG emissions will vary across the grid based on the source of production (solar, nuclear, gas, etc.). If a household were to store electricity during a period of lower GHG emission and then discharge that stored electricity during a higher GHG emission period - then some GHG emission are ‘shaved’ off because electricity from the grid was not used during this time period. 
+                Similar to the idea of cost-savings, throughout the day - GHG emissions will vary across the grid based on the source of production (solar, nuclear, gas, etc.). If a household were to store electricity during a period of lower GHG emission and then discharge
+                that stored electricity during a higher GHG emission period - then some GHG emission are ‘shaved’ off because electricity from the grid was not used during this time period.
             </div>
         </div>
 
@@ -106,39 +108,41 @@
         <label for="acc9"> How are these numbers calculated?</label>
         <div class="content">
             <div class="inner">
-                BESST presents reliability as the estimated number of hours that the Tesla powerwall (at maximum capacity) can supply electricity to a home according to their usages during off-peak, mid-peak, and on-peak time periods. For instance, during off-peak periods - a household may only be using electricity for a small number of appliances (refrigerator, charging devices, etc.). If a power outage were to occur during this period - the tesla powerwall can supply X hours of electricity for these appliances.
+                BESST presents reliability as the estimated number of hours that the Tesla powerwall (at maximum capacity) can supply electricity to a home according to their usages during off-peak, mid-peak, and on-peak time periods. For instance, during off-peak periods
+                - a household may only be using electricity for a small number of appliances (refrigerator, charging devices, etc.). If a power outage were to occur during this period - the tesla powerwall can supply X hours of electricity for these appliances.
             </div>
         </div>
 
-           <!-- 10th menu -->
-           <input type="checkbox" name="trg1" id="acc10">
-           <label for="acc10"> How does BESST present electricity reliability?</label>
-           <div class="content">
-               <div class="inner">
-                BESST presents reliability as the estimated number of hours that the Tesla powerwall (at maximum capacity) can supply electricity to a home according to their usages during off-peak, mid-peak, and on-peak time periods. For instance, during off-peak periods - a household may only be using electricity for a small number of appliances (refrigerator, charging devices, etc.). If a power outage were to occur during this period - the tesla powerwall can supply X hours of electricity for these appliances.
-               </div>
-           </div>
- 
-
-          <!-- 11th menu -->
-          <input type="checkbox" name="trg1" id="acc11">
-          <label for="acc11"> Why do we reference the Tesla Powerwall?</label>
-          <div class="content">
-              <div class="inner">
-                Tesla Powerwall product is used as the model for consumers to understand the benefits of having a BESS for the household because the Tesla Powerwall is the leading product in
-                the industry. It helps to simplify the results and present realistic numbers through an actual product on the market.
-              </div>
-          </div>
-
-          <p>Additional Links</p>
-          <a href="https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator" target="_blank">GHG Emission Equivalencies </a>
-          <a href="https://www.tesla.com/en_CA/support/powerwall/faqs" target="_blank">Tesla Powerwall Details </a>
-          <a href="https://www.oeb.ca/consumer-information-and-protection/electricity-rates" target="_blank">Ontario Electricity Rates </a>
-          <a href="https://www150.statcan.gc.ca/n1/daily-quotidien/220216/dq220216a-eng.html" target="_blank" style="margin-bottom:2%;">Inflation & Interest </a>  
+        <!-- 10th menu -->
+        <input type="checkbox" name="trg1" id="acc10">
+        <label for="acc10"> How does BESST present electricity reliability?</label>
+        <div class="content">
+            <div class="inner">
+                BESST presents reliability as the estimated number of hours that the Tesla powerwall (at maximum capacity) can supply electricity to a home according to their usages during off-peak, mid-peak, and on-peak time periods. For instance, during off-peak periods
+                - a household may only be using electricity for a small number of appliances (refrigerator, charging devices, etc.). If a power outage were to occur during this period - the tesla powerwall can supply X hours of electricity for these appliances.
+            </div>
+        </div>
 
 
+        <!-- 11th menu -->
+        <input type="checkbox" name="trg1" id="acc11">
+        <label for="acc11"> Why do we reference the Tesla Powerwall?</label>
+        <div class="content">
+            <div class="inner">
+                Tesla Powerwall product is used as the model for consumers to understand the benefits of having a BESS for the household because the Tesla Powerwall is the leading product in the industry. It helps to simplify the results and present realistic numbers
+                through an actual product on the market.
+            </div>
+        </div>
 
-        
+        <p>Additional Links</p>
+        <a href="https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator" target="_blank">GHG Emission Equivalencies </a>
+        <a href="https://www.tesla.com/en_CA/support/powerwall/faqs" target="_blank">Tesla Powerwall Details </a>
+        <a href="https://www.oeb.ca/consumer-information-and-protection/electricity-rates" target="_blank">Ontario Electricity Rates </a>
+        <a href="https://www150.statcan.gc.ca/n1/daily-quotidien/220216/dq220216a-eng.html" target="_blank" style="margin-bottom:2%;">Inflation & Interest </a>
+
+
+
+
 
     </div>
 </div>
