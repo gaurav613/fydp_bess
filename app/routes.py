@@ -326,6 +326,8 @@ def render_Results():
     ))
     
     ## calculate payback period
+    print("********payback period calculation")
+    print(cost_savings)
     yearly_savings = cost_savings.groupby('Year').sum('Cost_savings')
     print(yearly_savings)
     yearly_mean_savings = mean(yearly_savings['Cost_savings'])
