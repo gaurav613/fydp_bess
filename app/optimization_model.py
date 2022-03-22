@@ -31,6 +31,7 @@ e.setParam('LICENSEID', LICENSEID)
 
 
 def optimize(user_inputs):
+  # opt_model = grb.Model(name="MIP Model",env=e)
   opt_model = grb.Model(name="MIP Model")
   # read inputs from user
   bill_type = user_inputs['BillType']

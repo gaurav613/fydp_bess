@@ -2,6 +2,7 @@ from statistics import mean
 from enum import auto
 from turtle import bgcolor, color, width
 from app import app
+from statistics import mean
 from app import db
 from flask import jsonify, redirect, render_template, request, url_for, flash
 from app.models import Item, User
@@ -328,7 +329,7 @@ def render_Results():
     fig.update_xaxes(title_text="Time-Of-Use Period", row=5, col=1)
 
     # calculate payback period
-    yearly_savings = cost_savings.groupby('Year').sum('Cost_savings')
+    yearly_savings = cost_savings.groupby('Year').sum()
     yearly_mean_savings = mean(yearly_savings['Cost_savings'])
     payback_period = round(10000/yearly_mean_savings, 1)
 
