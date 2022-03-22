@@ -369,4 +369,4 @@ def render_Results():
 
     graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('home.html', graphJSON1=graphJSON_cost, payback=payback_period, phonescharged_1=phones_charged_1_year, phonescharged_10=phones_charged_10_years, milesdriven=miles_driven, scrollto_results=scrollto_results)
+    return render_template('home.html', graphJSON1=graphJSON_cost, payback=payback_period, phonescharged_10=phones_charged_10_years, milesdriven=miles_driven, scrollto_results=scrollto_results)
