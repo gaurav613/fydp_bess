@@ -31,6 +31,7 @@ e.setParam('LICENSEID', LICENSEID)
 
 
 def optimize(user_inputs):
+  # opt_model = grb.Model(name="MIP Model",env=e)
   opt_model = grb.Model(name="MIP Model")
   # read inputs from user
   bill_type = user_inputs['BillType']
@@ -69,11 +70,14 @@ def optimize(user_inputs):
         UF_m = user_inputs['Off_Peak_Value']
 
         # CN = fixed on-peak electricity pricing [$/kWh]
-        CN = user_inputs['On_Peak_KWH']
-        # # CM = fixed mid-peak electricity pricing [$/kWh]
-        CM = user_inputs['Mid_Peak_KWH']
+        # CN = user_inputs['On_Peak_KWH']
+        CN = 0.17
+        # CM = fixed mid-peak electricity pricing [$/kWh]
+        # CM = user_inputs['Mid_Peak_KWH']
+        CM = 0.113
         # # CF = fixed off-peak electricity pricing [$/kWh]
-        CF = user_inputs['Off_Peak_KWH']
+        # CF = user_inputs['Off_Peak_KWH']
+        CF = 0.082
         # Month of the user's provided eletricity bill
         month_bill = int(user_inputs['Month_of_bill'][:2])
         # Nearest geographic location of the household
