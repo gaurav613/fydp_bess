@@ -329,7 +329,7 @@ def render_Results():
     ))
 
     # calculate payback period
-    yearly_savings = cost_savings.groupby('Year').sum('Cost_savings')
+    yearly_savings = cost_savings.groupby('Year').sum()
     yearly_mean_savings = mean(yearly_savings['Cost_savings'])
     payback_period = round(10000/yearly_mean_savings, 1)
 
