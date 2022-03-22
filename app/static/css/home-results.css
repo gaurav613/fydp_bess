@@ -103,6 +103,13 @@
   align-items: center;
   text-align: center;
 }
+.card-title span{
+  font-family: "Arial Black", sans-serif;
+  letter-spacing: -1px;
+  color: black;
+  /* font-size: medium; */
+  /* text-transform: uppercase; */
+}
 
 .card-img-top {
   width: 50px;

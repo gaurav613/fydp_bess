@@ -252,7 +252,9 @@ def render_Results():
     outage_reduction['Hours'] = outage_reduction['Hours'].round(2)
 
     fig = make_subplots(rows=5, cols=1, vertical_spacing=0.1, subplot_titles=("Forcasted Annual Cost Savings",
-                        "Forcasted Annual Cost Savings", "Monthly Greenhouse Gas Emissions", "Monthly Greenhouse Gas Emissions", "Duration of Electricity Available Duriing a Power Outage by Time-Of-Use Periods"))
+                        "Forcasted Annual Cost Savings", "Monthly Greenhouse Gas Emissions",
+                        "Monthly Greenhouse Gas Emissions", 
+                        "Available Electricity During a Power Outage by Time-Of-Use Period"))
 
     ### plotting cost comparison ###
     # scatter plot for original cost
@@ -323,7 +325,7 @@ def render_Results():
     trace9 = go.Bar(
         x=outage_reduction['Period'],
         y=outage_reduction['Hours'],
-        name="Hours of electricity available during off-peak period based on your usage", marker_color="firebrick")
+        name="Hours of electricity available based on your usage in the period", marker_color="firebrick")
     fig.append_trace(trace9, row=5, col=1)
     fig.update_yaxes(title_text="Hours Available", row=5, col=1)
     fig.update_xaxes(title_text="Time-Of-Use Period", row=5, col=1)

@@ -1157,17 +1157,24 @@
             </h3>
         </div>
         <div class="container-res">
-            <div class="card-titles-payback">
+            <div class="card-titles-equivalence">
+                <div class="equivalence-cont">
+                    <h5>Payback Period</h5>
+                    <div id="Equivalencies-title" class="inputs-question-mark-yellow">
+                        <img id="info-5" class='inputs-question-mark'
+                            src="{{url_for('static', filename='info-icon.png')}}"></img>
+                    </div>
+                </div>
                 <div class="container-cards-res">
                     <div class="row-res">
-                        <p>Payback Period</p>
                         <div class="col-5">
                             <div class="card shadow-res1">
                                 <img class="card-img-top" src="{{url_for('static', filename='payback-time.png')}}">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{payback}} Years</h5>
-                                    <p class="card-text">Some text Some text Some text Some text. Some text Some text
-                                        Some text Some text.</p>
+                                    <h5 class="card-title"><span>{{payback}}</span> Years</h5>
+                                    <p class="card-text">It would take <span
+                                            style="font-weight:bold;color: red;">this</span> amount of
+                                        time to break even on the investment in a Tesla Powerwall.</p>
                                 </div>
                             </div>
                         </div>
@@ -1176,35 +1183,31 @@
             </div>
             <div class="card-titles-equivalence">
                 <div class="equivalence-cont">
-                    <h5>Equivalencies</h5>
+                    <h5>Greenhouse Gas Reductions</h5>
                     <div id="Equivalencies-title" class="inputs-question-mark-yellow">
-                        <img id="info-5" class='inputs-question-mark'
+                        <img id="info-6" class='inputs-question-mark'
                             src="{{url_for('static', filename='info-icon.png')}}"></img>
                     </div>
                 </div>
                 <div class="container-cards-res">
                     <div class="row-res">
-                        <p>phonescharged_10</p>
                         <div class="col-5">
                             <div class="card shadow-res2">
                                 <img class="card-img-top" src="{{url_for('static', filename='equivalence-phone.png')}}">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ phonescharged_10 }} Phones</h5>
-                                    <p class="card-text">Some text Some text Some text Some text. Some text Some text
-                                        Some text Some text.</p>
+                                    <h5 class="card-title"><span>{{ phonescharged_10 }}</span> Phones Charged</h5>
+                                    <p class="card-text"></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row-res">
-                        <p>milesdriven</p>
                         <div class="col-5">
                             <div class="card shadow-res2">
                                 <img class="card-img-top" src="{{url_for('static', filename='equivalence-car.png')}}">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ milesdriven }} Miles</h5>
-                                    <p class="card-text">Some text Some text Some text Some text. Some text Some text
-                                        Some text Some text.</p>
+                                    <h5 class="card-title"><span>{{ milesdriven }}</span> Miles Driven</h5>
+                                    <p class="card-text"></p>
                                 </div>
                             </div>
                         </div>
@@ -1277,7 +1280,17 @@
 
 <script>
     tippy('#info-5', {
-        content: 'Explain <Strong><span style="color: Red;">Equivalency</span></Strong> here!',
+        content: 'Assuming the cost of a Tesla Powerwall is <Strong><span style="color: Red;">$10000!</span></Strong>',
+        placement: 'top',
+        arrow: true,
+        interactive: true,
+        allowHTML: true
+    });
+</script>
+
+<script>
+    tippy('#info-6', {
+        content: 'The annual reduction in <Strong><span style="color: #00fc08;">Greenhouse Gas emissions</span></Strong> is equivalent to the emissions produced by ...',
         placement: 'top',
         arrow: true,
         interactive: true,
