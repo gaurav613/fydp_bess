@@ -1172,9 +1172,7 @@
                                 <img class="card-img-top" src="{{url_for('static', filename='payback-time.png')}}">
                                 <div class="card-body">
                                     <h5 class="card-title"><span>{{payback}}</span> Years</h5>
-                                    <p class="card-text">It would take <span
-                                            style="font-weight:bold;color: red;">this</span> amount of
-                                        time to break even on the investment in a Tesla Powerwall.</p>
+                                    <p class="card-text"></p>
                                 </div>
                             </div>
                         </div>
@@ -1280,7 +1278,7 @@
 
 <script>
     tippy('#info-5', {
-        content: 'Assuming the cost of a Tesla Powerwall is <Strong><span style="color: Red;">$10000!</span></Strong>',
+        content: 'Considering the cost of a Tesla Powerwall to be <Strong><span style="color: Red;">$10,000</span></Strong>, the time it would take to break even on the investment is ...',
         placement: 'top',
         arrow: true,
         interactive: true,
