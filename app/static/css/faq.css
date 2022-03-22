@@ -13,6 +13,28 @@
   text-align: center;
 }
 
+.capstone{
+    width:50%;
+    margin: 0 auto;
+}
+
+.intro_vid{
+  position: relative; 
+  padding-bottom: 56.25%; 
+  padding-top: 30px; 
+  height: 0; 
+  overflow: hidden; 
+}
+
+.intro_vid iframe{
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+}
+
+
 .accordionMenu {
   margin: 0 15% 0 15%;
   display: flex;
@@ -22,6 +44,13 @@
 
 .accordionMenu input[type="checkbox"] {
   display: none;
+}
+
+p {
+  border-bottom: 2px solid black;
+  margin-top: 4%;
+  font-size: large;
+  font-weight: 600;
 }
 
 .accordionMenu label {
@@ -60,10 +89,10 @@
 .accordionMenu .content {
   max-height: 0;
   overflow: hidden;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  -webkit-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .accordionMenu .content .inner {
@@ -87,7 +116,7 @@
 }
 
 .accordionMenu label:hover {
-  background-color: rgb(146, 7, 7);
+  background-color: rgb(18, 1, 247);
 }
 
 @media (max-width: 846px) {
