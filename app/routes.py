@@ -324,15 +324,6 @@ def render_Results():
     fig.update_layout(legend=dict(
     x=0.8
     ))
-    
-    ## calculate payback period
-    print("********payback period calculation")
-    print(cost_savings)
-    yearly_savings = cost_savings.groupby('Year').sum()
-    print(yearly_savings)
-    yearly_mean_savings = mean(yearly_savings['Cost_savings'])
-    payback_period = 10000/yearly_mean_savings
-    print(payback_period)
 
     # calculating ghg savings equivalent: smartphones charged - https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator
     # 1 kWh/charge x 1,562.4 pounds CO2/MWh delivered electricity x 1 metric ton/2,204.6 lbs
@@ -347,6 +338,17 @@ def render_Results():
     # # miles driven
     miles_driven = round(total_ghg_saved/398)
     print(miles_driven)
+    
+    ## calculate payback period
+    print("********payback period calculation")
+    print(cost_savings)
+    yearly_savings = cost_savings.groupby('Year').sum()
+    print(yearly_savings)
+    yearly_mean_savings = mean(yearly_savings['Cost_savings'])
+    payback_period = 10000/yearly_mean_savings
+    print(payback_period)
+
+   
 
     # dataframe = result
     # graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
