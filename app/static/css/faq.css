@@ -13,6 +13,18 @@
   text-align: center;
 }
 
+.capstone{
+    width:50%;
+    margin: 0 auto;
+}
+
+.intro_vid{
+    position:relative;
+    display:block;
+    width:100%;
+    height:auto;
+}
+
 .accordionMenu {
   margin: 0 15% 0 15%;
   display: flex;
@@ -23,6 +35,7 @@
 .accordionMenu input[type="checkbox"] {
   display: none;
 }
+
 
 .accordionMenu label {
   background: #2c97de;
