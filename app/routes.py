@@ -246,7 +246,7 @@ def render_Results():
 
     ghg_reduction['Act_GHG'] = ghg_reduction['Act_GHG'].div(1000).round(2)
     ghg_reduction['Est_GHG'] = ghg_reduction['Est_GHG'].div(1000).round(2)
-    outage_reduction['Hours'] = outage_reduction['Hours'].round(2)
+    outage_reduction['Hours'] = outage_reduction['Hours'].astype(float).round(2)
 
     fig = make_subplots(rows=5, cols=1, vertical_spacing=0.1, subplot_titles=("Forcasted Annual Cost Savings",
                         "Forcasted Annual Cost Savings", "Monthly Greenhouse Gas Emissions",
