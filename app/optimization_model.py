@@ -24,15 +24,14 @@ e = grb.Env(empty=True)
 e.setParam('WLSACCESSID', WLSACCESSID)
 e.setParam('WLSSECRET', WLSSECRET)
 e.setParam('LICENSEID', LICENSEID)
-# e.start()
+e.start()
 
 # Create the model within the Gurobi environment
 # opt_model = grb.Model(name="MIP Model",env=e)
 
 
 def optimize(user_inputs):
-  # opt_model = grb.Model(name="MIP Model",env=e)
-  opt_model = grb.Model(name="MIP Model")
+  opt_model = grb.Model(name="MIP Model",env=e)
   # read inputs from user
   bill_type = user_inputs['BillType']
 
