@@ -1,3 +1,6 @@
+from statistics import mean
+from enum import auto
+from turtle import bgcolor, color, width
 from app import app
 from statistics import mean
 from app import db
@@ -237,47 +240,53 @@ def render_Results():
                  7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"}
 
     cost_savings['Month_str'] = cost_savings['Month'].map(month_map)
-    cost_savings['Date'] = cost_savings['Month_str'] + \
+    cost_savings['Date'] = cost_savings['Month_str'] + " " +\
         cost_savings['Year'].astype(str)
 
     ghg_reduction['Month_str'] = ghg_reduction['Month'].map(month_map)
-    ghg_reduction['Date'] = ghg_reduction['Month_str'] + \
+    ghg_reduction['Date'] = ghg_reduction['Month_str'] + " " +\
         ghg_reduction['Year'].astype(str)
 
-    fig = make_subplots(rows=5, cols=1, vertical_spacing=0.1, subplot_titles=("Cost Comparison - Line Graph", "Cost Comparison - Bar Graph", "GHG Emission Comparison - Line Graph", "GHG Emission Comparison - Bar Graph", "Reliability"))
-    
+    ghg_reduction['Act_GHG'] = ghg_reduction['Act_GHG'].div(1000).round(2)
+    ghg_reduction['Est_GHG'] = ghg_reduction['Est_GHG'].div(1000).round(2)
+    outage_reduction['Hours'] = outage_reduction['Hours'].round(2)
+
+    fig = make_subplots(rows=5, cols=1, vertical_spacing=0.1, subplot_titles=("Forcasted Annual Cost Savings",
+                        "Forcasted Annual Cost Savings", "Monthly Greenhouse Gas Emissions",
+                        "Monthly Greenhouse Gas Emissions", 
+                        "Available Electricity During a Power Outage by Time-Of-Use Period"))
 
     ### plotting cost comparison ###
     # scatter plot for original cost
     trace1 = go.Scatter(
         x=cost_savings['Date'],
         y=cost_savings['Act_cost'],
-        name="Original Cost")
+        name="Estimated Cost WO Powerall")
     fig.append_trace(trace1, row=1, col=1)
 
     # scatter plot for new cost
     trace2 = go.Scatter(
         x=cost_savings['Date'],
         y=cost_savings['Est_cost'],
-        name="BESST Cost")
+        name="Estimated Cost W Powerwall")
     fig.append_trace(trace2, row=1, col=1)
-    fig.update_yaxes(title_text="Cost Savings", row=1, col=1)
+    fig.update_yaxes(title_text="Total Cost ($)", row=1, col=1)
     fig.update_xaxes(title_text="Month", row=1, col=1)
 
     # bar plot for original cost
     trace3 = go.Bar(
         x=cost_savings['Date'],
         y=cost_savings['Act_cost'],
-        name="Original Cost")
+        name="Estimated Cost WO Powerall")
     fig.append_trace(trace3, row=2, col=1)
 
     # bar plot for new cost
     trace4 = go.Bar(
         x=cost_savings['Date'],
         y=cost_savings['Est_cost'],
-        name="BESST Cost")
+        name="Estimated Cost W Powerwall")
     fig.append_trace(trace4, row=2, col=1)
-    fig.update_yaxes(title_text="Cost Savings", row=2, col=1)
+    fig.update_yaxes(title_text="Total Cost ($)", row=2, col=1)
     fig.update_xaxes(title_text="Month", row=2, col=1)
 
     ### plotting GHG comparison ###
@@ -285,103 +294,77 @@ def render_Results():
     trace5 = go.Scatter(
         x=ghg_reduction['Date'],
         y=ghg_reduction['Act_GHG'],
-        name="Original GHG")
+        name="Estimated GHG Emissions WO Powerall")
     fig.append_trace(trace5, row=3, col=1)
     # scatter plot for new ghg
     trace6 = go.Scatter(
         x=ghg_reduction['Date'],
         y=ghg_reduction['Est_GHG'],
-        name="New GHG")
+        name="Estimated GHG Emissions W Powerwall")
     fig.append_trace(trace6, row=3, col=1)
-    fig.update_yaxes(title_text="GHG Comparison", row=3, col=1)
-    fig.update_xaxes(title_text="Date", row=3, col=1)
+    fig.update_yaxes(title_text="GHG Emissions (kgC02)", row=3, col=1)
+    fig.update_xaxes(title_text="Month", row=3, col=1)
 
     # bar plot for original ghg
     trace7 = go.Bar(
         x=ghg_reduction['Date'],
         y=ghg_reduction['Act_GHG'],
-        name="Original GHG")
+        name="Estimated GHG Emissions WO Powerall")
     fig.append_trace(trace7, row=4, col=1)
     # bar plot for new ghg
     trace8 = go.Bar(
         x=ghg_reduction['Date'],
         y=ghg_reduction['Est_GHG'],
-        name="New GHG")
+        name="Estimated GHG Emissions W Powerwall")
     fig.append_trace(trace8, row=4, col=1)
-    fig.update_xaxes(title_text="Date", row=4, col=1)
+    fig.update_yaxes(title_text="GHG Emissions (kgC02)", row=4, col=1)
+    fig.update_xaxes(title_text="Month", row=4, col=1)
 
     ### plotting outage reduction ###
     # bar plot for new ghg
     trace9 = go.Bar(
         x=outage_reduction['Period'],
         y=outage_reduction['Hours'],
-        name="Hours", marker_color="firebrick")
+        name="Hours of electricity available based on your usage in the period", marker_color="firebrick")
     fig.append_trace(trace9, row=5, col=1)
-    fig.update_yaxes(title_text="Reliability - Hours Available", row=5, col=1)
-    fig.update_xaxes(title_text="Peak periods", row=5, col=1)
+    fig.update_yaxes(title_text="Hours Available", row=5, col=1)
+    fig.update_xaxes(title_text="Time-Of-Use Period", row=5, col=1)
 
-    fig.update_layout(height=2400)
-    fig.update_layout(legend=dict(
-    x=0.8
-    ))
+    # calculate payback period
+    yearly_savings = cost_savings.groupby('Year').sum()
+    yearly_mean_savings = mean(yearly_savings['Cost_savings'])
+    payback_period = round(10000/yearly_mean_savings, 1)
 
     # calculating ghg savings equivalent: smartphones charged - https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator
     # 1 kWh/charge x 1,562.4 pounds CO2/MWh delivered electricity x 1 metric ton/2,204.6 lbs
-    print(ghg_reduction)
     total_ghg_saved = sum(ghg_reduction['GHG_red'])
-    print(total_ghg_saved)
     # phones charged from savings
-    phones_charged = round(total_ghg_saved/8.22)
-    phones_charged_10_years = 10*phones_charged
-    print(phones_charged)
+    phones_charged_1_year = total_ghg_saved/8.22
+    phones_charged_10_years = int(round(phones_charged_1_year, 0))
+    # print(f'ghg {total_ghg_saved}\nphones 1 {phones_charged_1_year}\nphones 10 {phones_charged_10_years}')
 
-    # # miles driven
+    # miles driven
     miles_driven = round(total_ghg_saved/398)
-    print(miles_driven)
-    
-    ## calculate payback period
-    print("********payback period calculation")
-    print(cost_savings)
-    yearly_savings = cost_savings.groupby('Year').sum()
-    print(yearly_savings)
-    yearly_mean_savings = mean(yearly_savings['Cost_savings'])
-    payback_period = 10000/yearly_mean_savings
-    print(payback_period)
-
-   
-
-    # dataframe = result
-    # graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    # graphJSON_ghg = json.dumps(fig_ghg, cls=plotly.utils.PlotlyJSONEncoder) , graphJSON2= graphJSON_ghg
-    # return render_template('visualization.html', graphJSON1=graphJSON_cost)
-    # DO THE MIP MODEL PROCESS HERE AND PASS IN THE RESULTS AS A PARAM
-    # return render_template('home.html', savings=[dataframe], complete_form=complete_form, scrollto_results=scrollto_results)
+    # fig.update_traces(hovertemplate=None, hoverlabel= {namelength :-1})
     fig.update_layout(
         hovermode="x unified",
-        hoverlabel = dict(font_color = 'black', bgcolor = 'white', align='left', bordercolor='white'),#whatever format you want)
+        hoverlabel=dict(font_color='black', bgcolor='white', align='left',
+                        bordercolor='white'),  # whatever format you want)
         autosize=True,
-        plot_bgcolor = "white",
-        # paper_bgcolor="LightSteelBlue",
+        showlegend=False,
+        hoverlabel_namelength=-1,
+        plot_bgcolor="#fafafa",
         margin=dict(l=10, r=35, t=60, b=10, pad=0),
-        # title_text="Based on your bill, here are your results:",
         font=dict(
-            # family="Courier New, monospace",
             size=12)
     )
 
+    fig.update_layout(height=2650)
     fig.update_yaxes(automargin=True)
-
-    fig.update_layout(legend=dict(
-        x=1.0
-    ))
 
     for i in fig['layout']['annotations']:
         i['font'] = dict(size=15, color='black')
 
-    fig.update_layout(
-        legend=dict(font=dict( size=12, color="black")),
-    )
-
     graphJSON_cost = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('home.html', graphJSON1=graphJSON_cost, scrollto_results=scrollto_results)
+    return render_template('home.html', graphJSON1=graphJSON_cost, payback=payback_period, phonescharged_10=phones_charged_10_years, milesdriven=miles_driven, scrollto_results=scrollto_results)
